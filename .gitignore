@@ -1,0 +1,9 @@
+*.install
+*.runTests
+*.bak
+*.tcCfgExtender
+*.tcLS*
+Visualizer/
+Images/
+Log/
+*.tcax.tlb
