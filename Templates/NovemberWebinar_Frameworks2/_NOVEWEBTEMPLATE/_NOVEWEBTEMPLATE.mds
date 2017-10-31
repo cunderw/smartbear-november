@@ -10,6 +10,9 @@
 		<child name="KeywordTests" key="{A435F166-79B6-479C-B463-787B22DDA58B}" type="Keyword Testing" typeId="{9576DAFD-0ADD-41A8-9897-C72F150AF6BB}" pluginName="Keyword Testing">
 			<data path="KeywordTests\KeywordTests.tcKDT" />
 		</child>
+		<child name="Default" key="{CD7BF936-75E9-47CB-845B-39E16D41CE7A}" type="Name Mapping" typeId="{5DCBAC3B-D39C-497C-9BE8-744CBADD37AA}" pluginName="NameMapping">
+			<data path="..\..\..\NameMapping\Default.tcNM" />
+		</child>
 	</children>
 	<folders>
 		<folder caption="Advanced" description="A logical folder that is used to organize project items and elements." moniker="{69583268-92F3-49FA-B573-C831F5ABC27B}">
