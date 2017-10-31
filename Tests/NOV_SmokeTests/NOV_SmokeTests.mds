@@ -1,43 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Root signature="{362A8EE5-675E-43A9-869D-06ECE80B0CB4}" version="12.0">
 	<children>
-		<child name="Script" key="{2646DE14-0C3D-4022-9BC2-38CC8B407A91}" type="Script" typeId="{9252F941-DB23-4FCA-AA50-858B33BB4A19}" pluginName="Script">
-			<data path="..\..\..\Scripts\Script.tcScript" />
+		<child name="Script" key="{B7D5A7B5-D781-48B4-A3FE-1A4AA66D2388}" type="Script" typeId="{9252F941-DB23-4FCA-AA50-858B33BB4A19}" pluginName="Script">
+			<data path="..\..\Scripts\Script.tcScript" />
 		</child>
-		<child name="KeywordTests" key="{A435F166-79B6-479C-B463-787B22DDA58B}" type="Keyword Testing" typeId="{9576DAFD-0ADD-41A8-9897-C72F150AF6BB}" pluginName="Keyword Testing">
+		<child name="KeywordTests" key="{2B803287-B779-4DE7-B0B0-3DF867ACD8D0}" type="Keyword Testing" typeId="{9576DAFD-0ADD-41A8-9897-C72F150AF6BB}" pluginName="Keyword Testing">
 			<data path="KeywordTests\KeywordTests.tcKDT" />
 		</child>
-		<child name="Default" key="{CD7BF936-75E9-47CB-845B-39E16D41CE7A}" type="Name Mapping" typeId="{5DCBAC3B-D39C-497C-9BE8-744CBADD37AA}" pluginName="NameMapping">
-			<data path="..\..\..\Utilities\NameMapping\Default.tcNM" />
+		<child name="Default" key="{001DC719-055A-4D38-8E4C-D28CD456E7DB}" type="Name Mapping" typeId="{5DCBAC3B-D39C-497C-9BE8-744CBADD37AA}" pluginName="NameMapping">
+			<data path="..\..\Utilities\NameMapping\Default.tcNM" />
 		</child>
-		<child name="TestedApps" key="{E8852AD7-724A-4F20-8241-0F2F73A0783E}" type="Tested Applications" typeId="{90D101C8-80C7-48D4-9055-2E451B9BCD75}" pluginName="">
-			<data path="..\..\..\Utilities\TestedApps\TestedApps.tcTAs" />
+		<child name="TestedApps" key="{2736A2CF-9C11-4483-ADCC-F9BAC0AE32E8}" type="Tested Applications" typeId="{90D101C8-80C7-48D4-9055-2E451B9BCD75}" pluginName="">
+			<data path="..\..\Utilities\TestedApps\TestedApps.tcTAs" />
 		</child>
-		<child name="Events" key="{0F5CD31B-9EC7-4008-BADD-E1B963F54F32}" type="Events" typeId="{E7ABA87F-E873-4452-9921-6F4BAAEB2BCC}" pluginName="">
-			<data path="..\..\..\Utilities\Events\Events.tcAX" />
+		<child name="Events" key="{BF5D31B8-89E3-4E67-BBCD-191C2BA6B911}" type="Events" typeId="{E7ABA87F-E873-4452-9921-6F4BAAEB2BCC}" pluginName="">
+			<data path="..\..\Utilities\Events\Events.tcAX" />
 		</child>
 	</children>
-	<folders>
-		<folder caption="Application Data" description="A logical folder that is used to organize project items and elements." moniker="">
-			<references>
-				<ref key="{CD7BF936-75E9-47CB-845B-39E16D41CE7A}" />
-				<ref key="{E8852AD7-724A-4F20-8241-0F2F73A0783E}" />
-			</references>
-		</folder>
-		<folder caption="Advanced" description="A logical folder that is used to organize project items and elements." moniker="{69583268-92F3-49FA-B573-C831F5ABC27B}">
-			<references>
-				<ref key="{0F5CD31B-9EC7-4008-BADD-E1B963F54F32}" />
-			</references>
-		</folder>
-	</folders>
+	<folders />
 	<config language="{90F89436-9452-4F95-9882-6B5210079F13}" />
-	<testItems key="{FA3B2BB2-5667-40B7-B5E0-897572B8482D}">
+	<testItems key="{F9EAD888-A46E-4F33-9E96-749FE7D8CB40}">
 		<children />
 	</testItems>
-	<variables key="{2975699B-16AE-4053-9AA6-00A2B7CA4F37}">
+	<variables key="{70EF9DA5-E483-460D-AF5D-93BB7404CBCD}">
 		<data Version="3" />
 	</variables>
-	<settings key="{9FC53936-4659-4B76-91FD-3957D8B4267B}">
+	<settings key="{5A9FB4CB-FDBA-4BF7-BB7C-33AD757F03EA}">
 		<settingsVersion value="12.40" />
 		<setting name="JavaFXOpenApp_NodeByClassNameFilters" type="6" rowIndex="8" colIndex="2">
 			<columns>
@@ -583,11 +571,11 @@
 			</data>
 		</setting>
 	</settings>
-	<analysis key="{CA165C43-CEB8-494E-9D57-EBCB5AC1095F}" />
+	<analysis key="{CC17252B-09FA-4F3F-99C5-530967A32587}" />
 	<scc key="{00000000-0000-0000-0000-000000000000}" name="">
 		<data />
 	</scc>
-	<issueTracking key="{CE904ACD-EBB4-4DFF-9599-0654AA54E2DD}">
+	<issueTracking key="{CA2B660C-347D-4AF1-BD35-874B94099B06}">
 		<Templates>
 			<Template Id="{1EB17ADF-E4EB-404D-97DC-AD758A1E8C1D}" ConnectionId="{00000000-0000-0000-0000-000000000000}" Description="This template is used by TestComplete&apos;s Log subsystem to post test results to an issue-tracking system. You can also use it at your desire." Name="CreateWorkItem" IsSystem="True" ItemTypeName="" ProjectName="" IsEditing="False" ItemId="">
 				<Fields>
