@@ -1,4 +1,4 @@
-﻿var NOV_UTILITIES = require("NOV_UTILITIES");
+﻿const NOV_UTILITIES = require("NOV_UTILITIES");
 var environmentSet = false;
 
 /**

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Root signature="{9576DAFD-0ADD-41A8-9897-C72F150AF6BB}" version="12.0">
-	<children />
-	<folders />
+	<children>
+		<child name="STANDARD_TEST_TEMPLATE" key="{3ED09671-DF33-4720-9593-4FD55917C037}" type="Keyword Test" typeId="{B9D9273E-7266-43E0-BF02-97F168593604}" pluginName="Keyword Testing">
+			<data path="..\..\..\KWT_Templates\STANDARD_TEST_TEMPLATE.tcKDTest" />
+		</child>
+	</children>
+	<folders>
+		<folder caption="1_Templates" description="A logical folder that is used to organize project items and elements." moniker="">
+			<references>
+				<ref key="{3ED09671-DF33-4720-9593-4FD55917C037}" />
+			</references>
+		</folder>
+		<folder caption="2_LocalUtilities" description="A logical folder that is used to organize project items and elements." moniker="" />
+		<folder caption="3_Tests" description="A logical folder that is used to organize project items and elements." moniker="" />
+	</folders>
 </Root>

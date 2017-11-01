@@ -74,16 +74,16 @@ function setUpEnvironment() {
   
   // check existance of project vars we need before setting them
   if(!Project.Variables.VariableExists("APP_PATH")) {
-    Project.AddVariable("APP_PATH", "String");
+    Project.Variables.AddVariable("APP_PATH", "String");
   }
   if(!Project.Variables.VariableExists("APP_PROCESS")) {
-    Project.AddVariable("APP_PROCESS", "String");
+    Project.Variables.AddVariable("APP_PROCESS", "String");
   }
   if(!Project.Variables.VariableExists("APP_MAIN_WND_CLASS")) {
-    Project.AddVariable("APP_MAIN_WND_CLASS", "String");
+    Project.Variables.AddVariable("APP_MAIN_WND_CLASS", "String");
   }
   if(!Project.Variables.VariableExists("APP_EDIT_WND_CLASS")) {
-    Project.AddVariable("APP_EDIT_WND_CLASS", "String");
+    Project.Variables.AddVariable("APP_EDIT_WND_CLASS", "String");
   }
   
   // sets the path of the application for the tested app
@@ -91,7 +91,7 @@ function setUpEnvironment() {
 
   // sets project vars need to identify the application
   Project.Variables.APP_PATH = configData.path;
-  Project.Variables.APP_PROCESS = configData.process;
+  Project.Variables.APP_PROCESS = configData.proccess;
   Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;
   Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;
 
