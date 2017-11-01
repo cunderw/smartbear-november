@@ -16,9 +16,6 @@
 		<child name="NOV_VERIFICATIONS" key="{11352CC7-AF5D-4200-B865-8AAAF52D1FCE}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
 			<data path="NOV_VERIFICATIONS.js" />
 		</child>
-		<child name="TEST" key="{FA6D77C1-7928-400F-BDED-711F801BE843}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
-			<data path="TEST.js" />
-		</child>
 	</children>
 	<folders />
 </Root>

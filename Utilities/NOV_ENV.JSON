@@ -1,0 +1,6 @@
+{
+ "path" : "C:\\Windows\\system32\\notepad.exe" ,
+ "proccess" : "notepad",
+ "mainWndClass" : "Notepad",
+ "mainEditClass" : "Edit"
+}

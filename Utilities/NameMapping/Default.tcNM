@@ -22,7 +22,7 @@
 								<Value PropertyType="0" Value="1" Type="0" />
 							</Property>
 							<Property Name="ProcessName">
-								<Value PropertyType="0" Value="notepad" Type="5" />
+								<Value PropertyType="1" LocalVariable="APP_PROCESS" />
 							</Property>
 						</Properties>
 						<Children>
@@ -31,7 +31,7 @@
 								<TypeInfo Item0="{CEA6CE5F-EE27-46F3-9DEC-45AC1B1ACCA4}" />
 								<Properties>
 									<Property Name="WndClass">
-										<Value PropertyType="0" Value="Notepad" Type="5" />
+										<Value PropertyType="1" LocalVariable="APP_MAIN_WND_CLASS" />
 									</Property>
 								</Properties>
 								<Children>
@@ -40,7 +40,7 @@
 										<TypeInfo Item0="{7F8E5C9A-84DD-4BBA-9818-588FDBAFD534}" />
 										<Properties>
 											<Property Name="WndClass">
-												<Value PropertyType="0" Value="Edit" Type="5" />
+												<Value PropertyType="1" LocalVariable="APP_EDIT_WND_CLASS" />
 											</Property>
 										</Properties>
 									</Child>
