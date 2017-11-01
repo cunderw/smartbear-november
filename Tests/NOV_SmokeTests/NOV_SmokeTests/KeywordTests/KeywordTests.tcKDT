@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Root signature="{9576DAFD-0ADD-41A8-9897-C72F150AF6BB}" version="12.0">
+	<children>
+		<child name="STANDARD_TEST_TEMPLATE" key="{7649113C-4722-4DE7-8720-2EF4B8A9B019}" type="Keyword Test" typeId="{B9D9273E-7266-43E0-BF02-97F168593604}" pluginName="Keyword Testing">
+			<data path="..\..\..\..\Templates\KWT_Templates\STANDARD_TEST_TEMPLATE.tcKDTest" />
+		</child>
+		<child name="NOV_Smoke_VerifyAppOpensCloses" key="{D706FDC7-2A02-4012-8B6E-C8508A8AAE11}" type="Keyword Test" typeId="{B9D9273E-7266-43E0-BF02-97F168593604}" pluginName="Keyword Testing">
+			<data path="NOV_Smoke_VerifyAppOpensCloses.tcKDTest" />
+		</child>
+	</children>
+	<folders>
+		<folder caption="1_Templates" description="A logical folder that is used to organize project items and elements." moniker="">
+			<references>
+				<ref key="{7649113C-4722-4DE7-8720-2EF4B8A9B019}" />
+			</references>
+		</folder>
+		<folder caption="2_LocalUtilities" description="A logical folder that is used to organize project items and elements." moniker="" />
+		<folder caption="3_Tests" description="A logical folder that is used to organize project items and elements." moniker="">
+			<references>
+				<ref key="{D706FDC7-2A02-4012-8B6E-C8508A8AAE11}" />
+			</references>
+		</folder>
+	</folders>
+</Root>

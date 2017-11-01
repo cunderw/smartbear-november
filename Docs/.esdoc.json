@@ -1,0 +1,9 @@
+{
+  "source": "./src",
+  "destination": "./doc",
+  "access": ["public", "protected", "private"],
+  "unexportIdentifier": true,
+  "undocumentIdentifier": true,
+  "coverage" : false,
+  "includes" : ["\\.(js|sj)$"]
+}

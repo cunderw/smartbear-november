@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/NOV_ACTIONS.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_ACTIONS.js~navOption.html">navOption</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeNotePad">closeNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-menuNavigation">menuNavigation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-openNotePad">openNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogError">onLogError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogMessage">onLogMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogWarning">onLogWarning</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onOverlappingWindow">onOverlappingWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onTimeout">onTimeout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onUnexpectedWindow">onUnexpectedWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startNotePadTest">startNotePadTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stopNotePadTest">stopNotePadTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-indentLog">indentLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setUpEnvironment">setUpEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-navOptions">navOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-environmentSet">environmentSet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configFilePath">configFilePath</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/NOV_ACTIONS.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&#xFEFF;///////////////////////////////////////////////
+// main app utilities
+//////////////////////////////////////////////
+/**
+ * @ignore
+ */
+const NOV_UTILITIES = require(&quot;NOV_UTILITIES&quot;);
+
+/**
+ * NOV_ACTIONS - opens the application
+ * @function
+ * @author [CBU]
+ * @param {boolean} [verify=true] - verifies that the app is open and visible
+ */
+function openNotePad(verify = true) {
+  NOV_UTILITIES.indentLog(&quot;Opening Notepad&quot;);
+  TestedApps.notepad.Run();
+  // waits for up to ten seconds for the app to load
+  Aliases.appNotead.WaitProperty(&quot;Exists&quot;, true, 10000)
+  if(verify) {
+    Log.Message(&quot;Verifying that Notepad is running and on screen&quot;);
+    aqObject.CheckProperty(Aliases.appNotead, &quot;Exists&quot;, cmpEqual, true);
+    aqObject.CheckProperty(Aliases.appNotead.mainWindow, &quot;Exists&quot;, cmpEqual, true);
+    aqObject.CheckProperty(Aliases.appNotead.mainWindow, &quot;VisibleOnScreen&quot;, cmpEqual, true);
+  }
+  NOV_UTILITIES.outdentLog();
+}
+
+/**
+ * NOV_ACTIONS - closes the application
+ * @function
+ * @author [CBU]
+ * @param {boolean} [verify=true] - verifies that the app is open and visible
+ * @param {boolean} [click=true] - uses clicks to close notepad if true, otherwises uses keyboard shortcuts
+ */
+function closeNotePad(verify = true, click = true) {
+  NOV_UTILITIES.indentLog(&quot;Closing Notepad&quot;);
+  menuNavigation(&quot;exit&quot;, click);
+  // waits for up to ten seconds for the app to load  
+  if(verify) {
+    Log.Message(&quot;Verifying that Notepad closed gracefully.&quot;);
+    aqObject.CheckProperty(Aliases.appNotead, &quot;Exists&quot;, cmpEqual, false);
+  }
+  NOV_UTILITIES.outdentLog();
+}
+
+///////////////////////////////////////////////
+// navigation utilities
+//////////////////////////////////////////////
+
+/**
+ * NOV_ACTIONS - Represents a navigation option for our application
+ * @class
+ * @author [CBU]
+ */
+class navOption {
+  /**
+   * @param {string} root - the root menu, File, Edit, etc...
+   * @param {string} option - the secondary option
+   * @param {string} [keys] - optional keyboard shortcut if the menu item supports it
+   */
+  constructor(root, option, keys) {
+    /**
+     * the root menu, File, Edit, etc...
+     * @type {string}
+     */
+    this.root = root;
+    /**
+     * the secondary option
+     * @type {string}
+     */
+    this.option = option;
+    /**
+     * optional keyboard shortcut if the menu item supports it
+     * @type {string}
+     */
+    this.keys = keys;
+    /**
+     * the full combined path of. root|path
+     * @type {string}
+     */
+    this.path = this.root + &quot;|&quot; + this.option;
+  }
+  /**
+   * Performs actions on the nav option
+   * @param {boolean} click - uses clicks to otherwises uses keyboard shortcuts
+   */
+  action(click) {
+    if(click === true) {
+      NOV_UTILITIES.indentLog(&quot;ACTION: Clicking Menu Path: &quot; + this.path);
+      Aliases.appNotead.mainWindow.MainMenu.Click(this.path);
+      NOV_UTILITIES.outdentLog();
+    } else {
+      NOV_UTILITIES.indentLog(&quot;ACTION: Keys: &quot; + this.keys);
+      if(this.keys !== undefined) {
+        Aliases.appNotead.mainWindow.Keys(this.keys);
+      } else {
+        Log.Error(&quot;Trying To Perform A Non Click Option Without Defined Keyboard Shortcuts&quot;);
+      }
+      NOV_UTILITIES.outdentLog();
+    }
+  }
+
+}
+
+/**
+ * NOV_ACTIONS - holds nav options created by {@link navOption}
+ * @type {object}
+ * @author [CBU]
+ * @property {navOption} exit - nav option for exiting / closing notepad
+ * @property {navOption} save - nav option for saving a file
+ */
+const navOptions = {
+  /**
+   * @type {navOption}
+   */
+  exit: new navOption(&quot;File&quot;, &quot;Exit&quot;),
+  save: new navOption(&quot;File&quot;, &quot;Save&quot;)
+}
+
+/**
+ * NOV_ACTIONS - performs various menu navigation options
+ * @function
+ * @author [CBU]
+ * @param {string} option - which option to perform from {@link navOptions}
+ * @param {boolean} click - uses clicks to otherwises uses keyboard shortcuts
+ */
+function menuNavigation(option, click) {
+  NOV_UTILITIES.indentLog(&quot;Performing Menu Navigation: &quot; + option);
+  try {
+    navOptions[option].action(click);
+  } catch(err) {
+    Log.Error(&quot;FATAL: Error occured performing menu navigation. See additional information&quot;, err.message + &quot;\n&quot; + err.stack);
+  } finally {
+    NOV_UTILITIES.outdentLog();
+  }
+}</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js?v1.0"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

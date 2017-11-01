@@ -34,22 +34,7 @@
 		<children />
 	</testItems>
 	<variables key="{2975699B-16AE-4053-9AA6-00A2B7CA4F37}">
-		<data Version="3">
-			<Items>
-				<Variable Name="APP_PATH" Type="{123F0C0F-44B4-4BAF-B0E6-F3F89FD873B5}" Local="False">
-					<DefValue />
-				</Variable>
-				<Variable Name="APP_PROCESS" Type="{123F0C0F-44B4-4BAF-B0E6-F3F89FD873B5}" Local="False">
-					<DefValue />
-				</Variable>
-				<Variable Name="APP_MAIN_WND_CLASS" Type="{123F0C0F-44B4-4BAF-B0E6-F3F89FD873B5}" Local="False">
-					<DefValue />
-				</Variable>
-				<Variable Name="APP_EDIT_WND_CLASS" Type="{123F0C0F-44B4-4BAF-B0E6-F3F89FD873B5}" Local="False">
-					<DefValue />
-				</Variable>
-			</Items>
-		</data>
+		<data Version="3" />
 	</variables>
 	<settings key="{9FC53936-4659-4B76-91FD-3957D8B4267B}">
 		<settingsVersion value="12.40" />

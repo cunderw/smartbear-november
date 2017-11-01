@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/NOV_UTILITIES.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_ACTIONS.js~navOption.html">navOption</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeNotePad">closeNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-menuNavigation">menuNavigation</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-openNotePad">openNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogError">onLogError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogMessage">onLogMessage</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogWarning">onLogWarning</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onOverlappingWindow">onOverlappingWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onTimeout">onTimeout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onUnexpectedWindow">onUnexpectedWindow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startNotePadTest">startNotePadTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stopNotePadTest">stopNotePadTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-indentLog">indentLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setUpEnvironment">setUpEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-navOptions">navOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-environmentSet">environmentSet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configFilePath">configFilePath</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/NOV_UTILITIES.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&#xFEFF;///////////////////////////////////////////////
+// log utilities
+//////////////////////////////////////////////
+/**
+ * location of the config path for our app
+ */
+const configFilePath = &quot;C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_ENV.JSON&quot;;
+
+/**
+ * NOV_UTILITIES - adds a new log folder and indents all further actions
+ * @function
+ * @author [CBU]
+ * @param {string} sMessage -the message for the folder
+ */
+function indentLog(sMessage) {
+  var oAttr;
+  oAttr = Log.CreateNewAttributes();
+  oAttr.Bold = true;
+  STEP_ID = Log.CreateFolder(sMessage, &quot;&quot;, pmNormal, oAttr);
+  Log.PushLogFolder(STEP_ID);
+}
+
+/**
+ * NOV_UTILITIES - Closes the last log indention
+ * @function
+ * @author [CBU]
+ * @param {string} [sMessage=Finished] -the finished message
+ */
+function outdentLog(sMessage) {
+  if(sMessage == undefined || sMessage == null) {
+    sMessage = &quot;Finished&quot;;
+  }
+  Log.Message(sMessage);
+  Log.PopLogFolder();
+}
+
+/**
+ * NOV_UTILITIES - Takes an object and logs all of its props and vals in an table
+ * @function
+ * @author [CBU]
+ * @param {object} obj -the object you want to log info for
+ * @param {string} [msg=See Additional Info For Object Details] - an optional message for the log
+ */
+function logObject(obj, msg) {
+  var attr = Log.CreateNewAttributes(),
+    str = &apos;&lt;table style=&quot;width:75%;&quot;&gt;&lt;tr&gt;&lt;th&gt;Property&lt;/th&gt;&lt;th&gt;Value&lt;/th&gt;&lt;/tr&gt;&apos;;
+  attr.ExtendedMessageAsPlainText = false;
+  try {
+    for(var key in obj) {
+      str += &apos;&lt;tr&gt;&lt;td&gt;&apos; + key + &quot;&lt;/td&gt;&lt;td&gt;&quot; + obj[key] + &quot;&lt;/td&gt;&lt;tr&gt;&quot;;
+    }
+  } catch(err) {
+    Log.Message(err);
+  } finally {
+    str += &apos;&lt;/table&gt;&apos;
+    if(!msg) {
+      Log.Message(&quot;See Additional Info For Object Details&quot;, str, 300, attr);
+    } else {
+      Log.Message(msg, str, 300, attr);
+    }
+  }
+}
+
+///////////////////////////////////////////////
+// environment utilities
+//////////////////////////////////////////////
+/**
+ * NOV_UTILITIES - Sets up our environment to run tests
+ * @function
+ * @author [CBU]
+ */
+function setUpEnvironment() {
+  indentLog(&quot;Setting Up The Environment&quot;);
+
+  const configData = JSON.parse(aqFile.ReadWholeTextFile(configFilePath,aqFile.ctUTF8));
+  logObject(configData, &quot;See additional information for config&quot;);
+  
+  // check existance of project vars we need before setting them
+  if(!Project.Variables.VariableExists(&quot;APP_PATH&quot;)) {
+    Project.Variables.AddVariable(&quot;APP_PATH&quot;, &quot;String&quot;);
+  }
+  if(!Project.Variables.VariableExists(&quot;APP_PROCESS&quot;)) {
+    Project.Variables.AddVariable(&quot;APP_PROCESS&quot;, &quot;String&quot;);
+  }
+  if(!Project.Variables.VariableExists(&quot;APP_MAIN_WND_CLASS&quot;)) {
+    Project.Variables.AddVariable(&quot;APP_MAIN_WND_CLASS&quot;, &quot;String&quot;);
+  }
+  if(!Project.Variables.VariableExists(&quot;APP_EDIT_WND_CLASS&quot;)) {
+    Project.Variables.AddVariable(&quot;APP_EDIT_WND_CLASS&quot;, &quot;String&quot;);
+  }
+  
+  // sets the path of the application for the tested app
+  TestedApps.notepad.Path = configData.path
+
+  // sets project vars need to identify the application
+  Project.Variables.APP_PATH = configData.path;
+  Project.Variables.APP_PROCESS = configData.proccess;
+  Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;
+  Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;
+
+  outdentLog();
+}
+
+module.exports.indentLog = indentLog;
+module.exports.outdentLog = outdentLog;
+module.exports.logObject = logObject;
+module.exports.setUpEnvironment = setUpEnvironment;</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js?v1.0"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
