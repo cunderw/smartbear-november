@@ -90,7 +90,8 @@ function setUpEnvironment() {
   }
   
   // sets the path of the application for the tested app
-  TestedApps.notepad.Path = configData.path
+  TestedApps.Items(0).Path = configData.path;
+  TestedApps.Items(0).FileName = configData.file;
 
   // sets project vars need to identify the application
   Project.Variables.APP_PATH = configData.path;

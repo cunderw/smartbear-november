@@ -1,6 +1,7 @@
 {
- "path" : "C:\\Windows\\system32\\notepad.exe" ,
- "proccess" : "notepad",
- "mainWndClass" : "Notepad",
- "mainEditClass" : "Edit"
+ "path" : "C:\\Program Files\\TortoiseGit\\bin",
+ "file" : "notepad2.exe",
+ "proccess" : "notepad2",
+ "mainWndClass" : "Notepad2U",
+ "mainEditClass" : "Scintilla"
 }

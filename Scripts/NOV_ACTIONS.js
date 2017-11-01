@@ -14,7 +14,7 @@ const NOV_UTILITIES = require("NOV_UTILITIES");
  */
 function openNotePad(verify = true) {
   NOV_UTILITIES.indentLog("Opening Notepad");
-  TestedApps.notepad.Run();
+  TestedApps.Items(0).Run();
   // waits for up to ten seconds for the app to load
   Aliases.appNotead.WaitProperty("Exists", true, 10000)
   if(verify) {

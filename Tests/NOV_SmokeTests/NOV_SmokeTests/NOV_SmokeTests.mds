@@ -357,7 +357,7 @@
 		<setting name="{3EDDD87D-14FB-46FB-9609-CEDE76C0CED7}" type="1" value="False" />
 		<setting name="{45AE3709-5569-4F74-BD85-C222C71981ED}" type="1" value="True" />
 		<setting name="DraggingDelay" type="2" value="5" />
-		<setting name="ObjectMapping_Objects" type="6" rowIndex="5" colIndex="3">
+		<setting name="ObjectMapping_Objects" type="6" rowIndex="6" colIndex="3">
 			<columns>
 				<column type="5" enabled="True" />
 				<column type="5" enabled="True" />
@@ -371,6 +371,7 @@
 				<row val0="com.oreillyauto.retail.norm.view.ordermaintenance.results.OrderTable" val1="{5FC86967-5765-46CC-9EC7-0CD1819D15E0}" val2="4" val3="0" />
 				<row val0="com.oreillyauto.retail.opp.view.advanced.AdvancedMainTable" val1="{5FC86967-5765-46CC-9EC7-0CD1819D15E0}" val2="4" val3="0" />
 				<row val0="com.oreillyauto.retail.opp.view.advanced.footer.AdvancedFooterTable" val1="{5FC86967-5765-46CC-9EC7-0CD1819D15E0}" val2="4" val3="0" />
+				<row val0="Scintilla" val1="{3080C640-C91C-11D4-998B-AB0FB1A63070}" val2="4" val3="0" />
 			</data>
 		</setting>
 		<setting name="{A892B59C-EC27-4ABB-8305-4F885C9BC8CA}" type="6" rowIndex="1" colIndex="0">
