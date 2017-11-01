@@ -36,3 +36,23 @@ function stopNotePadTest(Sender) {
 function onLogError(Sender, LogParams) {
 
 }
+
+function onLogWarning(Sender, LogParams) {
+
+}
+
+function onLogMessage(Sender, LogParams) {
+
+}
+
+function onTimeout(Sender, Params) {
+
+}
+
+function onOverlappingWindow(Sender, Window, OverlappingWindow, LogParams) {
+
+}
+
+function onUnexpectedWindow(Sender, Window, LogParams) {
+
+}

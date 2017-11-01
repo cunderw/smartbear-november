@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Root signature="{362A8EE5-675E-43A9-869D-06ECE80B0CB4}" version="12.0">
 	<children>
-		<child name="Script" key="{2646DE14-0C3D-4022-9BC2-38CC8B407A91}" type="Script" typeId="{9252F941-DB23-4FCA-AA50-858B33BB4A19}" pluginName="Script">
-			<data path="..\..\..\Scripts\Script.tcScript" />
-		</child>
 		<child name="KeywordTests" key="{A435F166-79B6-479C-B463-787B22DDA58B}" type="Keyword Testing" typeId="{9576DAFD-0ADD-41A8-9897-C72F150AF6BB}" pluginName="Keyword Testing">
 			<data path="KeywordTests\KeywordTests.tcKDT" />
 		</child>
 		<child name="Default" key="{CD7BF936-75E9-47CB-845B-39E16D41CE7A}" type="Name Mapping" typeId="{5DCBAC3B-D39C-497C-9BE8-744CBADD37AA}" pluginName="NameMapping">
 			<data path="..\..\..\Utilities\NameMapping\Default.tcNM" />
 		</child>
-		<child name="TestedApps" key="{E8852AD7-724A-4F20-8241-0F2F73A0783E}" type="Tested Applications" typeId="{90D101C8-80C7-48D4-9055-2E451B9BCD75}" pluginName="">
-			<data path="..\..\..\Utilities\TestedApps\TestedApps.tcTAs" />
+		<child name="Events" key="{41BC7336-A0DD-44F7-B350-E75881A66F52}" type="Events" typeId="{E7ABA87F-E873-4452-9921-6F4BAAEB2BCC}" pluginName="">
+			<data path="Events\Events.tcAX" />
 		</child>
-		<child name="Events" key="{0F5CD31B-9EC7-4008-BADD-E1B963F54F32}" type="Events" typeId="{E7ABA87F-E873-4452-9921-6F4BAAEB2BCC}" pluginName="">
-			<data path="..\..\..\Utilities\Events\Events.tcAX" />
+		<child name="Script" key="{160E0CFC-F813-4A64-80C5-79DBF446CF65}" type="Script" typeId="{9252F941-DB23-4FCA-AA50-858B33BB4A19}" pluginName="Script">
+			<data path="Script\Script.tcScript" />
+		</child>
+		<child name="TestedApps" key="{72A76659-BFE6-403A-856E-8A3418788C18}" type="Tested Applications" typeId="{90D101C8-80C7-48D4-9055-2E451B9BCD75}" pluginName="">
+			<data path="TestedApps\TestedApps.tcTAs" />
 		</child>
 	</children>
 	<folders>
 		<folder caption="Application Data" description="A logical folder that is used to organize project items and elements." moniker="">
 			<references>
 				<ref key="{CD7BF936-75E9-47CB-845B-39E16D41CE7A}" />
-				<ref key="{E8852AD7-724A-4F20-8241-0F2F73A0783E}" />
 			</references>
 		</folder>
 		<folder caption="Advanced" description="A logical folder that is used to organize project items and elements." moniker="{69583268-92F3-49FA-B573-C831F5ABC27B}">
 			<references>
-				<ref key="{0F5CD31B-9EC7-4008-BADD-E1B963F54F32}" />
+				<ref key="{41BC7336-A0DD-44F7-B350-E75881A66F52}" />
 			</references>
 		</folder>
 	</folders>

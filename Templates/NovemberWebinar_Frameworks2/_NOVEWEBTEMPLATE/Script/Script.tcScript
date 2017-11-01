@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Root signature="{9252F941-DB23-4FCA-AA50-858B33BB4A19}" version="11.40">
+	<children>
+		<child name="NOV_ACTIONS" key="{3ECD1BFE-EF28-4CB2-8C99-7F7D5F3C06CA}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="..\..\..\..\Scripts\NOV_ACTIONS.js" />
+		</child>
+		<child name="NOV_DATA" key="{BC74265C-8C73-4995-82C9-507852F20A57}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="..\..\..\..\Scripts\NOV_DATA.js" />
+		</child>
+		<child name="NOV_EVENTS" key="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="..\..\..\..\Scripts\NOV_EVENTS.js" />
+		</child>
+		<child name="NOV_UTILITIES" key="{145F8D1B-E603-4B3C-80E1-92845977F49F}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="..\..\..\..\Scripts\NOV_UTILITIES.js" />
+		</child>
+		<child name="NOV_VERIFICATIONS" key="{DBF10F1A-31B5-4906-A359-991780343A21}" type="Script Unit" typeId="{291CAE9C-4D20-4F33-8B5F-D48B587F3D65}" pluginName="Script">
+			<data path="..\..\..\..\Scripts\NOV_VERIFICATIONS.js" />
+		</child>
+	</children>
+	<folders />
+</Root>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Root signature="{E7ABA87F-E873-4452-9921-6F4BAAEB2BCC}" version="2" key="{BF5D31B8-89E3-4E67-BBCD-191C2BA6B911}" type="Events" typeId="{E7ABA87F-E873-4452-9921-6F4BAAEB2BCC}">
+<Root signature="{E7ABA87F-E873-4452-9921-6F4BAAEB2BCC}" version="2" key="{41BC7336-A0DD-44F7-B350-E75881A66F52}" type="Events" typeId="{E7ABA87F-E873-4452-9921-6F4BAAEB2BCC}">
 	<config nodeName="Events" tlbHistory="&quot;TestComplete general events&quot;" />
 	<testData />
 	<data />
 	<children>
-		<child key="{243937F5-E800-475B-9AEC-EC18DB1EA1AA}" type="Event control" typeId="{8A98BAC4-2A89-4883-AAE7-F07337DF59D1}">
-			<config nodeName="GeneralEvents" lastOpenedTLB="" generatedCLSID="{9AD12C98-6630-4387-8049-7EC8DF50E5DA}" generatedTLBKey="{D898681B-D23E-4669-964D-DB9E5848E130}" generatedEventsKey="{FC5922C0-3059-4BC5-8594-AFFC58108298}" generatedTLBDesc="TestComplete GeneralEvents Control - 10/31/2017 12:54:32 PM">
+		<child key="{EA5C237E-C838-4EBE-AB67-14F04F52F780}" type="Event control" typeId="{8A98BAC4-2A89-4883-AAE7-F07337DF59D1}">
+			<config nodeName="GeneralEvents" lastOpenedTLB="" generatedCLSID="{909EFC92-88F3-440E-9C1A-2546908E9529}" generatedTLBKey="{2A371DA0-F1E5-41C8-A282-A64B2AB62C2B}" generatedEventsKey="{FF014850-43B7-42C1-86C9-6AF66C9AAA06}" generatedTLBDesc="TestComplete GeneralEvents Control - 11/1/2017 3:09:28 PM">
 				<eventInfo infoTLBVer="version.dll" infoGUID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" infoID="1610743820" infoControlName="General Events" infoEventName="OnTimeout" infoEventRealName="OnTimeout" infoDescription="Occurs when a timeout expires in a project or in a project suite." />
 				<eventInfo infoTLBVer="version.dll" infoGUID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" infoID="1610743819" infoControlName="General Events" infoEventName="OnOverlappingWindow" infoEventRealName="OnOverlappingWindow" infoDescription="Occurs when an overlapping window appears." />
 				<eventInfo infoTLBVer="version.dll" infoGUID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" infoID="1610743818" infoControlName="General Events" infoEventName="OnUnexpectedWindow" infoEventRealName="OnUnexpectedWindow" infoDescription="Occurs when an unexpected window appears." />
@@ -21,9 +21,15 @@
 				<eventInfo infoTLBVer="version.dll" infoGUID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" infoID="1610743809" infoControlName="General Events" infoEventName="OnLogMessage" infoEventRealName="OnLogMessage" infoDescription="Occurs when an informative message is posted to the test log." />
 				<eventInfo infoTLBVer="version.dll" infoGUID="{F5856842-4323-49FD-B806-36E22179EF8A}" infoID="1610743809" infoControlName="Test Engine Events" infoEventName="OnStopTest" infoEventRealName="OnStopTest" infoDescription="Occurs when TestComplete stops running a test or when the execution of a test item is over." />
 				<eventInfo infoTLBVer="version.dll" infoGUID="{F5856842-4323-49FD-B806-36E22179EF8A}" infoID="1610743808" infoControlName="Test Engine Events" infoEventName="OnStartTest" infoEventRealName="OnStartTest" infoDescription="Occurs when TestComplete starts running a test (whether it is run from the UI or command line, or as a project test item)." />
-				<handlerInfo handlerName="onLogError" handlerMoniker="{6275476E-78D9-400E-A6CC-A925C94125CC}onLogError" handlerEventName="OnLogError" handlerRealIID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" handlerRealDispID="1610743811" />
-				<handlerInfo handlerName="stopNotePadTest" handlerMoniker="{6275476E-78D9-400E-A6CC-A925C94125CC}stopNotePadTest" handlerEventName="OnStopTest" handlerRealIID="{F5856842-4323-49FD-B806-36E22179EF8A}" handlerRealDispID="1610743809" />
-				<handlerInfo handlerName="startNotePadTest" handlerMoniker="{6275476E-78D9-400E-A6CC-A925C94125CC}startNotePadTest" handlerEventName="OnStartTest" handlerRealIID="{F5856842-4323-49FD-B806-36E22179EF8A}" handlerRealDispID="1610743808" />
+				<handlerInfo handlerName="stopNotePadTest" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}stopNotePadTest" handlerEventName="OnStopTest" handlerRealIID="{F5856842-4323-49FD-B806-36E22179EF8A}" handlerRealDispID="1610743809" />
+				<handlerInfo handlerName="startNotePadTest" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}startNotePadTest" handlerEventName="OnStartTest" handlerRealIID="{F5856842-4323-49FD-B806-36E22179EF8A}" handlerRealDispID="1610743808" />
+				<handlerInfo handlerName="onOverlappingWindow" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}onOverlappingWindow" handlerEventName="OnOverlappingWindow" handlerRealIID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" handlerRealDispID="1610743819" />
+				<handlerInfo handlerName="onUnexpectedWindow" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}onUnexpectedWindow" handlerEventName="OnUnexpectedWindow" handlerRealIID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" handlerRealDispID="1610743818" />
+				<handlerInfo handlerName="onTimeout" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}onTimeout" handlerEventName="OnTimeout" handlerRealIID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" handlerRealDispID="1610743820" />
+				<handlerInfo handlerName="onLogError" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}onLogError" handlerEventName="OnLogEvent" handlerRealIID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" handlerRealDispID="1610743812" />
+				<handlerInfo handlerName="onLogMessage" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}onLogMessage" handlerEventName="OnLogMessage" handlerRealIID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" handlerRealDispID="1610743809" />
+				<handlerInfo handlerName="onLogError" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}onLogError" handlerEventName="OnLogError" handlerRealIID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" handlerRealDispID="1610743811" />
+				<handlerInfo handlerName="onLogWarning" handlerMoniker="{6A8A98A5-8BC1-4F97-ACD2-F12B80BE3289}onLogWarning" handlerEventName="OnLogWarning" handlerRealIID="{4C03E9F2-BB22-4E21-B2E7-E51B754FCBBA}" handlerRealDispID="1610743810" />
 			</config>
 			<testData />
 			<data />

@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Root signature="{24B6FA0B-0143-461A-9758-AEB9E9A9428B}" version="12.0" key="{F7F408B3-A0E6-48F4-8D80-63A14B59D41B}">
-	<children>
-		<child name="NOV_SmokeTests" key="{F6455961-2EB5-402B-AD5F-4C8FF537D3A3}" type="Project" typeId="{362A8EE5-675E-43A9-869D-06ECE80B0CB4}" pluginName="">
-			<data path="NOV_SmokeTests.mds" />
-		</child>
-	</children>
+	<children />
 	<folders />
 	<testItems key="{3FA51008-6230-4D9C-8457-F65D5F22DACC}">
-		<children>
-			<testItem key="{F6455961-2EB5-402B-AD5F-4C8FF537D3A3}" enabled="True" timeout="0" stopOnError="True" description="" />
-		</children>
+		<children />
 	</testItems>
 	<variables key="{9952F8A6-E738-4B15-BEDA-8207B28675D8}">
 		<data Version="3" />

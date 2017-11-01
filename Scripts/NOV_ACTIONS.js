@@ -21,5 +21,5 @@ function openNotePad(verify=true) {
 }
 
 function test() {
-
+ openNotePad()
 }
