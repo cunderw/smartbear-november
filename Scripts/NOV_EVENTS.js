@@ -17,10 +17,15 @@ var environmentSet = false;
  */
 function startNotePadTest(Sender) {
   NOV_UTILITIES.indentLog("Test Start");
+  try {
   if(!environmentSet) {
     NOV_UTILITIES.setUpEnvironment();
   }
-  NOV_UTILITIES.outdentLog();
+  } catch(err) {
+    Log.Error("FATAL: Error occured starting the test. See additional information", err.message + "\n" + err.stack);
+  } finally {
+    NOV_UTILITIES.outdentLog();
+  }
 }
 
 /**

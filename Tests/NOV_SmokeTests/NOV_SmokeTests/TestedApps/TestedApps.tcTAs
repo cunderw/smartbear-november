@@ -10,7 +10,7 @@
 					<param name="RunAs" parameters="" workFolder="" userName="" password="" domain="" />
 					<param name="Profile" parameters="" workFolder="" useProject="False" projectFileName="" overrideProfiler="False" profilerName="" profileRunMode="Silent" AQtimeVersion="0" forceRunMode="False" />
 					<param name="Debug" parameters="" workFolder="" />
-					<param name="Simple" fileName="notepad2.exe" filePath="C:\Users\cunderwoo6\Desktop\NovemberWebinar\" parameters="" workFolder="" />
+					<param name="Simple" fileName="notepad2.exe" filePath="C:\Users\cunderwoo6\Desktop\NovemberWebinar\Utilities\" parameters="" workFolder="" />
 				</runModeParams>
 			</config>
 			<testData />
