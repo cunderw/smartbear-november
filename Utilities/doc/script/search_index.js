@@ -6,9 +6,9 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "./src/nov_utilities.js~configfilepath~<p>location of the config path for our app</p>\n",
-    "variable/index.html#static-variable-configFilePath",
-    "<span>configFilePath</span> <span class=\"search-result-import-path\">./src/NOV_UTILITIES.js</span> <span><p>location of the config path for our app</p>\n</span>",
+    "./src/nov_utilities.js~configfilepaths~<p>location of the config path for our app</p>\ntest~dev~",
+    "variable/index.html#static-variable-configFilePaths",
+    "<span>configFilePaths</span> <span class=\"search-result-import-path\">./src/NOV_UTILITIES.js</span> <span><p>location of the config path for our app</p>\n</span>",
     "variable"
   ],
   [
@@ -16,6 +16,18 @@ window.esdocSearchIndex = [
     "variable/index.html#static-variable-environmentSet",
     "<span>environmentSet</span> <span class=\"search-result-import-path\">./src/NOV_EVENTS.js</span> <span><p>we assume environment is not set every time tests are started.\nThis will allow us to set it again in the event we get an uncaught exception</p>\n</span>",
     "variable"
+  ],
+  [
+    "./src/nov_utilities.js~getenv~<p>nov_utilities - gets the environment we are currently running on</p>\n",
+    "function/index.html#static-function-getEnv",
+    "<span>getEnv</span> <span class=\"search-result-import-path\">./src/NOV_UTILITIES.js</span> <span><p>NOV_UTILITIES - Gets the environment we are currently running on</p>\n</span>",
+    "function"
+  ],
+  [
+    "./src/nov_data.js~gettestdata~<p>nov_data - obtains test data of a specific type</p>\ntype~undefined",
+    "function/index.html#static-function-getTestData",
+    "<span>getTestData</span> <span class=\"search-result-import-path\">./src/NOV_DATA.js</span> <span><p>NOV_DATA - Obtains test data of a specific type</p>\n</span>",
+    "function"
   ],
   [
     "./src/nov_utilities.js~indentlog~<p>nov_utilities - adds a new log folder and indents all further actions</p>\nsmessage~<p>the message for the folder</p>\n",
@@ -112,6 +124,24 @@ window.esdocSearchIndex = [
     "function/index.html#static-function-stopNotePadTest",
     "<span>stopNotePadTest</span> <span class=\"search-result-import-path\">./src/NOV_EVENTS.js</span> <span><p>NOV_EVENTS - Handles the on stop event of each test item</p>\n</span>",
     "function"
+  ],
+  [
+    "./src/nov_data.js~test~null",
+    "function/index.html#static-function-test",
+    "<span>test</span> <span class=\"search-result-import-path\">./src/NOV_DATA.js</span> <span>null</span>",
+    "function"
+  ],
+  [
+    "./src/nov_data.js~testdata~<p>nov_data - test data for use in other tests</p>\n",
+    "class/src/NOV_DATA.js~testData.html",
+    "<span>testData</span> <span class=\"search-result-import-path\">./src/NOV_DATA.js</span> <span><p>NOV_DATA - Test data for use in other tests</p>\n</span>",
+    "class"
+  ],
+  [
+    "./src/nov_data.js~testdatatypes~<p>nov_data - hold test data types and they&#39;re queries</p>\nperson~<p>&quot;select * from [nov$] where type = &#39;person&#39;&quot;</p>\ncompany~<p>&quot;select * from [nov$] where type = &#39;product&#39;&quot;</p>\nproduct~<p>&quot;select * from [nov$] where type = &#39;type&#39;&quot;</p>\n",
+    "variable/index.html#static-variable-testDataTypes",
+    "<span>testDataTypes</span> <span class=\"search-result-import-path\">./src/NOV_DATA.js</span> <span><p>NOV_DATA - Hold test data types and they&#39;re queries</p>\n</span>",
+    "variable"
   ],
   [
     "builtinexternal/ecmascriptexternal.js~array",
@@ -490,6 +520,36 @@ window.esdocSearchIndex = [
     "file/src/NOV_DATA.js.html",
     "src/NOV_DATA.js",
     "file"
+  ],
+  [
+    "src/nov_data.js~testdata#constructor",
+    "class/src/NOV_DATA.js~testData.html#instance-constructor-constructor",
+    "src/NOV_DATA.js~testData#constructor",
+    "method"
+  ],
+  [
+    "src/nov_data.js~testdata#filename",
+    "class/src/NOV_DATA.js~testData.html#instance-member-fileName",
+    "src/NOV_DATA.js~testData#fileName",
+    "member"
+  ],
+  [
+    "src/nov_data.js~testdata#firstname",
+    "class/src/NOV_DATA.js~testData.html#instance-member-firstName",
+    "src/NOV_DATA.js~testData#firstName",
+    "member"
+  ],
+  [
+    "src/nov_data.js~testdata#lastname",
+    "class/src/NOV_DATA.js~testData.html#instance-member-lastName",
+    "src/NOV_DATA.js~testData#lastName",
+    "member"
+  ],
+  [
+    "src/nov_data.js~testdata#message",
+    "class/src/NOV_DATA.js~testData.html#instance-member-message",
+    "src/NOV_DATA.js~testData#message",
+    "member"
   ],
   [
     "src/nov_events.js",

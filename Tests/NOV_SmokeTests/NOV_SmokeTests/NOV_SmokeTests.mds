@@ -48,6 +48,9 @@
 				<Variable Name="APP_EDIT_WND_CLASS" Type="{123F0C0F-44B4-4BAF-B0E6-F3F89FD873B5}" Local="True">
 					<DefValue />
 				</Variable>
+				<Variable Name="APP_DATASOURCE" Type="{123F0C0F-44B4-4BAF-B0E6-F3F89FD873B5}" Local="True">
+					<DefValue />
+				</Variable>
 			</Items>
 		</data>
 	</variables>

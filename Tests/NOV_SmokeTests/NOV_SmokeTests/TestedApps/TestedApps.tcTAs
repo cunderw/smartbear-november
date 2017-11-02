@@ -5,12 +5,12 @@
 	<data />
 	<children>
 		<child key="{D433D04C-8E9B-4DFB-9B77-3817D9516B35}" type="Tested Application" typeId="{FD30A383-63C2-4C25-948C-2595C0F81320}">
-			<config nodeName="notepad2" autorunOnRecording="False" enabled="True" count="1" useFeaturedRuntimeObject="True" userChangeName="False">
+			<config nodeName="notepad" autorunOnRecording="False" enabled="True" count="1" useFeaturedRuntimeObject="True" userChangeName="False">
 				<runModeParams activeRunMode="Simple">
 					<param name="RunAs" parameters="" workFolder="" userName="" password="" domain="" />
 					<param name="Profile" parameters="" workFolder="" useProject="False" projectFileName="" overrideProfiler="False" profilerName="" profileRunMode="Silent" AQtimeVersion="0" forceRunMode="False" />
 					<param name="Debug" parameters="" workFolder="" />
-					<param name="Simple" fileName="notepad2.exe" filePath="C:\Users\cunderwoo6\Desktop\NovemberWebinar\Utilities\" parameters="" workFolder="" />
+					<param name="Simple" fileName="notepad.exe" filePath="C:\Windows\system32\" parameters="" workFolder="" />
 				</runModeParams>
 			</config>
 			<testData />

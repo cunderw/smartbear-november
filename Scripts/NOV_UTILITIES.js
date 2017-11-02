@@ -114,7 +114,9 @@ function setUpEnvironment() {
     if(!Project.Variables.VariableExists("APP_EDIT_WND_CLASS")) {
       Project.Variables.AddVariable("APP_EDIT_WND_CLASS", "String");
     }
-  
+    if(!Project.Variables.VariableExists("APP_DATASOURCE")) {
+      Project.Variables.AddVariable("APP_DATASOURCE", "String");
+    }
     // sets the path of the application for the tested app
     TestedApps.Items(0).Path = configData.path;
     TestedApps.Items(0).FileName = configData.file;
@@ -124,6 +126,7 @@ function setUpEnvironment() {
     Project.Variables.APP_PROCESS = configData.proccess;
     Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;
     Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;
+    Project.Variables.APP_DATASOURCE = configData.dataSource;
   } catch(err) {
     Log.Error("FATAL: Error occured setting the environment. See additional information", err.message + "\n" + err.stack);
     outdentLog();  

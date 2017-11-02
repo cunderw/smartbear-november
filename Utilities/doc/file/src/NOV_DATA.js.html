@@ -32,9 +32,12 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_ACTIONS.js~navOption.html">navOption</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_DATA.js~testData.html">testData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeNotePad">closeNotePad</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-menuNavigation">menuNavigation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-openNotePad">openNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getTestData">getTestData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-test">test</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogError">onLogError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogMessage">onLogMessage</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogWarning">onLogWarning</a></span></span></li>
@@ -43,20 +46,116 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onUnexpectedWindow">onUnexpectedWindow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startNotePadTest">startNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stopNotePadTest">stopNotePadTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEnv">getEnv</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-indentLog">indentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setUpEnvironment">setUpEnvironment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-navOptions">navOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-testDataTypes">testDataTypes</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-environmentSet">environmentSet</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configFilePath">configFilePath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configFilePaths">configFilePaths</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/NOV_DATA.js</h1>
-<pre class="source-code line-number raw-source-code"></pre>
-<p data-ice="emptySourceCode">Sorry, this documentation does not provide source code.</p>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&#xFEFF;/**
+ * @ignore
+ */
+const NOV_UTILITIES = require(&quot;NOV_UTILITIES&quot;);
+
+/**
+ * NOV_DATA - Hold test data types and they&apos;re queries
+ * @type {object}
+ * @author [CBU]
+ * @property {string} person - &quot;select * from [nov$] where type = &apos;person&apos;&quot;
+ * @property {string} company - &quot;select * from [nov$] where type = &apos;product&apos;&quot;
+ * @property {string} product - &quot;select * from [nov$] where type = &apos;type&apos;&quot;
+ */
+const testDataTypes = {
+  person: &quot;select * from [nov$] where type = &apos;person&apos;&quot;,
+  company: &quot;select * from [nov$] where type = &apos;product&apos;&quot;,
+  product: &quot;select * from [nov$] where type = &apos;type&apos;&quot;
+}
+
+/**
+ * NOV_DATA - Test data for use in other tests
+ * @class
+ * @author [CBU]
+ */
+class testData {
+  /**
+   * @param {string} firstName - the first name to type / verify
+   * @param {string} lastName - the last name to type / verify
+   * @param {string} message - the message to type / verify
+   * @param {string} fileName - the file name to save to
+   */
+  constructor(firstName, lastName, message, fileName) {
+    /**
+     * @type {string}
+     */
+    this.firstName = firstName;
+    /**
+     * @type {string}
+     */
+    this.lastName = lastName;
+    /**
+     * @type {string}
+     */
+    this.message = message;
+    /**
+     * @type {string}
+     */
+    this.fileName = fileName;
+  }
+}
+
+/**
+ * NOV_DATA - Obtains test data of a specific type
+ * @function 
+ * @author [CBU]
+ */
+function getTestData(type) {
+  NOV_UTILITIES.indentLog(&quot;Getting Test Data Type: &quot; + type);
+  var data;
+  let ControlCn = ADO.CreateADOConnection();
+  //create unique connection string with IMEX=1 to allow for mixed content columns
+  try {
+    ControlCn.ConnectionString = Project.Variables.APP_DATASOURCE;
+    ControlCn.LoginPrompt = false;
+    ControlCn.Open();
+    let sql = testDataTypes[type];
+    rs = ControlCn.Execute_(sql);
+    if(rs.BOF) {
+      Log.Error(&apos;No Data Avaliable&apos;);
+      data = new testData(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;);
+    } else {
+      data = new testData(
+        rs.Fields.Item(1)
+        .Value,
+        rs.Fields.Item(2)
+        .Value,
+        rs.Fields.Item(3)
+        .Value,
+        rs.Fields.Item(4)
+        .Value,
+      );
+    }
+    NOV_UTILITIES.logObject(data,&quot;See additional information for the test data.&quot;)
+  } catch(err) {
+    Log.Error(&quot;FATAL: Error occured getting test data. See additional information&quot;, err.message + &quot;\n&quot; + err.stack);
+  } finally {
+    NOV_UTILITIES.outdentLog();
+    return data;
+  }
+}
+
+function test() {
+  getTestData(&quot;person&quot;)
+}
+</code></pre>
+
 </div>
 
 <footer class="footer">

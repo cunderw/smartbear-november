@@ -4,4 +4,5 @@
  "proccess" : "notepad2",
  "mainWndClass" : "Notepad2U",
  "mainEditClass" : "Scintilla"
+ "dataSource" : "Provider=Microsoft.ACE.OLEDB.12.0;Data Source='C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_DevData.xlsx';Extended Properties='Excel 8.0;HDR=Yes;IMEX=1';"
 }

@@ -3,5 +3,6 @@
  "file" : "notepad.exe",
  "proccess" : "notepad",
  "mainWndClass" : "Notepad",
- "mainEditClass" : "Edit"
+ "mainEditClass" : "Edit",
+ "dataSource" : "Provider=Microsoft.ACE.OLEDB.12.0;Data Source='C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_TestData.xlsx';Extended Properties='Excel 8.0;HDR=Yes;IMEX=1';"
 }

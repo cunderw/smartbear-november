@@ -3,8 +3,14 @@
 //////////////////////////////////////////////
 /**
  * location of the config path for our app
+ * @type {object{
+ * @property {string} test
+ * @property {string} dev
  */
-const configFilePath = "C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_ENV.JSON";
+const configFilePaths = {
+  test : "C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_ENV_TEST.JSON",
+  dev : "C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_ENV_DEV.JSON"
+}  
 
 /**
  * NOV_UTILITIES - adds a new log folder and indents all further actions
@@ -65,40 +71,69 @@ function logObject(obj, msg) {
 // environment utilities
 //////////////////////////////////////////////
 /**
+ * NOV_UTILITIES - Gets the environment we are currently running on
+ * @function
+ * @author [CBU]
+ * @return {string} currEnv - the environemtn we are running on, if not specifed we assume test
+ */
+function getEnv() {
+  indentLog("Getting Environment");
+  let currEnv = ""
+  if(aqEnvironment.GetEnvironmentVariable("NOV_ENV") == "") {
+    Log.Warning("No Envionrment Set. Assuming Test");
+    dotNET.System.Environment.SetEnvironmentVariable_2("NOV_ENV", "test", dotNET.System.EnvironmentVariableTarget.User);
+    currEnv = "test";
+  } else {
+    currEnv = aqEnvironment.GetEnvironmentVariable("NOV_ENV");
+  }  
+  outdentLog("Current Environment: " + currEnv);
+  return currEnv;
+}
+ 
+/**
  * NOV_UTILITIES - Sets up our environment to run tests
  * @function
  * @author [CBU]
  */
 function setUpEnvironment() {
   indentLog("Setting Up The Environment");
-
-  const configData = JSON.parse(aqFile.ReadWholeTextFile(configFilePath,aqFile.ctUTF8));
-  logObject(configData, "See additional information for config");
+  try {    
+    const configData = JSON.parse(aqFile.ReadWholeTextFile(configFilePaths[getEnv()],aqFile.ctUTF8));
+    logObject(configData, "See additional information for config");
   
-  // check existance of project vars we need before setting them
-  if(!Project.Variables.VariableExists("APP_PATH")) {
-    Project.Variables.AddVariable("APP_PATH", "String");
-  }
-  if(!Project.Variables.VariableExists("APP_PROCESS")) {
-    Project.Variables.AddVariable("APP_PROCESS", "String");
-  }
-  if(!Project.Variables.VariableExists("APP_MAIN_WND_CLASS")) {
-    Project.Variables.AddVariable("APP_MAIN_WND_CLASS", "String");
-  }
-  if(!Project.Variables.VariableExists("APP_EDIT_WND_CLASS")) {
-    Project.Variables.AddVariable("APP_EDIT_WND_CLASS", "String");
-  }
-  
-  // sets the path of the application for the tested app
-  TestedApps.notepad.Path = configData.path
+    // check existance of project vars we need before setting them
+    if(!Project.Variables.VariableExists("APP_PATH")) {
+      Project.Variables.AddVariable("APP_PATH", "String");
+    }
+    if(!Project.Variables.VariableExists("APP_PROCESS")) {
+      Project.Variables.AddVariable("APP_PROCESS", "String");
+    }
+    if(!Project.Variables.VariableExists("APP_MAIN_WND_CLASS")) {
+      Project.Variables.AddVariable("APP_MAIN_WND_CLASS", "String");
+    }
+    if(!Project.Variables.VariableExists("APP_EDIT_WND_CLASS")) {
+      Project.Variables.AddVariable("APP_EDIT_WND_CLASS", "String");
+    }
+    if(!Project.Variables.VariableExists("APP_DATASOURCE")) {
+      Project.Variables.AddVariable("APP_DATASOURCE", "String");
+    }
+    // sets the path of the application for the tested app
+    TestedApps.Items(0).Path = configData.path;
+    TestedApps.Items(0).FileName = configData.file;
 
-  // sets project vars need to identify the application
-  Project.Variables.APP_PATH = configData.path;
-  Project.Variables.APP_PROCESS = configData.proccess;
-  Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;
-  Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;
-
-  outdentLog();
+    // sets project vars need to identify the application
+    Project.Variables.APP_PATH = configData.path;
+    Project.Variables.APP_PROCESS = configData.proccess;
+    Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;
+    Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;
+    Project.Variables.APP_DATASOURCE = configData.dataSource;
+  } catch(err) {
+    Log.Error("FATAL: Error occured setting the environment. See additional information", err.message + "\n" + err.stack);
+    outdentLog();  
+    
+  } finally {
+    outdentLog();    
+  }  
 }
 
 module.exports.indentLog = indentLog;

@@ -32,9 +32,12 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_ACTIONS.js~navOption.html">navOption</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_DATA.js~testData.html">testData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeNotePad">closeNotePad</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-menuNavigation">menuNavigation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-openNotePad">openNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getTestData">getTestData</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-test">test</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogError">onLogError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogMessage">onLogMessage</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogWarning">onLogWarning</a></span></span></li>
@@ -43,13 +46,15 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onUnexpectedWindow">onUnexpectedWindow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startNotePadTest">startNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stopNotePadTest">stopNotePadTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEnv">getEnv</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-indentLog">indentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setUpEnvironment">setUpEnvironment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-navOptions">navOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-testDataTypes">testDataTypes</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-environmentSet">environmentSet</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configFilePath">configFilePath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-configFilePaths">configFilePaths</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -60,8 +65,14 @@
 //////////////////////////////////////////////
 /**
  * location of the config path for our app
+ * @type {object{
+ * @property {string} test
+ * @property {string} dev
  */
-const configFilePath = &quot;C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_ENV.JSON&quot;;
+const configFilePaths = {
+  test : &quot;C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_ENV_TEST.JSON&quot;,
+  dev : &quot;C:\\Users\\cunderwoo6\\Desktop\\NovemberWebinar\\Utilities\\NOV_ENV_DEV.JSON&quot;
+}  
 
 /**
  * NOV_UTILITIES - adds a new log folder and indents all further actions
@@ -122,40 +133,69 @@ function logObject(obj, msg) {
 // environment utilities
 //////////////////////////////////////////////
 /**
+ * NOV_UTILITIES - Gets the environment we are currently running on
+ * @function
+ * @author [CBU]
+ * @return {string} currEnv - the environemtn we are running on, if not specifed we assume test
+ */
+function getEnv() {
+  indentLog(&quot;Getting Environment&quot;);
+  let currEnv = &quot;&quot;
+  if(aqEnvironment.GetEnvironmentVariable(&quot;NOV_ENV&quot;) == &quot;&quot;) {
+    Log.Warning(&quot;No Envionrment Set. Assuming Test&quot;);
+    dotNET.System.Environment.SetEnvironmentVariable_2(&quot;NOV_ENV&quot;, &quot;test&quot;, dotNET.System.EnvironmentVariableTarget.User);
+    currEnv = &quot;test&quot;;
+  } else {
+    currEnv = aqEnvironment.GetEnvironmentVariable(&quot;NOV_ENV&quot;);
+  }  
+  outdentLog(&quot;Current Environment: &quot; + currEnv);
+  return currEnv;
+}
+ 
+/**
  * NOV_UTILITIES - Sets up our environment to run tests
  * @function
  * @author [CBU]
  */
 function setUpEnvironment() {
   indentLog(&quot;Setting Up The Environment&quot;);
-
-  const configData = JSON.parse(aqFile.ReadWholeTextFile(configFilePath,aqFile.ctUTF8));
-  logObject(configData, &quot;See additional information for config&quot;);
+  try {    
+    const configData = JSON.parse(aqFile.ReadWholeTextFile(configFilePaths[getEnv()],aqFile.ctUTF8));
+    logObject(configData, &quot;See additional information for config&quot;);
   
-  // check existance of project vars we need before setting them
-  if(!Project.Variables.VariableExists(&quot;APP_PATH&quot;)) {
-    Project.Variables.AddVariable(&quot;APP_PATH&quot;, &quot;String&quot;);
-  }
-  if(!Project.Variables.VariableExists(&quot;APP_PROCESS&quot;)) {
-    Project.Variables.AddVariable(&quot;APP_PROCESS&quot;, &quot;String&quot;);
-  }
-  if(!Project.Variables.VariableExists(&quot;APP_MAIN_WND_CLASS&quot;)) {
-    Project.Variables.AddVariable(&quot;APP_MAIN_WND_CLASS&quot;, &quot;String&quot;);
-  }
-  if(!Project.Variables.VariableExists(&quot;APP_EDIT_WND_CLASS&quot;)) {
-    Project.Variables.AddVariable(&quot;APP_EDIT_WND_CLASS&quot;, &quot;String&quot;);
-  }
-  
-  // sets the path of the application for the tested app
-  TestedApps.notepad.Path = configData.path
+    // check existance of project vars we need before setting them
+    if(!Project.Variables.VariableExists(&quot;APP_PATH&quot;)) {
+      Project.Variables.AddVariable(&quot;APP_PATH&quot;, &quot;String&quot;);
+    }
+    if(!Project.Variables.VariableExists(&quot;APP_PROCESS&quot;)) {
+      Project.Variables.AddVariable(&quot;APP_PROCESS&quot;, &quot;String&quot;);
+    }
+    if(!Project.Variables.VariableExists(&quot;APP_MAIN_WND_CLASS&quot;)) {
+      Project.Variables.AddVariable(&quot;APP_MAIN_WND_CLASS&quot;, &quot;String&quot;);
+    }
+    if(!Project.Variables.VariableExists(&quot;APP_EDIT_WND_CLASS&quot;)) {
+      Project.Variables.AddVariable(&quot;APP_EDIT_WND_CLASS&quot;, &quot;String&quot;);
+    }
+    if(!Project.Variables.VariableExists(&quot;APP_DATASOURCE&quot;)) {
+      Project.Variables.AddVariable(&quot;APP_DATASOURCE&quot;, &quot;String&quot;);
+    }
+    // sets the path of the application for the tested app
+    TestedApps.Items(0).Path = configData.path;
+    TestedApps.Items(0).FileName = configData.file;
 
-  // sets project vars need to identify the application
-  Project.Variables.APP_PATH = configData.path;
-  Project.Variables.APP_PROCESS = configData.proccess;
-  Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;
-  Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;
-
-  outdentLog();
+    // sets project vars need to identify the application
+    Project.Variables.APP_PATH = configData.path;
+    Project.Variables.APP_PROCESS = configData.proccess;
+    Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;
+    Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;
+    Project.Variables.APP_DATASOURCE = configData.dataSource;
+  } catch(err) {
+    Log.Error(&quot;FATAL: Error occured setting the environment. See additional information&quot;, err.message + &quot;\n&quot; + err.stack);
+    outdentLog();  
+    
+  } finally {
+    outdentLog();    
+  }  
 }
 
 module.exports.indentLog = indentLog;
