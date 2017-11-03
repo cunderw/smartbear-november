@@ -149,7 +149,16 @@ function menuNavigation(option, click) {
  */
 function inputTestData(data,clear=true,newLine=true,verify=false) {
   NOV_UTILITIES.indentLog("Inputing Test Data");
-  const editField = Aliases.appNotead.editField
+  try {
+  const editField = Aliases.appNotead.editField;
+  // we need to check the types of clear and new line so we can convert to boolean if it's a string passed in
+  // this will allow us to use the built in test complete data driven loop
+  if(typeof(clear) !== "boolean") {
+    clear = clear == "true";
+  }
+  if(typeof(clear) !== "boolean") {
+    newLine = newLine == "true";
+  }
   let expectedText = "";
   // check if we're clearing the text field, if not then we need to grab the current value for the expected text
   if(!clear) {
@@ -158,21 +167,26 @@ function inputTestData(data,clear=true,newLine=true,verify=false) {
     editField.SetText("");
   }
   for(var key in data.inputData) {    
-    editField.Keys(data.inputData[key]);
-    expectedText += data.inputData[key];
-    if(newLine) {
-      editField.Keys("[Enter]");
-      // new line character
-      expectedText += "\r\n"
+    if(data.inputData[key] !== undefined) {
+      editField.Keys(data.inputData[key]);
+      expectedText += data.inputData[key];
+      if(newLine) {
+        editField.Keys("[Enter]");
+        // new line character
+        expectedText += "\r\n"
+      }
     }
   }
   if(verify) {
     Log.Message("Verify that the edit field matches input");
     aqObject.CheckProperty(editField,"wText", cmpEqual, expectedText);
   }
-  NOV_UTILITIES.outdentLog();
-  // data is returned so that we can chain this to a verification utility later on
-  return data;
+  } catch(err){
+    Log.Error("FATAL: Error occured inputting data. See additional information", err.message + "\n" + err.stack);
+  } finally {
+    NOV_UTILITIES.outdentLog();
+    return data;
+  }  
 }
 
 function test() {

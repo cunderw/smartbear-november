@@ -10,6 +10,9 @@
 		<child name="Scratch" key="{3F272E76-F5C0-444B-80B7-DF7AB8F051F1}" type="Keyword Test" typeId="{B9D9273E-7266-43E0-BF02-97F168593604}" pluginName="Keyword Testing">
 			<data path="Scratch.tcKDTest" />
 		</child>
+		<child name="NOV_Smoke_VerifyInput" key="{4CCC48BA-0A36-4CD6-A4B4-1ABAC5BFE7A3}" type="Keyword Test" typeId="{B9D9273E-7266-43E0-BF02-97F168593604}" pluginName="Keyword Testing">
+			<data path="NOV_Smoke_VerifyInput.tcKDTest" />
+		</child>
 	</children>
 	<folders>
 		<folder caption="1_Templates" description="A logical folder that is used to organize project items and elements." moniker="">
@@ -22,6 +25,7 @@
 			<references>
 				<ref key="{D706FDC7-2A02-4012-8B6E-C8508A8AAE11}" />
 				<ref key="{3F272E76-F5C0-444B-80B7-DF7AB8F051F1}" />
+				<ref key="{4CCC48BA-0A36-4CD6-A4B4-1ABAC5BFE7A3}" />
 			</references>
 		</folder>
 	</folders>

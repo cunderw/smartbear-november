@@ -13,8 +13,8 @@ const NOV_UTILITIES = require("NOV_UTILITIES");
  */
 const testDataTypes = {
   person: "select * from [nov$] where type = 'person'",
-  company: "select * from [nov$] where type = 'product'",
-  product: "select * from [nov$] where type = 'type'"
+  company: "select * from [nov$] where type = 'company'",
+  product: "select * from [nov$] where type = 'product'"
 }
 
 /**
@@ -45,15 +45,15 @@ class testData {
       /**
        * @type {string}
        */
-      firstName: firstName,
+      firstName: firstName == null ? "" : firstName,
       /**
        * @type {string}
        */
-      lastName: lastName,
+      lastName: lastName == null ? "" : lastName,
       /**
        * @type {string}
        */
-      message: message
+      message: message == null ? "" : message
     }
     this.fileName = fileName;
   }

@@ -44,22 +44,49 @@
 							</Parameters>
 						</Data>
 					</Operation>
-					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
-						<Data Description="Runs a script routine." TestName="getTestData" Unit="NOV_DATA">
-							<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
-								<Parameter Name="type" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="8" ValueType="6" ValueValue="person" />
-							</Parameters>
+					<Operation Type="{94838C49-976F-4128-8B05-4E7C3E9C579D}">
+						<Data VariableType="4" VariableName="dataTypes">
+							<Records FromBegin="True" ToEnd="True" StartRecord="1" StopIndex="1" />
 						</Data>
-					</Operation>
-					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
-						<Data Description="Runs a script routine." TestName="inputTestData" Unit="NOV_ACTIONS">
-							<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
-								<Parameter Name="data" DefVarType="12" DefValueType="0" DefValueValue="0" ParamType="{D44DB91E-FD74-4F67-BE3D-951A1238A9AD}" />
-								<Parameter Name="clear" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="False" />
-								<Parameter Name="newLine" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="True" />
-								<Parameter Name="verify" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="False" />
-							</Parameters>
-						</Data>
+						<Children>
+							<Operation Type="{BFB3C418-1303-46B3-9B24-3624AB5EB529}">
+								<Data Description="Posts an information message to the test log." MessageType="0">
+									<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
+										<Parameter Name="MessageText" DefVarType="12" ParamType="{874735FC-322E-4380-A0DD-AB0206EE8AA0}" VariableType="4" VariableName="dataTypes" ColumnName="type" />
+										<Parameter Name="AdditionalInformation" DefVarType="12" VarType="8" ValueType="6" ValueValue="" />
+										<Parameter Name="Priority" DefVarType="12" DefValueType="1" DefValueValue="300" VarType="3" ValueType="1" ValueValue="300">
+											<Values IsEnum="True">
+												<Value Type="1" Value="100" Text="pmLowest" />
+												<Value Type="1" Value="200" Text="pmLower" />
+												<Value Type="1" Value="300" Text="pmNormal" />
+												<Value Type="1" Value="400" Text="pmHigher" />
+												<Value Type="1" Value="500" Text="pmHighest" />
+											</Values>
+										</Parameter>
+										<Parameter Name="Attrib" DefVarType="12" VarType="12" ValueType="0" ValueValue="0" />
+										<Parameter Name="Picture" DefVarType="12" VarType="12" ValueType="0" ValueValue="0" />
+										<Parameter Name="FolderId" DefVarType="3" DefValueType="1" DefValueValue="-1" VarType="3" ValueType="1" ValueValue="-1" />
+									</Parameters>
+								</Data>
+							</Operation>
+							<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
+								<Data Description="Runs a script routine." TestName="getTestData" Unit="NOV_DATA">
+									<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
+										<Parameter Name="type" DefVarType="12" DefValueType="0" DefValueValue="0" ParamType="{874735FC-322E-4380-A0DD-AB0206EE8AA0}" VariableType="4" VariableName="dataTypes" ColumnName="type" />
+									</Parameters>
+								</Data>
+							</Operation>
+							<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
+								<Data Description="Runs a script routine." TestName="inputTestData" Unit="NOV_ACTIONS">
+									<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
+										<Parameter Name="data" DefVarType="12" DefValueType="0" DefValueValue="0" ParamType="{D44DB91E-FD74-4F67-BE3D-951A1238A9AD}" />
+										<Parameter Name="clear" DefVarType="12" DefValueType="0" DefValueValue="0" ParamType="{874735FC-322E-4380-A0DD-AB0206EE8AA0}" VariableType="4" VariableName="dataTypes" ColumnName="clear" />
+										<Parameter Name="newLine" DefVarType="12" DefValueType="0" DefValueValue="0" ParamType="{874735FC-322E-4380-A0DD-AB0206EE8AA0}" VariableType="4" VariableName="dataTypes" ColumnName="newLine" />
+										<Parameter Name="verify" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="True" />
+									</Parameters>
+								</Data>
+							</Operation>
+						</Children>
 					</Operation>
 					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
 						<Data Description="Runs a script routine." TestName="outdentLog" Unit="NOV_UTILITIES">
@@ -81,6 +108,14 @@
 						</Data>
 					</Operation>
 					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
+						<Data Description="Runs a script routine." TestName="closeNotePad" Unit="NOV_ACTIONS">
+							<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
+								<Parameter Name="verify" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="12" ValueType="0" ValueValue="0" />
+								<Parameter Name="click" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="12" ValueType="0" ValueValue="0" />
+							</Parameters>
+						</Data>
+					</Operation>
+					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
 						<Data Description="Runs a script routine." TestName="outdentLog" Unit="NOV_UTILITIES">
 							<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
 								<Parameter Name="sMessage" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="12" ValueType="0" ValueValue="0" />
@@ -94,11 +129,20 @@
 	<Variables Version="3" Key="{20BF6AF6-7C60-462D-9B69-BFE29272DD65}">
 		<Items>
 			<Variable Name="dataTypes" Type="{4AD4881B-176C-4C96-8288-FBBB7E3D1FE3}" Local="False">
-				<DefValue RowCount="4" ColumnCount="3">
+				<DefValue RowCount="12" ColumnCount="3">
 					<Columns ColumnName0="type" ColumnName1="clear" ColumnName2="newLine" />
 					<Row No="0" Cell0="70006500720073006F006E00" Cell1="660061006C0073006500" Cell2="7400720075006500" />
 					<Row No="1" Cell0="63006F006D00700061006E007900" Cell1="660061006C0073006500" Cell2="7400720075006500" />
 					<Row No="2" Cell0="700072006F006400750063007400" Cell1="660061006C0073006500" Cell2="7400720075006500" />
+					<Row No="3" Cell0="70006500720073006F006E00" Cell1="660061006C0073006500" Cell2="660061006C0073006500" />
+					<Row No="4" Cell0="63006F006D00700061006E007900" Cell1="660061006C0073006500" Cell2="660061006C0073006500" />
+					<Row No="5" Cell0="700072006F006400750063007400" Cell1="660061006C0073006500" Cell2="660061006C0073006500" />
+					<Row No="6" Cell0="70006500720073006F006E00" Cell1="7400720075006500" Cell2="660061006C0073006500" />
+					<Row No="7" Cell0="63006F006D00700061006E007900" Cell1="7400720075006500" Cell2="660061006C0073006500" />
+					<Row No="8" Cell0="700072006F006400750063007400" Cell1="7400720075006500" Cell2="660061006C0073006500" />
+					<Row No="9" Cell0="70006500720073006F006E00" Cell1="7400720075006500" Cell2="7400720075006500" />
+					<Row No="10" Cell0="700072006F006400750063007400" Cell1="7400720075006500" Cell2="7400720075006500" />
+					<Row No="11" Cell0="63006F006D00700061006E007900" Cell1="7400720075006500" Cell2="7400720075006500" />
 				</DefValue>
 			</Variable>
 		</Items>
