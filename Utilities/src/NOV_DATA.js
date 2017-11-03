@@ -55,7 +55,18 @@ class testData {
        */
       message: message == null ? "" : message
     }
+    /**
+     * @type {string}
+     */
     this.fileName = fileName;
+    /**
+     * @type {string}
+     */
+    this.expectedResult = "";
+    /**
+     * @type {string}
+     */
+    this.fullFilePath = "";
   }
 }
 

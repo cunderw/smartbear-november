@@ -15,7 +15,7 @@ const NOV_UTILITIES = require("NOV_UTILITIES");
  */
 function openNotePad(verify = true, restart = true) {
   NOV_UTILITIES.indentLog("Opening Notepad");
-  if(restart && Aliases.appNotead.WaitProperty("Exists",true,2000)) {
+  if(restart && Aliases.appNotead.WaitProperty("Exists", true, 2000)) {
     Aliases.appNotead.Terminate();
   }
   TestedApps.Items(0)
@@ -39,12 +39,12 @@ function openNotePad(verify = true, restart = true) {
  * @param {boolean} [click=true] - uses clicks to close notepad if true, otherwises uses keyboard shortcuts
  * @param {boolean} [bypassSaveDialog=true] - if true clicks don't save if the save dialog exists
  */
-function closeNotePad(verify = true, click = true, bypassSaveDialog= true) {
+function closeNotePad(verify = true, click = true, bypassSaveDialog = true) {
   NOV_UTILITIES.indentLog("Closing Notepad");
   menuNavigation("exit", click);
-  if(bypassSaveDialog && Aliases.appNotead.WaitProperty("Exists",true,2000)) {
-    if(Aliases.appNotead.saveDialog.WaitProperty("Exists",true,2000)) {
-      saveDialog("dontSave",click);
+  if(bypassSaveDialog && Aliases.appNotead.WaitProperty("Exists", true, 2000)) {
+    if(Aliases.appNotead.saveDialog.WaitProperty("Exists", true, 2000)) {
+      saveDialog("dontSave", click);
     }
   }
   // waits for up to ten seconds for the app to load  
@@ -153,6 +153,7 @@ function menuNavigation(option, click) {
  * @param {boolean} clear - if true clears the text first
  * @param {boolean} newLine - if true automatically enters a new line after each test data input
  * @param {boolean} verify - if true verifies the app accepts input properly
+ * @return {testData} data - returns our test data with the expectedData property set (so we can keep passing this around)
  */
 function inputTestData(data, clear = true, newLine = true, verify = false) {
   NOV_UTILITIES.indentLog("Inputing Test Data");
@@ -166,7 +167,7 @@ function inputTestData(data, clear = true, newLine = true, verify = false) {
     if(typeof (clear) !== "boolean") {
       newLine = newLine == "true";
     }
-    let expectedText = "";
+    var expectedText = "";
     // check if we're clearing the text field, if not then we need to grab the current value for the expected text
     if(!clear) {
       expectedText += editField.wText;
@@ -195,6 +196,7 @@ function inputTestData(data, clear = true, newLine = true, verify = false) {
     Log.Error("FATAL: Error occured inputting data. See additional information", err.message + "\n" + err.stack);
   } finally {
     NOV_UTILITIES.outdentLog();
+    data.expectedResults = expectedText;
     return data;
   }
 }
@@ -207,7 +209,7 @@ function inputTestData(data, clear = true, newLine = true, verify = false) {
  * @param {boolean} [click=true] - uses clicks to otherwises uses keyboard shortcuts. only click is supported currently
  * @param {boolean} [verifyExists] - verfies the dialog actually exists
  */
-function saveDialog(selectOption, click=true, verifyExists) {
+function saveDialog(selectOption, click = true, verifyExists) {
   const dialog = Aliases.appNotead.saveDialog;
   NOV_UTILITIES.indentLog("Selecting Save Dialog Option: " + selectOption);
   if(verifyExists) {
@@ -216,25 +218,54 @@ function saveDialog(selectOption, click=true, verifyExists) {
     aqObject.CheckProperty(dialog, "VisibleOnScreen", cmpEqual, true);
   }
   switch(selectOption) {
-    case "save" :
-      Log.Message("Clicking Save Button");
-      dialog.btnSave.Click();
-      break;
-    case "dontSave" :
-      Log.Message("Clicking Don't Save Button");
-      dialog.btnDontSave.Click();
-      break;
-    case "cancel" :
-      Log.Message("Clicking Cancel Button");
-      dialog.btnCancel.Click();
-      break;
-    case "none" :
-      Log.Message("No Action Performed");
-      break;
+  case "save":
+    Log.Message("Clicking Save Button");
+    dialog.btnSave.Click();
+    break;
+  case "dontSave":
+    Log.Message("Clicking Don't Save Button");
+    dialog.btnDontSave.Click();
+    break;
+  case "cancel":
+    Log.Message("Clicking Cancel Button");
+    dialog.btnCancel.Click();
+    break;
+  case "none":
+    Log.Message("No Action Performed");
+    break;
   }
   NOV_UTILITIES.outdentLog();
 }
 
-function blah() {
-  
+/**
+ * NOV_ACTIONS - saves the data we have inputed into a file
+ * @function
+ * @author [CBU]
+ * @param {boolan} [nav=true] - if true handles the menu navigation for saving
+ * @param {boolan} [newFile=true] - if assumes we aren't editing and resaving so we will have the dialog to save too
+ * @param {testData} data - test data to save 
+ * @param {boolean} [click=true] - uses clicks to otherwises uses keyboard shortcuts. only click is supported currently
+ * @param {boolean} [verify=true] - verfies the file is created after saving
+ * @return {testData} data - returns our test data with the savedFile property set (so we can keep passing this around)
+ */
+function saveToFile(nav = true, newFile = true, data, click = true, verify = true) {
+  const fullPath = Project.Path + "testResults\\";
+  const fullFilePath = fullPath + data.fileName;
+  NOV_UTILITIES.indentLog("Saving File To: " + fullPath);
+  if(nav) {
+    menuNavigation("save", click);
+  }  
+  // example of using findchild as opposed to name mapping
+  let pathField = Aliases.appNotead.saveDialog.FindChildEx("WndClass","Edit",10,true,10000);
+  pathField.SetText(fullFilePath);
+  saveDialog("save",click);
+  data.fullFilePath = fullFilePath;
+  if(verify) {
+    Log.Message("Verify File Is Created On Save");
+    aqFileSystem.Exists(data.fullFilePath) ?
+    Log.Checkpoint(data.fullFilePath + " Was written to the file system") :
+    Log.Error(data.fullFilePath + " Was NOT written to the file system")    
+  }
+  NOV_UTILITIES.outdentLog();
+  return data;
 }

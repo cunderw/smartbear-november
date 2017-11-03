@@ -120,6 +120,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "./src/nov_actions.js~savetofile~<p>nov_actions - saves the data we have inputed into a file</p>\nnav~<p>if true handles the menu navigation for saving</p>\nnewfile~<p>if assumes we aren&#39;t editing and resaving so we will have the dialog to save too</p>\ndata~<p>test data to save</p>\nclick~<p>uses clicks to otherwises uses keyboard shortcuts. only click is supported currently</p>\nverify~<p>verfies the file is created after saving</p>\n",
+    "function/index.html#static-function-saveToFile",
+    "<span>saveToFile</span> <span class=\"search-result-import-path\">./src/NOV_ACTIONS.js</span> <span><p>NOV_ACTIONS - saves the data we have inputed into a file</p>\n</span>",
+    "function"
+  ],
+  [
     "./src/nov_utilities.js~setupenvironment~<p>nov_utilities - sets up our environment to run tests</p>\n",
     "function/index.html#static-function-setUpEnvironment",
     "<span>setUpEnvironment</span> <span class=\"search-result-import-path\">./src/NOV_UTILITIES.js</span> <span><p>NOV_UTILITIES - Sets up our environment to run tests</p>\n</span>",
@@ -540,9 +546,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/nov_data.js~testdata#expectedresult",
+    "class/src/NOV_DATA.js~testData.html#instance-member-expectedResult",
+    "src/NOV_DATA.js~testData#expectedResult",
+    "member"
+  ],
+  [
     "src/nov_data.js~testdata#filename",
     "class/src/NOV_DATA.js~testData.html#instance-member-fileName",
     "src/NOV_DATA.js~testData#fileName",
+    "member"
+  ],
+  [
+    "src/nov_data.js~testdata#fullfilepath",
+    "class/src/NOV_DATA.js~testData.html#instance-member-fullFilePath",
+    "src/NOV_DATA.js~testData#fullFilePath",
     "member"
   ],
   [

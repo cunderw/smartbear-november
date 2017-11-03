@@ -18,9 +18,13 @@ var environmentSet = false;
 function startNotePadTest(Sender) {
   NOV_UTILITIES.indentLog("Test Start");
   try {
-  if(!environmentSet) {
-    NOV_UTILITIES.setUpEnvironment();
-  }
+    if(!environmentSet) {
+      NOV_UTILITIES.setUpEnvironment();
+      // check if we have the file path we want
+      if(!aqFileSystem.Exists(Project.Path + "testResults\\")) {
+        aqFileSystem.CreateFolder(Project.Path + "testResults\\");
+      }
+    }
   } catch(err) {
     Log.Error("FATAL: Error occured starting the test. See additional information", err.message + "\n" + err.stack);
   } finally {
@@ -36,6 +40,10 @@ function startNotePadTest(Sender) {
  */
 function stopNotePadTest(Sender) {
   NOV_UTILITIES.indentLog("Test Stop");
+  // cleanup our files
+  if(aqFileSystem.Exists(Project.Path + "testResults\\")) {  
+    aqFileSystem.DeleteFolder(Project.Path + "testResults\\",true);    
+  }
   NOV_UTILITIES.outdentLog();
 }
 

@@ -38,6 +38,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-menuNavigation">menuNavigation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-openNotePad">openNotePad</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveDialog">saveDialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveToFile">saveToFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getTestData">getTestData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-test">test</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogError">onLogError</a></span></span></li>
@@ -119,7 +120,18 @@ class testData {
        */
       message: message == null ? &quot;&quot; : message
     }
+    /**
+     * @type {string}
+     */
     this.fileName = fileName;
+    /**
+     * @type {string}
+     */
+    this.expectedResult = &quot;&quot;;
+    /**
+     * @type {string}
+     */
+    this.fullFilePath = &quot;&quot;;
   }
 }
 

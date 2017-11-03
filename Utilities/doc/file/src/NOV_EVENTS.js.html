@@ -38,6 +38,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-menuNavigation">menuNavigation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-openNotePad">openNotePad</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveDialog">saveDialog</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveToFile">saveToFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getTestData">getTestData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-test">test</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogError">onLogError</a></span></span></li>
@@ -82,9 +83,13 @@ var environmentSet = false;
 function startNotePadTest(Sender) {
   NOV_UTILITIES.indentLog(&quot;Test Start&quot;);
   try {
-  if(!environmentSet) {
-    NOV_UTILITIES.setUpEnvironment();
-  }
+    if(!environmentSet) {
+      NOV_UTILITIES.setUpEnvironment();
+      // check if we have the file path we want
+      if(!aqFileSystem.Exists(Project.Path + &quot;testResults\\&quot;)) {
+        aqFileSystem.CreateFolder(Project.Path + &quot;testResults\\&quot;);
+      }
+    }
   } catch(err) {
     Log.Error(&quot;FATAL: Error occured starting the test. See additional information&quot;, err.message + &quot;\n&quot; + err.stack);
   } finally {
@@ -100,6 +105,10 @@ function startNotePadTest(Sender) {
  */
 function stopNotePadTest(Sender) {
   NOV_UTILITIES.indentLog(&quot;Test Stop&quot;);
+  // cleanup our files
+  if(aqFileSystem.Exists(Project.Path + &quot;testResults\\&quot;)) {  
+    aqFileSystem.DeleteFolder(Project.Path + &quot;testResults\\&quot;,true);    
+  }
   NOV_UTILITIES.outdentLog();
 }
 
