@@ -15,7 +15,7 @@ const NOV_UTILITIES = require("NOV_UTILITIES");
  */
 function openNotePad(verify = true, restart = true) {
   NOV_UTILITIES.indentLog("Opening Notepad");
-  if(restart && Aliases.appNotead.Exists) {
+  if(restart && Aliases.appNotead.WaitProperty("Exists",true,2000)) {
     Aliases.appNotead.Terminate();
   }
   TestedApps.Items(0)
@@ -42,8 +42,10 @@ function openNotePad(verify = true, restart = true) {
 function closeNotePad(verify = true, click = true, bypassSaveDialog= true) {
   NOV_UTILITIES.indentLog("Closing Notepad");
   menuNavigation("exit", click);
-  if(bypassSaveDialog && Aliases.appNotead.saveDialog.Exists) {
-    saveDialog("dontSave",click);
+  if(bypassSaveDialog && Aliases.appNotead.WaitProperty("Exists",true,2000)) {
+    if(Aliases.appNotead.saveDialog.WaitProperty("Exists",true,2000)) {
+      saveDialog("dontSave",click);
+    }
   }
   // waits for up to ten seconds for the app to load  
   if(verify) {
@@ -169,13 +171,16 @@ function inputTestData(data, clear = true, newLine = true, verify = false) {
     if(!clear) {
       expectedText += editField.wText;
     } else {
+      Log.Message("Clearing The Text Field");
       editField.SetText("");
     }
     for(var key in data.inputData) {
       if(data.inputData[key] !== undefined) {
+        Log.Message("Keying: " + data.inputData[key]);
         editField.Keys(data.inputData[key]);
         expectedText += data.inputData[key];
         if(newLine) {
+          Log.Message("Pressing Enter");
           editField.Keys("[Enter]");
           // new line character
           expectedText += "\r\n"
@@ -228,4 +233,8 @@ function saveDialog(selectOption, click=true, verifyExists) {
       break;
   }
   NOV_UTILITIES.outdentLog();
+}
+
+function blah() {
+  
 }
