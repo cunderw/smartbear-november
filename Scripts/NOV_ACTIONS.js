@@ -254,11 +254,13 @@ function saveToFile(nav = true, newFile = true, data, click = true, verify = tru
   NOV_UTILITIES.indentLog("Saving File To: " + fullPath);
   if(nav) {
     menuNavigation("save", click);
-  }  
-  // example of using findchild as opposed to name mapping
-  let pathField = Aliases.appNotead.saveDialog.FindChildEx("WndClass","Edit",10,true,10000);
-  pathField.SetText(fullFilePath);
-  saveDialog("save",click);
+  }   
+  if(newFile) {
+    // example of using findchild as opposed to name mapping
+    let pathField = Aliases.appNotead.saveDialog.FindChildEx("WndClass","Edit",10,true,10000);
+    pathField.SetText(fullFilePath);
+    saveDialog("save",click);
+  }
   data.fullFilePath = fullFilePath;
   if(verify) {
     Log.Message("Verify File Is Created On Save");

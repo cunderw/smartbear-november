@@ -40,9 +40,51 @@
 				<testParameters />
 				<children />
 			</testItem>
-			<testItem name="NOV_Smoke_VerifyData" key="{99D5A0EB-FE83-4C28-9214-E49920972091}" group="False" enabled="True" testMoniker="KDT\{6F542453-F416-4E06-B00E-F382EA666599}" count="1" timeout="0" stopOnError="1" stopOnException="2" description="">
+			<testItem name="Data Verification" key="{4C3BF3FE-3187-4E66-99C8-DAF2490B43E6}" group="True" enabled="True" testMoniker="" count="1" timeout="0" stopOnError="2" stopOnException="2" description="">
 				<testParameters />
-				<children />
+				<children>
+					<testItem name="NOV_Smoke_VerifyData - Person" key="{99D5A0EB-FE83-4C28-9214-E49920972091}" group="False" enabled="True" testMoniker="KDT\{6F542453-F416-4E06-B00E-F382EA666599}" count="1" timeout="0" stopOnError="1" stopOnException="2" description="">
+						<testParameters>
+							<param0 name="type" type="1" localVarName="" value="person" />
+						</testParameters>
+						<children />
+					</testItem>
+					<testItem name="NOV_Smoke_VerifyData - Company" key="{FE7C9D39-1E5A-4BDB-B1BE-9F009E628406}" group="False" enabled="True" testMoniker="KDT\{6F542453-F416-4E06-B00E-F382EA666599}" count="1" timeout="0" stopOnError="1" stopOnException="2" description="">
+						<testParameters>
+							<param0 name="type" type="1" localVarName="" value="company" />
+						</testParameters>
+						<children />
+					</testItem>
+					<testItem name="NOV_Smoke_VerifyData - Product" key="{4C34C25C-DC6C-4472-88D8-EC380FA916FA}" group="False" enabled="True" testMoniker="KDT\{6F542453-F416-4E06-B00E-F382EA666599}" count="1" timeout="0" stopOnError="1" stopOnException="2" description="">
+						<testParameters>
+							<param0 name="type" type="1" localVarName="" value="product" />
+						</testParameters>
+						<children />
+					</testItem>
+				</children>
+			</testItem>
+			<testItem name="Data Verification Addition" key="{913456DA-566E-4D74-B055-893AA3C6BB7B}" group="True" enabled="True" testMoniker="" count="1" timeout="0" stopOnError="2" stopOnException="2" description="">
+				<testParameters />
+				<children>
+					<testItem name="NOV_Smoke_VerifyDataAddition - Person" key="{5ECA1604-9054-4099-B6F7-D4A970D4ABC1}" group="False" enabled="True" testMoniker="KDT\{80A5F3FD-B755-415A-AEAE-370E3D9CAAA7}" count="1" timeout="0" stopOnError="2" stopOnException="2" description="">
+						<testParameters>
+							<param0 name="type" type="1" localVarName="" value="person" />
+						</testParameters>
+						<children />
+					</testItem>
+					<testItem name="NOV_Smoke_VerifyDataAddition - Company" key="{793DB426-237B-41EE-A725-DFD9279522E8}" group="False" enabled="True" testMoniker="KDT\{80A5F3FD-B755-415A-AEAE-370E3D9CAAA7}" count="1" timeout="0" stopOnError="2" stopOnException="2" description="">
+						<testParameters>
+							<param0 name="type" type="1" localVarName="" value="company" />
+						</testParameters>
+						<children />
+					</testItem>
+					<testItem name="NOV_Smoke_VerifyDataAddition - Product" key="{C27EE998-06F0-49CF-B248-2DC743384EA7}" group="False" enabled="True" testMoniker="KDT\{80A5F3FD-B755-415A-AEAE-370E3D9CAAA7}" count="1" timeout="0" stopOnError="2" stopOnException="2" description="">
+						<testParameters>
+							<param0 name="type" type="1" localVarName="" value="product" />
+						</testParameters>
+						<children />
+					</testItem>
+				</children>
 			</testItem>
 		</children>
 	</testItems>
@@ -88,7 +130,7 @@
 			</data>
 		</setting>
 		<setting name="{42651A7C-4287-4C91-AE26-98CBD2EA9355}" type="1" value="False" />
-		<setting name="{A2568CC8-7E8E-42C5-A87D-B69684A1E616}" type="1" value="True" />
+		<setting name="{A2568CC8-7E8E-42C5-A87D-B69684A1E616}" type="1" value="False" />
 		<setting name="{3EADAFE2-0CD4-4B1E-A2A9-B184E94FDCC7}" type="6" rowIndex="1" colIndex="0">
 			<columns>
 				<column type="5" enabled="True" />
@@ -256,7 +298,7 @@
 			<data />
 		</setting>
 		<setting name="{3FC2A7B4-F4AF-4807-8D37-C3EE096DD330}" type="2" value="1024" />
-		<setting name="{9EB8E8E6-D2F2-4A8A-ADFB-492E8C0EAFEF}" type="2" value="10000" />
+		<setting name="{9EB8E8E6-D2F2-4A8A-ADFB-492E8C0EAFEF}" type="2" value="2000" />
 		<setting name="{47A56F4F-F2D3-4697-BEC8-632B29D5A344}" type="6" rowIndex="11" colIndex="1">
 			<columns>
 				<column type="1" enabled="True" />

@@ -19,6 +19,9 @@
 		<child name="NOV_Smoke_VerifyData" key="{6F542453-F416-4E06-B00E-F382EA666599}" type="Keyword Test" typeId="{B9D9273E-7266-43E0-BF02-97F168593604}" pluginName="Keyword Testing">
 			<data path="NOV_Smoke_VerifyData.tcKDTest" />
 		</child>
+		<child name="NOV_Smoke_VerifyDataAddition" key="{80A5F3FD-B755-415A-AEAE-370E3D9CAAA7}" type="Keyword Test" typeId="{B9D9273E-7266-43E0-BF02-97F168593604}" pluginName="Keyword Testing">
+			<data path="NOV_Smoke_VerifyDataAddition.tcKDTest" />
+		</child>
 	</children>
 	<folders>
 		<folder caption="1_Templates" description="A logical folder that is used to organize project items and elements." moniker="">
@@ -34,6 +37,7 @@
 				<ref key="{4CCC48BA-0A36-4CD6-A4B4-1ABAC5BFE7A3}" />
 				<ref key="{2A6C669F-64FF-400B-8109-994693A14F41}" />
 				<ref key="{6F542453-F416-4E06-B00E-F382EA666599}" />
+				<ref key="{80A5F3FD-B755-415A-AEAE-370E3D9CAAA7}" />
 			</references>
 		</folder>
 	</folders>

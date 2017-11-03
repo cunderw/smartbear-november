@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Root signature="{B9D9273E-7266-43E0-BF02-97F168593604}" version="12.0">
-	<TestData Description="" Key="{54B4F27B-26AA-4539-8824-851682B0ED3A}" Type="{79147B28-EE20-4294-B773-1D3787FBF37B}">
+	<TestData Description="" Key="{F42D6CA1-DE1C-4E68-B65B-77B3BF77A8D1}" Type="{79147B28-EE20-4294-B773-1D3787FBF37B}">
 		<Data>
 			<Extenders>
 				<NodeBitmaps />
@@ -80,6 +80,34 @@
 						</Data>
 					</Operation>
 					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
+						<Data Description="Runs a script routine." TestName="inputTestData" Unit="NOV_ACTIONS">
+							<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
+								<Parameter Name="data" DefVarType="12" DefValueType="0" DefValueValue="0" ParamType="{D44DB91E-FD74-4F67-BE3D-951A1238A9AD}" />
+								<Parameter Name="clear" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="False" />
+								<Parameter Name="newLine" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="False" />
+								<Parameter Name="verify" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="False" />
+							</Parameters>
+						</Data>
+					</Operation>
+					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
+						<Data Description="Runs a script routine." TestName="saveToFile" Unit="NOV_ACTIONS">
+							<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
+								<Parameter Name="nav" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="True" />
+								<Parameter Name="newFile" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="False" />
+								<Parameter Name="data" DefVarType="12" DefValueType="0" DefValueValue="0" ParamType="{D44DB91E-FD74-4F67-BE3D-951A1238A9AD}" />
+								<Parameter Name="click" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="True" />
+								<Parameter Name="verify" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="11" ValueType="7" ValueValue="False" />
+							</Parameters>
+						</Data>
+					</Operation>
+					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
+						<Data Description="Runs a script routine." TestName="verifyTestData" Unit="NOV_VERIFICATIONS">
+							<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
+								<Parameter Name="data" DefVarType="12" DefValueType="0" DefValueValue="0" ParamType="{D44DB91E-FD74-4F67-BE3D-951A1238A9AD}" />
+							</Parameters>
+						</Data>
+					</Operation>
+					<Operation Type="{206B0810-0B42-45AB-90F5-9F8DF0D669D2}">
 						<Data Description="Runs a script routine." TestName="outdentLog" Unit="NOV_UTILITIES">
 							<Parameters LangId="{90F89436-9452-4F95-9882-6B5210079F13}">
 								<Parameter Name="sMessage" DefVarType="12" DefValueType="0" DefValueValue="0" VarType="12" ValueType="0" ValueValue="0" />
@@ -118,8 +146,8 @@
 			</Operation>
 		</Children>
 	</TestData>
-	<Variables Version="3" Key="{12E24793-A3BD-41BF-8700-3780A4D9952A}" />
-	<Parameters Key="{E23C19E3-BD0A-49D6-B35E-80FB5CDD35F3}">
+	<Variables Version="3" Key="{6DB19EA2-CD86-4CE4-A56C-360A177AA955}" />
+	<Parameters Key="{6E87AA14-F584-437E-9A7A-0E3C3FCA8AF7}">
 		<Parameter0 Name="type" VarType="8" IsOptional="True" DefValueType="6" DefValueValue="person" Description="" />
 	</Parameters>
 </Root>
