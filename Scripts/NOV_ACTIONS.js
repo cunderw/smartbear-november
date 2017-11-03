@@ -196,7 +196,7 @@ function inputTestData(data, clear = true, newLine = true, verify = false) {
     Log.Error("FATAL: Error occured inputting data. See additional information", err.message + "\n" + err.stack);
   } finally {
     NOV_UTILITIES.outdentLog();
-    data.expectedResults = expectedText;
+    data.expectedResult = expectedText;
     return data;
   }
 }

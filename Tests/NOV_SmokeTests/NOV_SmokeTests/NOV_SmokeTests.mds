@@ -32,11 +32,15 @@
 	<config language="{90F89436-9452-4F95-9882-6B5210079F13}" />
 	<testItems key="{E0D558C3-0A0E-4D00-A929-F08377AB3286}">
 		<children>
-			<testItem name="NOV_Smoke_VerifyAppOpensCloses" key="{4A214F04-870D-4FBC-B221-917EC3C8A0D3}" group="False" enabled="True" testMoniker="KDT\{D706FDC7-2A02-4012-8B6E-C8508A8AAE11}" count="1" timeout="0" stopOnError="2" stopOnException="2" description="">
+			<testItem name="NOV_Smoke_VerifyAppOpensCloses" key="{4A214F04-870D-4FBC-B221-917EC3C8A0D3}" group="False" enabled="True" testMoniker="KDT\{D706FDC7-2A02-4012-8B6E-C8508A8AAE11}" count="1" timeout="0" stopOnError="1" stopOnException="2" description="">
 				<testParameters />
 				<children />
 			</testItem>
-			<testItem name="NOV_Smoke_VerifyInput" key="{60BFE027-DC2F-4D49-B882-AB433AD3DB69}" group="False" enabled="True" testMoniker="KDT\{4CCC48BA-0A36-4CD6-A4B4-1ABAC5BFE7A3}" count="1" timeout="0" stopOnError="2" stopOnException="2" description="">
+			<testItem name="NOV_Smoke_VerifyInput" key="{60BFE027-DC2F-4D49-B882-AB433AD3DB69}" group="False" enabled="True" testMoniker="KDT\{4CCC48BA-0A36-4CD6-A4B4-1ABAC5BFE7A3}" count="1" timeout="0" stopOnError="1" stopOnException="2" description="">
+				<testParameters />
+				<children />
+			</testItem>
+			<testItem name="NOV_Smoke_VerifyData" key="{99D5A0EB-FE83-4C28-9214-E49920972091}" group="False" enabled="True" testMoniker="KDT\{6F542453-F416-4E06-B00E-F382EA666599}" count="1" timeout="0" stopOnError="1" stopOnException="2" description="">
 				<testParameters />
 				<children />
 			</testItem>

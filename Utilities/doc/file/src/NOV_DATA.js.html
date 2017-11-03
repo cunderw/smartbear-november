@@ -54,6 +54,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setUpEnvironment">setUpEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-verifyTestData">verifyTestData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-navOptions">navOptions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-testDataTypes">testDataTypes</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-environmentSet">environmentSet</a></span></span></li>
@@ -132,6 +133,23 @@ class testData {
      * @type {string}
      */
     this.fullFilePath = &quot;&quot;;
+    /**
+     * @type {string}
+     */
+    this.fileConents = &quot;empty&quot;;
+  }
+  /**
+   * Verifies the saved data
+   */
+  verifySavedData() {
+    if(!aqFile.Exists(this.fullFilePath)) {
+      Log.Error(this.fullFilePath + &quot;Not Found. Nothing To Verify&quot;);
+    } else {
+      this.fileContents = aqFile.ReadWholeTextFile(this.fullFilePath, aqFile.ctANSI);
+      Log.Message(this.fileContents);
+      Log.Message(aqFile.ReadWholeTextFile(this.fullFilePath, aqFile.ctANSI))
+      aqObject.CheckProperty(this, &quot;fileContents&quot;, cmpEqual, this.expectedResult);
+    }
   }
 }
 

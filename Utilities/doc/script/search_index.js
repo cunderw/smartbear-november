@@ -162,6 +162,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "./src/nov_verifications.js~verifytestdata~<p>nov_verifications - wrapper to call the verify data on our data object (easier then call object method in a kwt)</p>\ndata~<p>the data to verify</p>\n",
+    "function/index.html#static-function-verifyTestData",
+    "<span>verifyTestData</span> <span class=\"search-result-import-path\">./src/NOV_VERIFICATIONS.js</span> <span><p>NOV_VERIFICATIONS - wrapper to call the verify data on our data object (easier then call object method in a KWT)</p>\n</span>",
+    "function"
+  ],
+  [
     "builtinexternal/ecmascriptexternal.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "BuiltinExternal/ECMAScriptExternal.js~Array",
@@ -552,6 +558,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/nov_data.js~testdata#fileconents",
+    "class/src/NOV_DATA.js~testData.html#instance-member-fileConents",
+    "src/NOV_DATA.js~testData#fileConents",
+    "member"
+  ],
+  [
+    "src/nov_data.js~testdata#filecontents",
+    "class/src/NOV_DATA.js~testData.html#instance-member-fileContents",
+    "src/NOV_DATA.js~testData#fileContents",
+    "member"
+  ],
+  [
     "src/nov_data.js~testdata#filename",
     "class/src/NOV_DATA.js~testData.html#instance-member-fileName",
     "src/NOV_DATA.js~testData#fileName",
@@ -580,6 +598,12 @@ window.esdocSearchIndex = [
     "class/src/NOV_DATA.js~testData.html#instance-member-type",
     "src/NOV_DATA.js~testData#type",
     "member"
+  ],
+  [
+    "src/nov_data.js~testdata#verifysaveddata",
+    "class/src/NOV_DATA.js~testData.html#instance-method-verifySavedData",
+    "src/NOV_DATA.js~testData#verifySavedData",
+    "method"
   ],
   [
     "src/nov_events.js",

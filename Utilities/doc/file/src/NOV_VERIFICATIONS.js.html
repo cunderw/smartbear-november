@@ -54,6 +54,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setUpEnvironment">setUpEnvironment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-verifyTestData">verifyTestData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-navOptions">navOptions</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-testDataTypes">testDataTypes</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-environmentSet">environmentSet</a></span></span></li>
@@ -63,7 +64,23 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/NOV_VERIFICATIONS.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&#xFEFF;</code></pre>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">&#xFEFF;/**
+ * @ignore
+ */
+const NOV_UTILITIES = require(&quot;NOV_UTILITIES&quot;);
+
+/**
+ * NOV_VERIFICATIONS - wrapper to call the verify data on our data object (easier then call object method in a KWT)
+ * @function
+ * @author [CBU]
+ * @param {testData} data - the data to verify
+ */
+function verifyTestData(data) {
+  NOV_UTILITIES.indentLog(&quot;Verifying Test Data&quot;);
+  data.verifySavedData()
+  NOV_UTILITIES.outdentLog();
+  return data;
+}</code></pre>
 
 </div>
 

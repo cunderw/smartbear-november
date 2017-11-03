@@ -67,6 +67,23 @@ class testData {
      * @type {string}
      */
     this.fullFilePath = "";
+    /**
+     * @type {string}
+     */
+    this.fileConents = "empty";
+  }
+  /**
+   * Verifies the saved data
+   */
+  verifySavedData() {
+    if(!aqFile.Exists(this.fullFilePath)) {
+      Log.Error(this.fullFilePath + "Not Found. Nothing To Verify");
+    } else {
+      this.fileContents = aqFile.ReadWholeTextFile(this.fullFilePath, aqFile.ctANSI);
+      Log.Message(this.fileContents);
+      Log.Message(aqFile.ReadWholeTextFile(this.fullFilePath, aqFile.ctANSI))
+      aqObject.CheckProperty(this, "fileContents", cmpEqual, this.expectedResult);
+    }
   }
 }
 
