@@ -11,9 +11,13 @@ const NOV_UTILITIES = require("NOV_UTILITIES");
  * @function
  * @author [CBU]
  * @param {boolean} [verify=true] - verifies that the app is open and visible
+ * @param {boolean} [restart=true] - Restarts the app before attempting to open
  */
-function openNotePad(verify = true) {
+function openNotePad(verify = true, restart = true) {
   NOV_UTILITIES.indentLog("Opening Notepad");
+  if(restart && Aliases.appNotead.Exists) {
+    Aliases.appNotead.Terminate();
+  }
   TestedApps.Items(0).Run();
   // waits for up to ten seconds for the app to load
   Aliases.appNotead.WaitProperty("Exists", true, 10000)
@@ -134,4 +138,43 @@ function menuNavigation(option, click) {
   } finally {
     NOV_UTILITIES.outdentLog();
   }
+}
+
+/**
+ * NOV_ACTIONS - inputs data from a test data object
+ * @param {testData} data - the data to input / verify
+ * @param {boolean} clear - if true clears the text first
+ * @param {boolean} newLine - if true automatically enters a new line after each test data input
+ * @param {boolean} verify - if true verifies the app accepts input properly
+ */
+function inputTestData(data,clear=true,newLine=true,verify=false) {
+  NOV_UTILITIES.indentLog("Inputing Test Data");
+  const editField = Aliases.appNotead.editField
+  let expectedText = "";
+  // check if we're clearing the text field, if not then we need to grab the current value for the expected text
+  if(!clear) {
+    expectedText += editField.wText;
+  } else {
+    editField.SetText("");
+  }
+  for(var key in data.inputData) {    
+    editField.Keys(data.inputData[key]);
+    expectedText += data.inputData[key];
+    if(newLine) {
+      editField.Keys("[Enter]");
+      // new line character
+      expectedText += "\r\n"
+    }
+  }
+  if(verify) {
+    Log.Message("Verify that the edit field matches input");
+    aqObject.CheckProperty(editField,"wText", cmpEqual, expectedText);
+  }
+  NOV_UTILITIES.outdentLog();
+  // data is returned so that we can chain this to a verification utility later on
+  return data;
+}
+
+function test() {
+  
 }
