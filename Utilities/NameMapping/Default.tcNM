@@ -27,7 +27,6 @@
 						</Properties>
 						<Children>
 							<Child Name="mainWindow" Key="{0635E40D-5693-4025-8BF3-EC98E3102454}" ParallelWalk="True">
-								<Image FileName="-62322595" Left="2" Top="2" Right="1599" Bottom="641" />
 								<TypeInfo Item0="{CEA6CE5F-EE27-46F3-9DEC-45AC1B1ACCA4}" />
 								<Properties>
 									<Property Name="WndClass">
@@ -36,12 +35,60 @@
 								</Properties>
 								<Children>
 									<Child Name="editField" Key="{77ABF2A1-F10D-4806-8127-6498B8866687}" ParallelWalk="True">
-										<Image FileName="-62322595" Left="10" Top="53" Right="1591" Bottom="633" />
 										<TypeInfo Item0="{7F8E5C9A-84DD-4BBA-9818-588FDBAFD534}" />
 										<Properties>
 											<Property Name="WndClass">
 												<Value PropertyType="1" LocalVariable="APP_EDIT_WND_CLASS" />
 											</Property>
+										</Properties>
+									</Child>
+								</Children>
+							</Child>
+							<Child Name="saveDialog" Key="{121C1D7D-12CD-4434-8CF8-A9D15C958125}" ParallelWalk="True">
+								<Image FileName="1846124893" Left="2" Top="2" Right="364" Bottom="139" />
+								<TypeInfo Item0="{CEA6CE5F-EE27-46F3-9DEC-45AC1B1ACCA4}" />
+								<Properties>
+									<Property Name="WndClass">
+										<Value PropertyType="0" Value="#32770" Type="5" />
+									</Property>
+								</Properties>
+								<Children>
+									<Child Name="btnCancel" Key="{FF8126E1-13D1-47BB-926F-4D6CD6093BA7}" ExtendedFind="True" ParallelWalk="True">
+										<Image FileName="1846124893" Left="282" Top="103" Right="346" Bottom="122" />
+										<TypeInfo Item0="{DB2F2F16-0214-4B1A-9683-587880FFF23F}" />
+										<Properties>
+											<Property Name="WndClass">
+												<Value PropertyType="0" Value="Button" Type="5" />
+											</Property>
+											<Property Name="WndCaption">
+												<Value PropertyType="0" Value="*Cancel*" Type="5" />
+											</Property>
+										</Properties>
+									</Child>
+									<Child Name="btnDontSave" Key="{1523D69A-39FA-4C20-AA0A-1B9ED3E69EB0}" ExtendedFind="True" ParallelWalk="True">
+										<Image FileName="1846124893" Left="188" Top="103" Right="272" Bottom="122" />
+										<TypeInfo Item0="{DB2F2F16-0214-4B1A-9683-587880FFF23F}" />
+										<Properties>
+											<Property Name="WndClass">
+												<Value PropertyType="0" Value="Button" Type="5" />
+											</Property>
+											<Property Name="WndCaption">
+												<Value PropertyType="0" Value="Do&amp;n&apos;t Save" Type="5" />
+											</Property>
+											<Filter FilterMode="1" FilterString="6171736F010000000400000072006F006F007400010000000400000072006F006F00740001000000260000007B00370044003400420030004500350030002D0032003500370033002D0034003100360042002D0042003100320034002D004100460035003200380036003100370046004500370034007D00010000000400000072006F006F00740003000000090000006F007000650072006100740069006F006E000000000000000000070000006300680069006C0064002000310001000000260000007B00370044003400420030004500350030002D0032003500370033002D0034003100360042002D0042003100320034002D004100460035003200380036003100370046004500370034007D00070000006300680069006C0064002000300001000000260000007B00340035003400370038003800370044002D0030004300320044002D0034003400360037002D0042004600450033002D004100310034003500330035003300300034003000460039007D0002000000070000006300680069006C0064002000310003000000090000006F007000650072006100740069006F006E000000000001000000070000006300680069006C0064002000310001000000260000007B00340035003400370038003800370044002D0030004300320044002D0034003400360037002D0042004600450033002D004100310034003500330035003300300034003000460039007D00070000006300680069006C0064002000300001000000260000007B00340035003400370038003800370044002D0030004300320044002D0034003400360037002D0042004600450033002D004100310034003500330035003300300034003000460039007D0002000000070000006300680069006C0064002000310003000000090000006F007000650072006100740069006F006E00010000000A0000007300740064006F00700065007100750061006C00050000007200690067006800740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D00040000006C0065006600740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D000200000005000000720069006700680074000100000005000000760061006C0075006500010000000C00000043006F006E00730074005300740072003A0026004E006F0000000000040000006C006500660074000100000005000000760061006C007500650001000000140000004400690073007000560061006C00750065003A0057006E006400430061007000740069006F006E0000000000070000006300680069006C0064002000300003000000090000006F007000650072006100740069006F006E00010000000A0000007300740064006F00700065007100750061006C00050000007200690067006800740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D00040000006C0065006600740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D000200000005000000720069006700680074000100000005000000760061006C0075006500010000001000000043006F006E00730074005300740072003A0044002A002000530061007600650000000000040000006C006500660074000100000005000000760061006C007500650001000000140000004400690073007000560061006C00750065003A0057006E006400430061007000740069006F006E0000000000070000006300680069006C0064002000300003000000090000006F007000650072006100740069006F006E00010000000A0000007300740064006F00700065007100750061006C00050000007200690067006800740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D00040000006C0065006600740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D000200000005000000720069006700680074000100000005000000760061006C0075006500010000000F00000043006F006E00730074005300740072003A0042007500740074006F006E0000000000040000006C006500660074000100000005000000760061006C007500650001000000120000004400690073007000560061006C00750065003A0057006E00640043006C0061007300730000000000" />
+										</Properties>
+									</Child>
+									<Child Name="btnSave" Key="{85D06179-8E36-4706-9E54-A0D5C3F1DB5B}" ExtendedFind="True" ParallelWalk="True">
+										<Image FileName="1846124893" Left="114" Top="103" Right="178" Bottom="122" />
+										<TypeInfo Item0="{DB2F2F16-0214-4B1A-9683-587880FFF23F}" />
+										<Properties>
+											<Property Name="WndClass">
+												<Value PropertyType="0" Value="Button" Type="5" />
+											</Property>
+											<Property Name="WndCaption">
+												<Value PropertyType="0" Value="&amp;Save" Type="5" />
+											</Property>
+											<Filter FilterMode="1" FilterString="6171736F010000000400000072006F006F007400010000000400000072006F006F00740001000000260000007B00370044003400420030004500350030002D0032003500370033002D0034003100360042002D0042003100320034002D004100460035003200380036003100370046004500370034007D00010000000400000072006F006F00740003000000070000006300680069006C0064002000300001000000260000007B00340035003400370038003800370044002D0030004300320044002D0034003400360037002D0042004600450033002D004100310034003500330035003300300034003000460039007D00090000006F007000650072006100740069006F006E000000000000000000070000006300680069006C0064002000310001000000260000007B00370044003400420030004500350030002D0032003500370033002D0034003100360042002D0042003100320034002D004100460035003200380036003100370046004500370034007D0002000000070000006300680069006C0064002000310003000000070000006300680069006C0064002000300001000000260000007B00340035003400370038003800370044002D0030004300320044002D0034003400360037002D0042004600450033002D004100310034003500330035003300300034003000460039007D00090000006F007000650072006100740069006F006E000000000001000000070000006300680069006C0064002000310001000000260000007B00340035003400370038003800370044002D0030004300320044002D0034003400360037002D0042004600450033002D004100310034003500330035003300300034003000460039007D0002000000070000006300680069006C0064002000310003000000040000006C0065006600740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D00090000006F007000650072006100740069006F006E00010000000A0000007300740064006F00700065007100750061006C00050000007200690067006800740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D000200000005000000720069006700680074000100000005000000760061006C0075006500010000000D00000043006F006E00730074005300740072003A00260059006500730000000000040000006C006500660074000100000005000000760061006C007500650001000000140000004400690073007000560061006C00750065003A0057006E006400430061007000740069006F006E0000000000070000006300680069006C0064002000300003000000040000006C0065006600740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D00090000006F007000650072006100740069006F006E00010000000A0000007300740064006F00700065007100750061006C00050000007200690067006800740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D000200000005000000720069006700680074000100000005000000760061006C0075006500010000000E00000043006F006E00730074005300740072003A002600530061007600650000000000040000006C006500660074000100000005000000760061006C007500650001000000140000004400690073007000560061006C00750065003A0057006E006400430061007000740069006F006E0000000000070000006300680069006C0064002000300003000000040000006C0065006600740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D00090000006F007000650072006100740069006F006E00010000000A0000007300740064006F00700065007100750061006C00050000007200690067006800740001000000260000007B00410035003500310045004500430038002D0046003400360032002D0034004400330042002D0039003700300030002D003000410031003700360035003600320030004400380038007D000200000005000000720069006700680074000100000005000000760061006C0075006500010000000F00000043006F006E00730074005300740072003A0042007500740074006F006E0000000000040000006C006500660074000100000005000000760061006C007500650001000000120000004400690073007000560061006C00750065003A0057006E00640043006C0061007300730000000000" />
 										</Properties>
 									</Child>
 								</Children>
@@ -56,6 +103,11 @@
 		<Child Name="appNotead" Owner="{0C2601D4-6459-46D7-AADB-3AA25C230E82}">
 			<Child Name="mainWindow" Owner="{0635E40D-5693-4025-8BF3-EC98E3102454}" />
 			<Child Name="editField" Owner="{77ABF2A1-F10D-4806-8127-6498B8866687}" />
+			<Child Name="saveDialog" Owner="{121C1D7D-12CD-4434-8CF8-A9D15C958125}">
+				<Child Name="btnCancel" Owner="{FF8126E1-13D1-47BB-926F-4D6CD6093BA7}" />
+				<Child Name="btnDontSave" Owner="{1523D69A-39FA-4C20-AA0A-1B9ED3E69EB0}" />
+				<Child Name="btnSave" Owner="{85D06179-8E36-4706-9E54-A0D5C3F1DB5B}" />
+			</Child>
 		</Child>
 	</LogicalNodes>
 	<TypeInfo StoreCodeCompletion="1">
@@ -1136,6 +1188,367 @@
 							<ParamDesc Flags="1" />
 						</Param0>
 						<ReturnValue Param0="24" />
+					</Child>
+				</FunctionDescriptions>
+			</Data>
+		</Child>
+		<Child Hash="-1330593301" Key="{DB2F2F16-0214-4B1A-9683-587880FFF23F}">
+			<Data Properties="ZZKFFFFFFFFFFFFFFFFN8L4K25ZZY">
+				<FunctionDescriptions>
+					<Child Name="_NewEnum" Doc="Returns an enumerator for the children collection." IsBasic="True" Data="ZI4L2L4SA8TDZN">
+						<ReturnValue Param0="13" />
+					</Child>
+					<Child Name="AddRef" IsBasic="True" Data="ZI4L1L4T8S13ZG1K">
+						<ReturnValue Param0="19" />
+					</Child>
+					<Child Name="Child" Doc="Returns a child object by its index." IsBasic="True" Param0="Index" Data="ZI4L1L4L1K6U9ZN">
+						<Param0>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<ReturnValue Param0="9" />
+					</Child>
+					<Child Name="ChildCount" Doc="The number of child objects." IsBasic="True" Data="ZI4L2L4S58T3ZN">
+						<ReturnValue Param0="3" />
+					</Child>
+					<Child Name="Click" Doc="Simulates a left-button single click in a window or control as specified (relative position, shift keys)." IsBasic="True" Param0="ClientX" Param1="ClientY" Param2="Shift" Data="ZI4L1L4L3K38S18ZN">
+						<Param0>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="-1" Type="0" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="-1" Type="0" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="29" Type0="TShiftKey" />
+							<ParamDesc Flags="49" Value="0" Type="0" />
+						</Param2>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="ClickButton" Doc="Performs a single click on the specified button." IsBasic="True" Data="ZI4L1L4S38S18ZN">
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="ClickR" Doc="Simulates a right-button single click in a window or control as specified (relative position, shift keys)." IsBasic="True" Param0="ClientX" Param1="ClientY" Param2="Shift" Data="ZI4L1L4L3K48S18ZN">
+						<Param0>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="-1" Type="0" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="-1" Type="0" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="29" Type0="TShiftKey" />
+							<ParamDesc Flags="49" Value="0" Type="0" />
+						</Param2>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="Enabled" Doc="Specifies whether the object is enabled or disabled." IsBasic="True" Data="ZI4L2L4S7UBZN">
+						<ReturnValue Param0="11" />
+					</Child>
+					<Child Name="Exists" Doc="True if the object exists in the system; else, false." IsBasic="True" Data="ZI4L2L4S68TBZN">
+						<ReturnValue Param0="11" />
+					</Child>
+					<Child Name="Find" Doc="Returns an object by the values of the specified properties." IsBasic="True" Param0="PropNames" Param1="PropValues" Param2="Depth" Param3="RefreshTree" Data="ZI4L1L4L4K78T9ZN">
+						<Param0>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="1" Type="0" />
+						</Param2>
+						<Param3>
+							<TypeDesc Param0="11" />
+							<ParamDesc Flags="49" Value="True" Type="6" />
+						</Param3>
+						<ReturnValue Param0="9" />
+					</Child>
+					<Child Name="FindAll" Doc="Returns an array of objects by the values of the specified properties." IsBasic="True" Param0="PropNames" Param1="PropValues" Param2="Depth" Param3="RefreshTree" Data="ZI4L1L4L4K8UCZN">
+						<Param0>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="1" Type="0" />
+						</Param2>
+						<Param3>
+							<TypeDesc Param0="11" />
+							<ParamDesc Flags="49" Value="True" Type="6" />
+						</Param3>
+						<ReturnValue Param0="12" />
+					</Child>
+					<Child Name="FindAllChildren" Doc="Returns an array of objects by the values of the specified properties." IsBasic="True" Param0="PropNames" Param1="PropValues" Param2="Depth" Param3="RefreshTree" Data="ZI4L1L4L4KCUCZN">
+						<Param0>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="1" Type="0" />
+						</Param2>
+						<Param3>
+							<TypeDesc Param0="11" />
+							<ParamDesc Flags="49" Value="True" Type="6" />
+						</Param3>
+						<ReturnValue Param0="12" />
+					</Child>
+					<Child Name="FindChild" Doc="Returns an object by the values of the specified properties." IsBasic="True" Param0="PropNames" Param1="PropValues" Param2="Depth" Param3="RefreshTree" Data="ZI4L1L4L4KB8T9ZN">
+						<Param0>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="0" Type="0" />
+						</Param2>
+						<Param3>
+							<TypeDesc Param0="11" />
+							<ParamDesc Flags="49" Value="True" Type="6" />
+						</Param3>
+						<ReturnValue Param0="9" />
+					</Child>
+					<Child Name="FindChildEx" Doc="Returns an object by the values of the specified properties." IsBasic="True" Param0="PropNames" Param1="PropValues" Param2="Depth" Param3="RefreshTree" Param4="Timeout" Data="ZI4L1L4L5K4U9ZN">
+						<Param0>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="0" Type="0" />
+						</Param2>
+						<Param3>
+							<TypeDesc Param0="11" />
+							<ParamDesc Flags="49" Value="True" Type="6" />
+						</Param3>
+						<Param4>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="0" Type="0" />
+						</Param4>
+						<ReturnValue Param0="9" />
+					</Child>
+					<Child Name="FindEx" Doc="Returns an object by the values of the specified properties." IsBasic="True" Param0="PropNames" Param1="PropValues" Param2="Depth" Param3="RefreshTree" Param4="Timeout" Data="ZI4L1L4L5K38T9ZN">
+						<Param0>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="1" Type="0" />
+						</Param2>
+						<Param3>
+							<TypeDesc Param0="11" />
+							<ParamDesc Flags="49" Value="True" Type="6" />
+						</Param3>
+						<Param4>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="0" Type="0" />
+						</Param4>
+						<ReturnValue Param0="9" />
+					</Child>
+					<Child Name="FindId" Doc="Returns an object by its ID." IsBasic="True" Param0="Id" Param1="RefreshTree" Data="ZI4L1L4L2K4U9ZN">
+						<Param0>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="11" />
+							<ParamDesc Flags="49" Value="True" Type="6" />
+						</Param1>
+						<ReturnValue Param0="9" />
+					</Child>
+					<Child Name="FullName" Doc="Returns the full name of an object.&#32;&#32;Its full name uniquely identifies an object in the system." IsBasic="True" Data="ZI4L2L4SAU8ZN">
+						<ReturnValue Param0="8" />
+					</Child>
+					<Child Name="GetIDsOfNames" IsBasic="True" Param0="riid" Param1="rgszNames" Param2="cNames" Param3="lcid" Param4="rgdispid" Data="ZI4L1L4L5K28S18ZG1K">
+						<Param0>
+							<TypeDesc Param0="26" Param1="29" Type1="GUID" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="26" Param1="26" Param2="16" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="23" />
+							<ParamDesc Flags="1" />
+						</Param2>
+						<Param3>
+							<TypeDesc Param0="19" />
+							<ParamDesc Flags="1" />
+						</Param3>
+						<Param4>
+							<TypeDesc Param0="26" Param1="3" />
+							<ParamDesc Flags="2" />
+						</Param4>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="GetTypeInfo" IsBasic="True" Param0="itinfo" Param1="lcid" Param2="pptinfo" Data="ZI4L1L4L3K2T18ZG1K">
+						<Param0>
+							<TypeDesc Param0="23" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="19" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="26" Param1="26" Param2="24" />
+							<ParamDesc Flags="2" />
+						</Param2>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="GetTypeInfoCount" IsBasic="True" Param0="pctinfo" Data="ZI4L1L4L1K18S18ZG1K">
+						<Param0>
+							<TypeDesc Param0="26" Param1="23" />
+							<ParamDesc Flags="2" />
+						</Param0>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="Height" Doc="The object&apos;s height in pixels." IsBasic="True" Data="ZI4L2L4S68T3ZN">
+						<ReturnValue Param0="3" />
+					</Child>
+					<Child Name="Id" Doc="Object ID. For processes, the process ID; for windows, the window handle, etc." IsBasic="True" Data="ZI4L2L4S38T3ZN">
+						<ReturnValue Param0="3" />
+					</Child>
+					<Child Name="Invoke" IsBasic="True" Param0="dispidMember" Param1="riid" Param2="lcid" Param3="wFlags" Param4="pdispparams" Param5="pvarResult" Param6="pexcepinfo" Param7="puArgErr" Data="ZI4L1L4L8K3T18ZG1K">
+						<Param0>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="26" Param1="29" Type1="GUID" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="19" />
+							<ParamDesc Flags="1" />
+						</Param2>
+						<Param3>
+							<TypeDesc Param0="18" />
+							<ParamDesc Flags="1" />
+						</Param3>
+						<Param4>
+							<TypeDesc Param0="26" Param1="29" Type1="DISPPARAMS" />
+							<ParamDesc Flags="1" />
+						</Param4>
+						<Param5>
+							<TypeDesc Param0="26" Param1="12" />
+							<ParamDesc Flags="2" />
+						</Param5>
+						<Param6>
+							<TypeDesc Param0="26" Param1="29" Type1="EXCEPINFO" />
+							<ParamDesc Flags="2" />
+						</Param6>
+						<Param7>
+							<TypeDesc Param0="26" Param1="23" />
+							<ParamDesc Flags="2" />
+						</Param7>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="Keys" Doc="Simulates one or several keypresses." IsBasic="True" Param0="Keys" Data="ZI4L1L4L1K8T18ZN">
+						<Param0>
+							<TypeDesc Param0="8" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="MappedName" Doc="Specifies the mapped name of the object." IsBasic="True" Data="ZI4L2L4S9U8ZN">
+						<ReturnValue Param0="8" />
+					</Child>
+					<Child Name="Name" Doc="Object name." IsBasic="True" Data="ZI4L2L4S48T8ZN">
+						<ReturnValue Param0="8" />
+					</Child>
+					<Child Name="Parent" Doc="Parent object." IsBasic="True" Data="ZI4L2L4S5U9ZN">
+						<ReturnValue Param0="9" />
+					</Child>
+					<Child Name="QueryInterface" IsBasic="True" Param0="riid" Param1="ppvObj" Data="ZI4L1L4L2Z018ZG1K">
+						<Param0>
+							<TypeDesc Param0="26" Param1="29" Type1="GUID" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="26" Param1="26" Param2="24" />
+							<ParamDesc Flags="2" />
+						</Param1>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="Refresh" Doc="Updates the internal list of child objects." IsBasic="True" Data="ZI4L1L4S98S18ZN">
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="Release" IsBasic="True" Data="ZI4L1L4S1T13ZG1K">
+						<ReturnValue Param0="19" />
+					</Child>
+					<Child Name="SetFocus" Doc="Sets focus to the specified Window object." IsBasic="True" Data="ZI4L1L4S38S18ZN">
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="Validate" Doc="Generates the OnValidate event." IsBasic="True" Param0="Params" Data="ZI4L1L4L1H1G7T18Z04L">
+						<Param0>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="17" />
+						</Param0>
+						<ReturnValue Param0="24" />
+					</Child>
+					<Child Name="Visible" Doc="Specifies whether an onscreen object is visible to users." IsBasic="True" Data="ZI4L2L4S38TBZN">
+						<ReturnValue Param0="11" />
+					</Child>
+					<Child Name="WaitChild" Doc="Delays script execution until the specified child object appears in the child list or the specified time limit is reached." IsBasic="True" Param0="ChildName" Param1="WaitTime" Data="ZI4L1L4L2K88T9ZN">
+						<Param0>
+							<TypeDesc Param0="8" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="0" Type="0" />
+						</Param1>
+						<ReturnValue Param0="9" />
+					</Child>
+					<Child Name="WaitProperty" Doc="Delays the script execution until the specified property equals the specified value or until the specified time limit elapses." IsBasic="True" Param0="PropertyName" Param1="PropertyValue" Param2="WaitTime" Data="ZI4L1L4L3KBUBZN">
+						<Param0>
+							<TypeDesc Param0="8" />
+							<ParamDesc Flags="1" />
+						</Param0>
+						<Param1>
+							<TypeDesc Param0="12" />
+							<ParamDesc Flags="1" />
+						</Param1>
+						<Param2>
+							<TypeDesc Param0="3" />
+							<ParamDesc Flags="49" Value="-1" Type="0" />
+						</Param2>
+						<ReturnValue Param0="11" />
+					</Child>
+					<Child Name="Width" Doc="The object&apos;s width in pixels." IsBasic="True" Data="ZI4L2L4S6U3ZN">
+						<ReturnValue Param0="3" />
+					</Child>
+					<Child Name="WndCaption" Doc="Returns the window&apos;s caption." IsBasic="True" Data="ZI4L2L4SAU8ZN">
+						<ReturnValue Param0="8" />
 					</Child>
 				</FunctionDescriptions>
 			</Data>
