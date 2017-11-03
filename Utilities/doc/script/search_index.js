@@ -1,6 +1,6 @@
 window.esdocSearchIndex = [
   [
-    "./src/nov_actions.js~closenotepad~<p>nov_actions - closes the application</p>\nverify~<p>verifies that the app is open and visible</p>\nclick~<p>uses clicks to close notepad if true, otherwises uses keyboard shortcuts</p>\n",
+    "./src/nov_actions.js~closenotepad~<p>nov_actions - closes the application</p>\nverify~<p>verifies that the app is open and visible</p>\nclick~<p>uses clicks to close notepad if true, otherwises uses keyboard shortcuts</p>\nbypasssavedialog~<p>if true clicks don&#39;t save if the save dialog exists</p>\n",
     "function/index.html#static-function-closeNotePad",
     "<span>closeNotePad</span> <span class=\"search-result-import-path\">./src/NOV_ACTIONS.js</span> <span><p>NOV_ACTIONS - closes the application</p>\n</span>",
     "function"
@@ -24,7 +24,7 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "./src/nov_data.js~gettestdata~<p>nov_data - obtains test data of a specific type</p>\ntype~undefined",
+    "./src/nov_data.js~gettestdata~<p>nov_data - obtains test data of a specific type</p>\ntype~<p><span><a href=\"variable/index.html#static-variable-testdatatypes\">testdatatypes</a></span></p>\n",
     "function/index.html#static-function-getTestData",
     "<span>getTestData</span> <span class=\"search-result-import-path\">./src/NOV_DATA.js</span> <span><p>NOV_DATA - Obtains test data of a specific type</p>\n</span>",
     "function"
@@ -33,6 +33,12 @@ window.esdocSearchIndex = [
     "./src/nov_utilities.js~indentlog~<p>nov_utilities - adds a new log folder and indents all further actions</p>\nsmessage~<p>the message for the folder</p>\n",
     "function/index.html#static-function-indentLog",
     "<span>indentLog</span> <span class=\"search-result-import-path\">./src/NOV_UTILITIES.js</span> <span><p>NOV_UTILITIES - adds a new log folder and indents all further actions</p>\n</span>",
+    "function"
+  ],
+  [
+    "./src/nov_actions.js~inputtestdata~<p>nov_actions - inputs data from a test data object</p>\ndata~<p>the data to input / verify</p>\nclear~<p>if true clears the text first</p>\nnewline~<p>if true automatically enters a new line after each test data input</p>\nverify~<p>if true verifies the app accepts input properly</p>\n",
+    "function/index.html#static-function-inputTestData",
+    "<span>inputTestData</span> <span class=\"search-result-import-path\">./src/NOV_ACTIONS.js</span> <span><p>NOV_ACTIONS - inputs data from a test data object</p>\n</span>",
     "function"
   ],
   [
@@ -96,7 +102,7 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "./src/nov_actions.js~opennotepad~<p>nov_actions - opens the application</p>\nverify~<p>verifies that the app is open and visible</p>\n",
+    "./src/nov_actions.js~opennotepad~<p>nov_actions - opens the application</p>\nverify~<p>verifies that the app is open and visible</p>\nrestart~<p>restarts the app before attempting to open</p>\n",
     "function/index.html#static-function-openNotePad",
     "<span>openNotePad</span> <span class=\"search-result-import-path\">./src/NOV_ACTIONS.js</span> <span><p>NOV_ACTIONS - opens the application</p>\n</span>",
     "function"
@@ -105,6 +111,12 @@ window.esdocSearchIndex = [
     "./src/nov_utilities.js~outdentlog~<p>nov_utilities - closes the last log indention</p>\nsmessage~<p>the finished message</p>\n",
     "function/index.html#static-function-outdentLog",
     "<span>outdentLog</span> <span class=\"search-result-import-path\">./src/NOV_UTILITIES.js</span> <span><p>NOV_UTILITIES - Closes the last log indention</p>\n</span>",
+    "function"
+  ],
+  [
+    "./src/nov_actions.js~savedialog~<p>nov_actions - performs actions and verfies the save dialog existence </p>\nselectoption~<p>which option to select, save, don&#39;tsave or cancel</p>\nclick~<p>uses clicks to otherwises uses keyboard shortcuts. only click is supported currently</p>\nverifyexists~<p>verfies the dialog actually exists</p>\n",
+    "function/index.html#static-function-saveDialog",
+    "<span>saveDialog</span> <span class=\"search-result-import-path\">./src/NOV_ACTIONS.js</span> <span><p>NOV_ACTIONS - performs actions and verfies the save dialog existence </p>\n</span>",
     "function"
   ],
   [
@@ -534,21 +546,21 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/nov_data.js~testdata#firstname",
-    "class/src/NOV_DATA.js~testData.html#instance-member-firstName",
-    "src/NOV_DATA.js~testData#firstName",
+    "src/nov_data.js~testdata#id",
+    "class/src/NOV_DATA.js~testData.html#instance-member-id",
+    "src/NOV_DATA.js~testData#id",
     "member"
   ],
   [
-    "src/nov_data.js~testdata#lastname",
-    "class/src/NOV_DATA.js~testData.html#instance-member-lastName",
-    "src/NOV_DATA.js~testData#lastName",
+    "src/nov_data.js~testdata#inputdata",
+    "class/src/NOV_DATA.js~testData.html#instance-member-inputData",
+    "src/NOV_DATA.js~testData#inputData",
     "member"
   ],
   [
-    "src/nov_data.js~testdata#message",
-    "class/src/NOV_DATA.js~testData.html#instance-member-message",
-    "src/NOV_DATA.js~testData#message",
+    "src/nov_data.js~testdata#type",
+    "class/src/NOV_DATA.js~testData.html#instance-member-type",
+    "src/NOV_DATA.js~testData#type",
     "member"
   ],
   [

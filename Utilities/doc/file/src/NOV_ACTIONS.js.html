@@ -34,8 +34,10 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_ACTIONS.js~navOption.html">navOption</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_DATA.js~testData.html">testData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeNotePad">closeNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inputTestData">inputTestData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-menuNavigation">menuNavigation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-openNotePad">openNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveDialog">saveDialog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getTestData">getTestData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-test">test</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogError">onLogError</a></span></span></li>
@@ -73,10 +75,15 @@ const NOV_UTILITIES = require(&quot;NOV_UTILITIES&quot;);
  * @function
  * @author [CBU]
  * @param {boolean} [verify=true] - verifies that the app is open and visible
+ * @param {boolean} [restart=true] - Restarts the app before attempting to open
  */
-function openNotePad(verify = true) {
+function openNotePad(verify = true, restart = true) {
   NOV_UTILITIES.indentLog(&quot;Opening Notepad&quot;);
-  TestedApps.Items(0).Run();
+  if(restart &amp;&amp; Aliases.appNotead.Exists) {
+    Aliases.appNotead.Terminate();
+  }
+  TestedApps.Items(0)
+    .Run();
   // waits for up to ten seconds for the app to load
   Aliases.appNotead.WaitProperty(&quot;Exists&quot;, true, 10000)
   if(verify) {
@@ -94,10 +101,14 @@ function openNotePad(verify = true) {
  * @author [CBU]
  * @param {boolean} [verify=true] - verifies that the app is open and visible
  * @param {boolean} [click=true] - uses clicks to close notepad if true, otherwises uses keyboard shortcuts
+ * @param {boolean} [bypassSaveDialog=true] - if true clicks don&apos;t save if the save dialog exists
  */
-function closeNotePad(verify = true, click = true) {
+function closeNotePad(verify = true, click = true, bypassSaveDialog= true) {
   NOV_UTILITIES.indentLog(&quot;Closing Notepad&quot;);
   menuNavigation(&quot;exit&quot;, click);
+  if(bypassSaveDialog &amp;&amp; Aliases.appNotead.saveDialog.Exists) {
+    saveDialog(&quot;dontSave&quot;,click);
+  }
   // waits for up to ten seconds for the app to load  
   if(verify) {
     Log.Message(&quot;Verifying that Notepad closed gracefully.&quot;);
@@ -197,7 +208,91 @@ function menuNavigation(option, click) {
     NOV_UTILITIES.outdentLog();
   }
 }
-</code></pre>
+
+/**
+ * NOV_ACTIONS - inputs data from a test data object
+ * @param {testData} data - the data to input / verify
+ * @param {boolean} clear - if true clears the text first
+ * @param {boolean} newLine - if true automatically enters a new line after each test data input
+ * @param {boolean} verify - if true verifies the app accepts input properly
+ */
+function inputTestData(data, clear = true, newLine = true, verify = false) {
+  NOV_UTILITIES.indentLog(&quot;Inputing Test Data&quot;);
+  try {
+    const editField = Aliases.appNotead.editField;
+    // we need to check the types of clear and new line so we can convert to boolean if it&apos;s a string passed in
+    // this will allow us to use the built in test complete data driven loop
+    if(typeof (clear) !== &quot;boolean&quot;) {
+      clear = clear == &quot;true&quot;;
+    }
+    if(typeof (clear) !== &quot;boolean&quot;) {
+      newLine = newLine == &quot;true&quot;;
+    }
+    let expectedText = &quot;&quot;;
+    // check if we&apos;re clearing the text field, if not then we need to grab the current value for the expected text
+    if(!clear) {
+      expectedText += editField.wText;
+    } else {
+      editField.SetText(&quot;&quot;);
+    }
+    for(var key in data.inputData) {
+      if(data.inputData[key] !== undefined) {
+        editField.Keys(data.inputData[key]);
+        expectedText += data.inputData[key];
+        if(newLine) {
+          editField.Keys(&quot;[Enter]&quot;);
+          // new line character
+          expectedText += &quot;\r\n&quot;
+        }
+      }
+    }
+    if(verify) {
+      Log.Message(&quot;Verify that the edit field matches input&quot;);
+      aqObject.CheckProperty(editField, &quot;wText&quot;, cmpEqual, expectedText);
+    }
+  } catch(err) {
+    Log.Error(&quot;FATAL: Error occured inputting data. See additional information&quot;, err.message + &quot;\n&quot; + err.stack);
+  } finally {
+    NOV_UTILITIES.outdentLog();
+    return data;
+  }
+}
+
+/**
+ * NOV_ACTIONS - performs actions and verfies the save dialog existence 
+ * @function
+ * @author [CBU]
+ * @param {string} selectOption - which option to select, save, don&apos;tsave or cancel
+ * @param {boolean} [click=true] - uses clicks to otherwises uses keyboard shortcuts. only click is supported currently
+ * @param {boolean} [verifyExists] - verfies the dialog actually exists
+ */
+function saveDialog(selectOption, click=true, verifyExists) {
+  const dialog = Aliases.appNotead.saveDialog;
+  NOV_UTILITIES.indentLog(&quot;Selecting Save Dialog Option: &quot; + selectOption);
+  if(verifyExists) {
+    Log.Message(&quot;Verify Save Dialog Exists&quot;);
+    aqObject.CheckProperty(dialog, &quot;Exists&quot;, cmpEqual, true);
+    aqObject.CheckProperty(dialog, &quot;VisibleOnScreen&quot;, cmpEqual, true);
+  }
+  switch(selectOption) {
+    case &quot;save&quot; :
+      Log.Message(&quot;Clicking Save Button&quot;);
+      dialog.btnSave.Click();
+      break;
+    case &quot;dontSave&quot; :
+      Log.Message(&quot;Clicking Don&apos;t Save Button&quot;);
+      dialog.btnDontSave.Click();
+      break;
+    case &quot;cancel&quot; :
+      Log.Message(&quot;Clicking Cancel Button&quot;);
+      dialog.btnCancel.Click();
+      break;
+    case &quot;none&quot; :
+      Log.Message(&quot;No Action Performed&quot;);
+      break;
+  }
+  NOV_UTILITIES.outdentLog();
+}</code></pre>
 
 </div>
 

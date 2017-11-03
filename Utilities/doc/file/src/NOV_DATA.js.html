@@ -34,8 +34,10 @@
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_ACTIONS.js~navOption.html">navOption</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/NOV_DATA.js~testData.html">testData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-closeNotePad">closeNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-inputTestData">inputTestData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-menuNavigation">menuNavigation</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-openNotePad">openNotePad</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-saveDialog">saveDialog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getTestData">getTestData</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-test">test</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-onLogError">onLogError</a></span></span></li>
@@ -75,8 +77,8 @@ const NOV_UTILITIES = require(&quot;NOV_UTILITIES&quot;);
  */
 const testDataTypes = {
   person: &quot;select * from [nov$] where type = &apos;person&apos;&quot;,
-  company: &quot;select * from [nov$] where type = &apos;product&apos;&quot;,
-  product: &quot;select * from [nov$] where type = &apos;type&apos;&quot;
+  company: &quot;select * from [nov$] where type = &apos;company&apos;&quot;,
+  product: &quot;select * from [nov$] where type = &apos;product&apos;&quot;
 }
 
 /**
@@ -91,22 +93,32 @@ class testData {
    * @param {string} message - the message to type / verify
    * @param {string} fileName - the file name to save to
    */
-  constructor(firstName, lastName, message, fileName) {
+  constructor(id, type, firstName, lastName, message, fileName) {
+    /**
+     * @type {number}
+     */
+    this.id = id;
     /**
      * @type {string}
      */
-    this.firstName = firstName;
+    this.type = type;
     /**
-     * @type {string}
+     * @type {object}
      */
-    this.lastName = lastName;
-    /**
-     * @type {string}
-     */
-    this.message = message;
-    /**
-     * @type {string}
-     */
+    this.inputData = {
+      /**
+       * @type {string}
+       */
+      firstName: firstName == null ? &quot;&quot; : firstName,
+      /**
+       * @type {string}
+       */
+      lastName: lastName == null ? &quot;&quot; : lastName,
+      /**
+       * @type {string}
+       */
+      message: message == null ? &quot;&quot; : message
+    }
     this.fileName = fileName;
   }
 }
@@ -115,6 +127,8 @@ class testData {
  * NOV_DATA - Obtains test data of a specific type
  * @function 
  * @author [CBU]
+ * @param {string} type - {@link testDataTypes}
+ * @return {testData} - data
  */
 function getTestData(type) {
   NOV_UTILITIES.indentLog(&quot;Getting Test Data Type: &quot; + type);
@@ -132,6 +146,8 @@ function getTestData(type) {
       data = new testData(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;);
     } else {
       data = new testData(
+        rs.Fields.Item(0)
+        .Value,
         rs.Fields.Item(1)
         .Value,
         rs.Fields.Item(2)
@@ -140,9 +156,12 @@ function getTestData(type) {
         .Value,
         rs.Fields.Item(4)
         .Value,
+        rs.Fields.Item(5)
+        .Value,
       );
     }
-    NOV_UTILITIES.logObject(data,&quot;See additional information for the test data.&quot;)
+    NOV_UTILITIES.logObject(data, &quot;See additional information for the test data.&quot;);
+    NOV_UTILITIES.logObject(data.inputData, &quot;See additional information for the test input data.&quot;);
   } catch(err) {
     Log.Error(&quot;FATAL: Error occured getting test data. See additional information&quot;, err.message + &quot;\n&quot; + err.stack);
   } finally {
@@ -153,8 +172,7 @@ function getTestData(type) {
 
 function test() {
   getTestData(&quot;person&quot;)
-}
-</code></pre>
+}</code></pre>
 
 </div>
 

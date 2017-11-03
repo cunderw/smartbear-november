@@ -13,8 +13,8 @@ const NOV_UTILITIES = require("NOV_UTILITIES");
  */
 const testDataTypes = {
   person: "select * from [nov$] where type = 'person'",
-  company: "select * from [nov$] where type = 'product'",
-  product: "select * from [nov$] where type = 'type'"
+  company: "select * from [nov$] where type = 'company'",
+  product: "select * from [nov$] where type = 'product'"
 }
 
 /**
@@ -29,22 +29,32 @@ class testData {
    * @param {string} message - the message to type / verify
    * @param {string} fileName - the file name to save to
    */
-  constructor(firstName, lastName, message, fileName) {
+  constructor(id, type, firstName, lastName, message, fileName) {
+    /**
+     * @type {number}
+     */
+    this.id = id;
     /**
      * @type {string}
      */
-    this.firstName = firstName;
+    this.type = type;
     /**
-     * @type {string}
+     * @type {object}
      */
-    this.lastName = lastName;
-    /**
-     * @type {string}
-     */
-    this.message = message;
-    /**
-     * @type {string}
-     */
+    this.inputData = {
+      /**
+       * @type {string}
+       */
+      firstName: firstName == null ? "" : firstName,
+      /**
+       * @type {string}
+       */
+      lastName: lastName == null ? "" : lastName,
+      /**
+       * @type {string}
+       */
+      message: message == null ? "" : message
+    }
     this.fileName = fileName;
   }
 }
@@ -53,6 +63,8 @@ class testData {
  * NOV_DATA - Obtains test data of a specific type
  * @function 
  * @author [CBU]
+ * @param {string} type - {@link testDataTypes}
+ * @return {testData} - data
  */
 function getTestData(type) {
   NOV_UTILITIES.indentLog("Getting Test Data Type: " + type);
@@ -70,6 +82,8 @@ function getTestData(type) {
       data = new testData("", "", "", "");
     } else {
       data = new testData(
+        rs.Fields.Item(0)
+        .Value,
         rs.Fields.Item(1)
         .Value,
         rs.Fields.Item(2)
@@ -78,9 +92,12 @@ function getTestData(type) {
         .Value,
         rs.Fields.Item(4)
         .Value,
+        rs.Fields.Item(5)
+        .Value,
       );
     }
-    NOV_UTILITIES.logObject(data,"See additional information for the test data.")
+    NOV_UTILITIES.logObject(data, "See additional information for the test data.");
+    NOV_UTILITIES.logObject(data.inputData, "See additional information for the test input data.");
   } catch(err) {
     Log.Error("FATAL: Error occured getting test data. See additional information", err.message + "\n" + err.stack);
   } finally {
