@@ -50,6 +50,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startNotePadTest">startNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stopNotePadTest">stopNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEnv">getEnv</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getNumEnabledTests">getNumEnabledTests</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-indentLog">indentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
@@ -320,11 +321,13 @@ function saveToFile(nav = true, newFile = true, data, click = true, verify = tru
   NOV_UTILITIES.indentLog(&quot;Saving File To: &quot; + fullPath);
   if(nav) {
     menuNavigation(&quot;save&quot;, click);
-  }  
-  // example of using findchild as opposed to name mapping
-  let pathField = Aliases.appNotead.saveDialog.FindChildEx(&quot;WndClass&quot;,&quot;Edit&quot;,10,true,10000);
-  pathField.SetText(fullFilePath);
-  saveDialog(&quot;save&quot;,click);
+  }   
+  if(newFile) {
+    // example of using findchild as opposed to name mapping
+    let pathField = Aliases.appNotead.saveDialog.FindChildEx(&quot;WndClass&quot;,&quot;Edit&quot;,10,true,10000);
+    pathField.SetText(fullFilePath);
+    saveDialog(&quot;save&quot;,click);
+  }
   data.fullFilePath = fullFilePath;
   if(verify) {
     Log.Message(&quot;Verify File Is Created On Save&quot;);

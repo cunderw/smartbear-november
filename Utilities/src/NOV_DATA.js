@@ -28,8 +28,9 @@ class testData {
    * @param {string} lastName - the last name to type / verify
    * @param {string} message - the message to type / verify
    * @param {string} fileName - the file name to save to
+   * @param {string} newMessage - the new messaage
    */
-  constructor(id, type, firstName, lastName, message, fileName) {
+  constructor(id, type, firstName, lastName, message, fileName, newMessage) {
     /**
      * @type {number}
      */
@@ -53,7 +54,11 @@ class testData {
       /**
        * @type {string}
        */
-      message: message == null ? "" : message
+      message: message == null ? "" : message,
+      /**
+       * @type {string}
+       */
+      newMessage: newMessage == null ? "" : newMessage
     }
     /**
      * @type {string}
@@ -121,6 +126,8 @@ function getTestData(type) {
         rs.Fields.Item(4)
         .Value,
         rs.Fields.Item(5)
+        .Value,
+        rs.Fields.Item(6)
         .Value,
       );
     }

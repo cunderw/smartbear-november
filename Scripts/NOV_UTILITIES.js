@@ -19,6 +19,7 @@ const configFilePaths = {
  * @param {string} sMessage -the message for the folder
  */
 function indentLog(sMessage) {
+  Indicator.PushText(Indicator.Text + " - " + sMessage);
   var oAttr;
   oAttr = Log.CreateNewAttributes();
   oAttr.Bold = true;
@@ -33,6 +34,7 @@ function indentLog(sMessage) {
  * @param {string} [sMessage=Finished] -the finished message
  */
 function outdentLog(sMessage) {
+  Indicator.PopText();
   if(sMessage == undefined || sMessage == null) {
     sMessage = "Finished";
   }
@@ -67,6 +69,59 @@ function logObject(obj, msg) {
   }
 }
 
+/**
+ * NOV_UTILITIES - Loops through all test items and their children recursivle and determines if they're enabled
+ * @Author {CU}
+ * @function
+ * @param {object} testItems - test complete test items object
+ * @return {number} enabledCount - the number of enabled test items
+ */
+function getNumEnabledTests(testItems) {
+  if(getNumEnabledTests.enabledCount == undefined) {
+    getNumEnabledTests.enabledCount = 0;
+  }
+  var itemCount = testItems.ItemCount;
+  for(var i = 0; i < itemCount; i++) {
+    if(testItems.TestItem(i)
+      .Enabled) {
+      if(testItems.TestItem(i)
+        .ElementToBeRun != null) {
+        getNumEnabledTests.enabledCount++;
+      }
+      if(testItems.TestItem(i)
+        .ItemCount != 0) {
+        getNumEnabledTests(testItems.TestItem(i));
+      }
+    }
+  }
+  return getNumEnabledTests.enabledCount;
+}
+
+/**
+ * NOV_UTILITIES - exports current project logs as an html page
+ * @function
+ * @ignore
+ * @author [CBU]
+ * @param {string} path -where to export them
+ */
+function exportLogs(path) {
+  indentLog("Exporting Logs To " + path);
+  Indicator.PushText("Exporting Logs");
+  var folder = path;
+  if(0 != aqFileSystem.CreateFolder(folder)) {
+    Log.Error("The " + folder + " temp folder was not created");
+    Indicator.Clear();
+    return "";
+  }
+  if(!Log.SaveResultsAs(folder, lsHTML, true, 0)) {
+    Log.Error("Log was not exported to the " + folder + " temp folder");
+    Indicator.Clear();
+    return "";
+  }
+  Indicator.Clear();
+  outdentLog();
+  return folder;
+}
 ///////////////////////////////////////////////
 // environment utilities
 //////////////////////////////////////////////
@@ -140,3 +195,5 @@ module.exports.indentLog = indentLog;
 module.exports.outdentLog = outdentLog;
 module.exports.logObject = logObject;
 module.exports.setUpEnvironment = setUpEnvironment;
+module.exports.getNumEnabledTests = getNumEnabledTests;
+module.exports.exportLogs = exportLogs;

@@ -50,6 +50,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startNotePadTest">startNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stopNotePadTest">stopNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEnv">getEnv</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getNumEnabledTests">getNumEnabledTests</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-indentLog">indentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
@@ -85,6 +86,7 @@ const configFilePaths = {
  * @param {string} sMessage -the message for the folder
  */
 function indentLog(sMessage) {
+  Indicator.PushText(Indicator.Text + &quot; - &quot; + sMessage);
   var oAttr;
   oAttr = Log.CreateNewAttributes();
   oAttr.Bold = true;
@@ -99,6 +101,7 @@ function indentLog(sMessage) {
  * @param {string} [sMessage=Finished] -the finished message
  */
 function outdentLog(sMessage) {
+  Indicator.PopText();
   if(sMessage == undefined || sMessage == null) {
     sMessage = &quot;Finished&quot;;
   }
@@ -133,6 +136,59 @@ function logObject(obj, msg) {
   }
 }
 
+/**
+ * NOV_UTILITIES - Loops through all test items and their children recursivle and determines if they&apos;re enabled
+ * @Author {CU}
+ * @function
+ * @param {object} testItems - test complete test items object
+ * @return {number} enabledCount - the number of enabled test items
+ */
+function getNumEnabledTests(testItems) {
+  if(getNumEnabledTests.enabledCount == undefined) {
+    getNumEnabledTests.enabledCount = 0;
+  }
+  var itemCount = testItems.ItemCount;
+  for(var i = 0; i &lt; itemCount; i++) {
+    if(testItems.TestItem(i)
+      .Enabled) {
+      if(testItems.TestItem(i)
+        .ElementToBeRun != null) {
+        getNumEnabledTests.enabledCount++;
+      }
+      if(testItems.TestItem(i)
+        .ItemCount != 0) {
+        getNumEnabledTests(testItems.TestItem(i));
+      }
+    }
+  }
+  return getNumEnabledTests.enabledCount;
+}
+
+/**
+ * NOV_UTILITIES - exports current project logs as an html page
+ * @function
+ * @ignore
+ * @author [CBU]
+ * @param {string} path -where to export them
+ */
+function exportLogs(path) {
+  indentLog(&quot;Exporting Logs To &quot; + path);
+  Indicator.PushText(&quot;Exporting Logs&quot;);
+  var folder = path;
+  if(0 != aqFileSystem.CreateFolder(folder)) {
+    Log.Error(&quot;The &quot; + folder + &quot; temp folder was not created&quot;);
+    Indicator.Clear();
+    return &quot;&quot;;
+  }
+  if(!Log.SaveResultsAs(folder, lsHTML, true, 0)) {
+    Log.Error(&quot;Log was not exported to the &quot; + folder + &quot; temp folder&quot;);
+    Indicator.Clear();
+    return &quot;&quot;;
+  }
+  Indicator.Clear();
+  outdentLog();
+  return folder;
+}
 ///////////////////////////////////////////////
 // environment utilities
 //////////////////////////////////////////////
@@ -205,7 +261,9 @@ function setUpEnvironment() {
 module.exports.indentLog = indentLog;
 module.exports.outdentLog = outdentLog;
 module.exports.logObject = logObject;
-module.exports.setUpEnvironment = setUpEnvironment;</code></pre>
+module.exports.setUpEnvironment = setUpEnvironment;
+module.exports.getNumEnabledTests = getNumEnabledTests;
+module.exports.exportLogs = exportLogs;</code></pre>
 
 </div>
 

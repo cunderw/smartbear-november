@@ -50,6 +50,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startNotePadTest">startNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stopNotePadTest">stopNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEnv">getEnv</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getNumEnabledTests">getNumEnabledTests</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-indentLog">indentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
@@ -116,6 +117,34 @@
         
         
         <div data-ice="description"><p>NOV_UTILITIES - Gets the environment we are currently running on</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="function/index.html#static-function-getNumEnabledTests">getNumEnabledTests</a></span></span><span data-ice="signature">(testItems: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>NOV_UTILITIES - Loops through all test items and their children recursivle and determines if they&apos;re enabled</p>
 </div>
       </div>
     </td>
@@ -773,7 +802,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber79">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber134">source</a></span></span>
     </span>
   </h3>
 
@@ -819,6 +848,80 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-getNumEnabledTests">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span data-ice="name">getNumEnabledTests</span><span data-ice="signature">(testItems: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber79">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>NOV_UTILITIES - Loops through all test items and their children recursivle and determines if they&apos;re enabled</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">testItems</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>test complete test items object</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>enabledCount - the number of enabled test items</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-function-getTestData">
     <span class="access" data-ice="access">public</span>
     
@@ -830,7 +933,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_DATA.js.html#lineNumber97">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_DATA.js.html#lineNumber102">source</a></span></span>
     </span>
   </h3>
 
@@ -1060,7 +1163,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber52">source</a></span></span>
     </span>
   </h3>
 
@@ -1197,7 +1300,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber57">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber76">source</a></span></span>
     </span>
   </h3>
 
@@ -1265,7 +1368,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber84">source</a></span></span>
     </span>
   </h3>
 
@@ -1330,7 +1433,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber80">source</a></span></span>
     </span>
   </h3>
 
@@ -1395,7 +1498,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber73">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber92">source</a></span></span>
     </span>
   </h3>
 
@@ -1472,7 +1575,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber69">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber88">source</a></span></span>
     </span>
   </h3>
 
@@ -1537,7 +1640,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber77">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber96">source</a></span></span>
     </span>
   </h3>
 
@@ -1678,7 +1781,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber35">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
@@ -1922,7 +2025,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber98">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_UTILITIES.js.html#lineNumber153">source</a></span></span>
     </span>
   </h3>
 
@@ -2027,7 +2130,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber41">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_EVENTS.js.html#lineNumber52">source</a></span></span>
     </span>
   </h3>
 
@@ -2088,7 +2191,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/NOV_DATA.js.html#lineNumber137">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/NOV_DATA.js.html#lineNumber144">source</a></span></span>
     </span>
   </h3>
 

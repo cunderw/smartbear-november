@@ -50,6 +50,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-startNotePadTest">startNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stopNotePadTest">stopNotePadTest</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getEnv">getEnv</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getNumEnabledTests">getNumEnabledTests</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-indentLog">indentLog</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-logObject">logObject</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-outdentLog">outdentLog</a></span></span></li>
@@ -90,6 +91,17 @@ function startNotePadTest(Sender) {
       if(!aqFileSystem.Exists(Project.Path + &quot;testResults\\&quot;)) {
         aqFileSystem.CreateFolder(Project.Path + &quot;testResults\\&quot;);
       }
+      if(!Project.Variables.VariableExists(&quot;ENABLED_COUNT&quot;)) {
+        Project.Variables.AddVariable(&quot;ENABLED_COUNT&quot;, &quot;Integer&quot;);
+        Project.Variables.ENABLED_COUNT = NOV_UTILITIES.getNumEnabledTests(Project.TestItems);
+      }
+      if(!Project.Variables.VariableExists(&quot;RUN_COUNT&quot;)) {
+        Project.Variables.AddVariable(&quot;RUN_COUNT&quot;, &quot;Integer&quot;);
+        Project.Variables.RUN_COUNT = 0;
+      }
+      if(Project.TestItems.Current != undefined) {
+        Indicator.PushText(Project.TestItems.Current.Name);
+      }
     }
   } catch(err) {
     Log.Error(&quot;FATAL: Error occured starting the test. See additional information&quot;, err.message + &quot;\n&quot; + err.stack);
@@ -110,6 +122,14 @@ function stopNotePadTest(Sender) {
   if(aqFileSystem.Exists(Project.Path + &quot;testResults\\&quot;)) {  
     aqFileSystem.DeleteFolder(Project.Path + &quot;testResults\\&quot;,true);    
   }
+  Project.Variables.RUN_COUNT++;
+  if(Project.Variables.RUN_COUNT == Project.Variables.ENABLED_COUNT) {
+    Log.Message(&quot;All tests have ran. Exporting logs.&quot;);
+    NOV_UTILITIES.exportLogs(Project.Path + Math.round(Math.random() * (999 - 1) + 1) + &quot;\\&quot;);
+    Project.Variables.RemoveVariable(&quot;RUN_COUNT&quot;);
+    Project.Variables.RemoveVariable(&quot;ENABLED_COUNT&quot;);
+  }
+  Indicator.Clear();
   NOV_UTILITIES.outdentLog();
 }
 

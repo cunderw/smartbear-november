@@ -24,6 +24,17 @@ function startNotePadTest(Sender) {
       if(!aqFileSystem.Exists(Project.Path + "testResults\\")) {
         aqFileSystem.CreateFolder(Project.Path + "testResults\\");
       }
+      if(!Project.Variables.VariableExists("ENABLED_COUNT")) {
+        Project.Variables.AddVariable("ENABLED_COUNT", "Integer");
+        Project.Variables.ENABLED_COUNT = NOV_UTILITIES.getNumEnabledTests(Project.TestItems);
+      }
+      if(!Project.Variables.VariableExists("RUN_COUNT")) {
+        Project.Variables.AddVariable("RUN_COUNT", "Integer");
+        Project.Variables.RUN_COUNT = 0;
+      }
+      if(Project.TestItems.Current != undefined) {
+        Indicator.PushText(Project.TestItems.Current.Name);
+      }
     }
   } catch(err) {
     Log.Error("FATAL: Error occured starting the test. See additional information", err.message + "\n" + err.stack);
@@ -44,6 +55,14 @@ function stopNotePadTest(Sender) {
   if(aqFileSystem.Exists(Project.Path + "testResults\\")) {  
     aqFileSystem.DeleteFolder(Project.Path + "testResults\\",true);    
   }
+  Project.Variables.RUN_COUNT++;
+  if(Project.Variables.RUN_COUNT == Project.Variables.ENABLED_COUNT) {
+    Log.Message("All tests have ran. Exporting logs.");
+    NOV_UTILITIES.exportLogs(Project.Path + Math.round(Math.random() * (999 - 1) + 1) + "\\");
+    Project.Variables.RemoveVariable("RUN_COUNT");
+    Project.Variables.RemoveVariable("ENABLED_COUNT");
+  }
+  Indicator.Clear();
   NOV_UTILITIES.outdentLog();
 }
 
@@ -55,7 +74,7 @@ function stopNotePadTest(Sender) {
  * @param {object} LogParams - The Built In Test Complete log paramters object for attribute manipulation
  */
 function onLogError(Sender, LogParams) {
-
+  // add code here to send an email on an error
 }
 
 function onLogWarning(Sender, LogParams) {

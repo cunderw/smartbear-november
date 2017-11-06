@@ -3,7 +3,7 @@
     "__docId__": 0,
     "kind": "file",
     "name": "src/NOV_ACTIONS.js",
-    "content": "﻿///////////////////////////////////////////////\r\n// main app utilities\r\n//////////////////////////////////////////////\r\n/**\r\n * @ignore\r\n */\r\nconst NOV_UTILITIES = require(\"NOV_UTILITIES\");\r\n\r\n/**\r\n * NOV_ACTIONS - opens the application\r\n * @function\r\n * @author [CBU]\r\n * @param {boolean} [verify=true] - verifies that the app is open and visible\r\n * @param {boolean} [restart=true] - Restarts the app before attempting to open\r\n */\r\nfunction openNotePad(verify = true, restart = true) {\r\n  NOV_UTILITIES.indentLog(\"Opening Notepad\");\r\n  if(restart && Aliases.appNotead.WaitProperty(\"Exists\", true, 2000)) {\r\n    Aliases.appNotead.Terminate();\r\n  }\r\n  TestedApps.Items(0)\r\n    .Run();\r\n  // waits for up to ten seconds for the app to load\r\n  Aliases.appNotead.WaitProperty(\"Exists\", true, 10000)\r\n  if(verify) {\r\n    Log.Message(\"Verifying that Notepad is running and on screen\");\r\n    aqObject.CheckProperty(Aliases.appNotead, \"Exists\", cmpEqual, true);\r\n    aqObject.CheckProperty(Aliases.appNotead.mainWindow, \"Exists\", cmpEqual, true);\r\n    aqObject.CheckProperty(Aliases.appNotead.mainWindow, \"VisibleOnScreen\", cmpEqual, true);\r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - closes the application\r\n * @function\r\n * @author [CBU]\r\n * @param {boolean} [verify=true] - verifies that the app is open and visible\r\n * @param {boolean} [click=true] - uses clicks to close notepad if true, otherwises uses keyboard shortcuts\r\n * @param {boolean} [bypassSaveDialog=true] - if true clicks don't save if the save dialog exists\r\n */\r\nfunction closeNotePad(verify = true, click = true, bypassSaveDialog = true) {\r\n  NOV_UTILITIES.indentLog(\"Closing Notepad\");\r\n  menuNavigation(\"exit\", click);\r\n  if(bypassSaveDialog && Aliases.appNotead.WaitProperty(\"Exists\", true, 2000)) {\r\n    if(Aliases.appNotead.saveDialog.WaitProperty(\"Exists\", true, 2000)) {\r\n      saveDialog(\"dontSave\", click);\r\n    }\r\n  }\r\n  // waits for up to ten seconds for the app to load  \r\n  if(verify) {\r\n    Log.Message(\"Verifying that Notepad closed gracefully.\");\r\n    aqObject.CheckProperty(Aliases.appNotead, \"Exists\", cmpEqual, false);\r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n}\r\n\r\n///////////////////////////////////////////////\r\n// navigation utilities\r\n//////////////////////////////////////////////\r\n\r\n/**\r\n * NOV_ACTIONS - Represents a navigation option for our application\r\n * @class\r\n * @author [CBU]\r\n */\r\nclass navOption {\r\n  /**\r\n   * @param {string} root - the root menu, File, Edit, etc...\r\n   * @param {string} option - the secondary option\r\n   * @param {string} [keys] - optional keyboard shortcut if the menu item supports it\r\n   */\r\n  constructor(root, option, keys) {\r\n    /**\r\n     * the root menu, File, Edit, etc...\r\n     * @type {string}\r\n     */\r\n    this.root = root;\r\n    /**\r\n     * the secondary option\r\n     * @type {string}\r\n     */\r\n    this.option = option;\r\n    /**\r\n     * optional keyboard shortcut if the menu item supports it\r\n     * @type {string}\r\n     */\r\n    this.keys = keys;\r\n    /**\r\n     * the full combined path of. root|path\r\n     * @type {string}\r\n     */\r\n    this.path = this.root + \"|\" + this.option;\r\n  }\r\n  /**\r\n   * Performs actions on the nav option\r\n   * @param {boolean} click - uses clicks to otherwises uses keyboard shortcuts\r\n   */\r\n  action(click) {\r\n    if(click === true) {\r\n      NOV_UTILITIES.indentLog(\"ACTION: Clicking Menu Path: \" + this.path);\r\n      Aliases.appNotead.mainWindow.MainMenu.Click(this.path);\r\n      NOV_UTILITIES.outdentLog();\r\n    } else {\r\n      NOV_UTILITIES.indentLog(\"ACTION: Keys: \" + this.keys);\r\n      if(this.keys !== undefined) {\r\n        Aliases.appNotead.mainWindow.Keys(this.keys);\r\n      } else {\r\n        Log.Error(\"Trying To Perform A Non Click Option Without Defined Keyboard Shortcuts\");\r\n      }\r\n      NOV_UTILITIES.outdentLog();\r\n    }\r\n  }\r\n\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - holds nav options created by {@link navOption}\r\n * @type {object}\r\n * @author [CBU]\r\n * @property {navOption} exit - nav option for exiting / closing notepad\r\n * @property {navOption} save - nav option for saving a file\r\n */\r\nconst navOptions = {\r\n  /**\r\n   * @type {navOption}\r\n   */\r\n  exit: new navOption(\"File\", \"Exit\"),\r\n  save: new navOption(\"File\", \"Save\")\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - performs various menu navigation options\r\n * @function\r\n * @author [CBU]\r\n * @param {string} option - which option to perform from {@link navOptions}\r\n * @param {boolean} click - uses clicks to otherwises uses keyboard shortcuts\r\n */\r\nfunction menuNavigation(option, click) {\r\n  NOV_UTILITIES.indentLog(\"Performing Menu Navigation: \" + option);\r\n  try {\r\n    navOptions[option].action(click);\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured performing menu navigation. See additional information\", err.message + \"\\n\" + err.stack);\r\n  } finally {\r\n    NOV_UTILITIES.outdentLog();\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - inputs data from a test data object\r\n * @param {testData} data - the data to input / verify\r\n * @param {boolean} clear - if true clears the text first\r\n * @param {boolean} newLine - if true automatically enters a new line after each test data input\r\n * @param {boolean} verify - if true verifies the app accepts input properly\r\n * @return {testData} data - returns our test data with the expectedData property set (so we can keep passing this around)\r\n */\r\nfunction inputTestData(data, clear = true, newLine = true, verify = false) {\r\n  NOV_UTILITIES.indentLog(\"Inputing Test Data\");\r\n  try {\r\n    const editField = Aliases.appNotead.editField;\r\n    // we need to check the types of clear and new line so we can convert to boolean if it's a string passed in\r\n    // this will allow us to use the built in test complete data driven loop\r\n    if(typeof (clear) !== \"boolean\") {\r\n      clear = clear == \"true\";\r\n    }\r\n    if(typeof (clear) !== \"boolean\") {\r\n      newLine = newLine == \"true\";\r\n    }\r\n    var expectedText = \"\";\r\n    // check if we're clearing the text field, if not then we need to grab the current value for the expected text\r\n    if(!clear) {\r\n      expectedText += editField.wText;\r\n    } else {\r\n      Log.Message(\"Clearing The Text Field\");\r\n      editField.SetText(\"\");\r\n    }\r\n    for(var key in data.inputData) {\r\n      if(data.inputData[key] !== undefined) {\r\n        Log.Message(\"Keying: \" + data.inputData[key]);\r\n        editField.Keys(data.inputData[key]);\r\n        expectedText += data.inputData[key];\r\n        if(newLine) {\r\n          Log.Message(\"Pressing Enter\");\r\n          editField.Keys(\"[Enter]\");\r\n          // new line character\r\n          expectedText += \"\\r\\n\"\r\n        }\r\n      }\r\n    }\r\n    if(verify) {\r\n      Log.Message(\"Verify that the edit field matches input\");\r\n      aqObject.CheckProperty(editField, \"wText\", cmpEqual, expectedText);\r\n    }\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured inputting data. See additional information\", err.message + \"\\n\" + err.stack);\r\n  } finally {\r\n    NOV_UTILITIES.outdentLog();\r\n    data.expectedResult = expectedText;\r\n    return data;\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - performs actions and verfies the save dialog existence \r\n * @function\r\n * @author [CBU]\r\n * @param {string} selectOption - which option to select, save, don'tsave or cancel\r\n * @param {boolean} [click=true] - uses clicks to otherwises uses keyboard shortcuts. only click is supported currently\r\n * @param {boolean} [verifyExists] - verfies the dialog actually exists\r\n */\r\nfunction saveDialog(selectOption, click = true, verifyExists) {\r\n  const dialog = Aliases.appNotead.saveDialog;\r\n  NOV_UTILITIES.indentLog(\"Selecting Save Dialog Option: \" + selectOption);\r\n  if(verifyExists) {\r\n    Log.Message(\"Verify Save Dialog Exists\");\r\n    aqObject.CheckProperty(dialog, \"Exists\", cmpEqual, true);\r\n    aqObject.CheckProperty(dialog, \"VisibleOnScreen\", cmpEqual, true);\r\n  }\r\n  switch(selectOption) {\r\n  case \"save\":\r\n    Log.Message(\"Clicking Save Button\");\r\n    dialog.btnSave.Click();\r\n    break;\r\n  case \"dontSave\":\r\n    Log.Message(\"Clicking Don't Save Button\");\r\n    dialog.btnDontSave.Click();\r\n    break;\r\n  case \"cancel\":\r\n    Log.Message(\"Clicking Cancel Button\");\r\n    dialog.btnCancel.Click();\r\n    break;\r\n  case \"none\":\r\n    Log.Message(\"No Action Performed\");\r\n    break;\r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - saves the data we have inputed into a file\r\n * @function\r\n * @author [CBU]\r\n * @param {boolan} [nav=true] - if true handles the menu navigation for saving\r\n * @param {boolan} [newFile=true] - if assumes we aren't editing and resaving so we will have the dialog to save too\r\n * @param {testData} data - test data to save \r\n * @param {boolean} [click=true] - uses clicks to otherwises uses keyboard shortcuts. only click is supported currently\r\n * @param {boolean} [verify=true] - verfies the file is created after saving\r\n * @return {testData} data - returns our test data with the savedFile property set (so we can keep passing this around)\r\n */\r\nfunction saveToFile(nav = true, newFile = true, data, click = true, verify = true) {\r\n  const fullPath = Project.Path + \"testResults\\\\\";\r\n  const fullFilePath = fullPath + data.fileName;\r\n  NOV_UTILITIES.indentLog(\"Saving File To: \" + fullPath);\r\n  if(nav) {\r\n    menuNavigation(\"save\", click);\r\n  }  \r\n  // example of using findchild as opposed to name mapping\r\n  let pathField = Aliases.appNotead.saveDialog.FindChildEx(\"WndClass\",\"Edit\",10,true,10000);\r\n  pathField.SetText(fullFilePath);\r\n  saveDialog(\"save\",click);\r\n  data.fullFilePath = fullFilePath;\r\n  if(verify) {\r\n    Log.Message(\"Verify File Is Created On Save\");\r\n    aqFileSystem.Exists(data.fullFilePath) ?\r\n    Log.Checkpoint(data.fullFilePath + \" Was written to the file system\") :\r\n    Log.Error(data.fullFilePath + \" Was NOT written to the file system\")    \r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n  return data;\r\n}",
+    "content": "﻿///////////////////////////////////////////////\r\n// main app utilities\r\n//////////////////////////////////////////////\r\n/**\r\n * @ignore\r\n */\r\nconst NOV_UTILITIES = require(\"NOV_UTILITIES\");\r\n\r\n/**\r\n * NOV_ACTIONS - opens the application\r\n * @function\r\n * @author [CBU]\r\n * @param {boolean} [verify=true] - verifies that the app is open and visible\r\n * @param {boolean} [restart=true] - Restarts the app before attempting to open\r\n */\r\nfunction openNotePad(verify = true, restart = true) {\r\n  NOV_UTILITIES.indentLog(\"Opening Notepad\");\r\n  if(restart && Aliases.appNotead.WaitProperty(\"Exists\", true, 2000)) {\r\n    Aliases.appNotead.Terminate();\r\n  }\r\n  TestedApps.Items(0)\r\n    .Run();\r\n  // waits for up to ten seconds for the app to load\r\n  Aliases.appNotead.WaitProperty(\"Exists\", true, 10000)\r\n  if(verify) {\r\n    Log.Message(\"Verifying that Notepad is running and on screen\");\r\n    aqObject.CheckProperty(Aliases.appNotead, \"Exists\", cmpEqual, true);\r\n    aqObject.CheckProperty(Aliases.appNotead.mainWindow, \"Exists\", cmpEqual, true);\r\n    aqObject.CheckProperty(Aliases.appNotead.mainWindow, \"VisibleOnScreen\", cmpEqual, true);\r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - closes the application\r\n * @function\r\n * @author [CBU]\r\n * @param {boolean} [verify=true] - verifies that the app is open and visible\r\n * @param {boolean} [click=true] - uses clicks to close notepad if true, otherwises uses keyboard shortcuts\r\n * @param {boolean} [bypassSaveDialog=true] - if true clicks don't save if the save dialog exists\r\n */\r\nfunction closeNotePad(verify = true, click = true, bypassSaveDialog = true) {\r\n  NOV_UTILITIES.indentLog(\"Closing Notepad\");\r\n  menuNavigation(\"exit\", click);\r\n  if(bypassSaveDialog && Aliases.appNotead.WaitProperty(\"Exists\", true, 2000)) {\r\n    if(Aliases.appNotead.saveDialog.WaitProperty(\"Exists\", true, 2000)) {\r\n      saveDialog(\"dontSave\", click);\r\n    }\r\n  }\r\n  // waits for up to ten seconds for the app to load  \r\n  if(verify) {\r\n    Log.Message(\"Verifying that Notepad closed gracefully.\");\r\n    aqObject.CheckProperty(Aliases.appNotead, \"Exists\", cmpEqual, false);\r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n}\r\n\r\n///////////////////////////////////////////////\r\n// navigation utilities\r\n//////////////////////////////////////////////\r\n\r\n/**\r\n * NOV_ACTIONS - Represents a navigation option for our application\r\n * @class\r\n * @author [CBU]\r\n */\r\nclass navOption {\r\n  /**\r\n   * @param {string} root - the root menu, File, Edit, etc...\r\n   * @param {string} option - the secondary option\r\n   * @param {string} [keys] - optional keyboard shortcut if the menu item supports it\r\n   */\r\n  constructor(root, option, keys) {\r\n    /**\r\n     * the root menu, File, Edit, etc...\r\n     * @type {string}\r\n     */\r\n    this.root = root;\r\n    /**\r\n     * the secondary option\r\n     * @type {string}\r\n     */\r\n    this.option = option;\r\n    /**\r\n     * optional keyboard shortcut if the menu item supports it\r\n     * @type {string}\r\n     */\r\n    this.keys = keys;\r\n    /**\r\n     * the full combined path of. root|path\r\n     * @type {string}\r\n     */\r\n    this.path = this.root + \"|\" + this.option;\r\n  }\r\n  /**\r\n   * Performs actions on the nav option\r\n   * @param {boolean} click - uses clicks to otherwises uses keyboard shortcuts\r\n   */\r\n  action(click) {\r\n    if(click === true) {\r\n      NOV_UTILITIES.indentLog(\"ACTION: Clicking Menu Path: \" + this.path);\r\n      Aliases.appNotead.mainWindow.MainMenu.Click(this.path);\r\n      NOV_UTILITIES.outdentLog();\r\n    } else {\r\n      NOV_UTILITIES.indentLog(\"ACTION: Keys: \" + this.keys);\r\n      if(this.keys !== undefined) {\r\n        Aliases.appNotead.mainWindow.Keys(this.keys);\r\n      } else {\r\n        Log.Error(\"Trying To Perform A Non Click Option Without Defined Keyboard Shortcuts\");\r\n      }\r\n      NOV_UTILITIES.outdentLog();\r\n    }\r\n  }\r\n\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - holds nav options created by {@link navOption}\r\n * @type {object}\r\n * @author [CBU]\r\n * @property {navOption} exit - nav option for exiting / closing notepad\r\n * @property {navOption} save - nav option for saving a file\r\n */\r\nconst navOptions = {\r\n  /**\r\n   * @type {navOption}\r\n   */\r\n  exit: new navOption(\"File\", \"Exit\"),\r\n  save: new navOption(\"File\", \"Save\")\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - performs various menu navigation options\r\n * @function\r\n * @author [CBU]\r\n * @param {string} option - which option to perform from {@link navOptions}\r\n * @param {boolean} click - uses clicks to otherwises uses keyboard shortcuts\r\n */\r\nfunction menuNavigation(option, click) {\r\n  NOV_UTILITIES.indentLog(\"Performing Menu Navigation: \" + option);\r\n  try {\r\n    navOptions[option].action(click);\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured performing menu navigation. See additional information\", err.message + \"\\n\" + err.stack);\r\n  } finally {\r\n    NOV_UTILITIES.outdentLog();\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - inputs data from a test data object\r\n * @param {testData} data - the data to input / verify\r\n * @param {boolean} clear - if true clears the text first\r\n * @param {boolean} newLine - if true automatically enters a new line after each test data input\r\n * @param {boolean} verify - if true verifies the app accepts input properly\r\n * @return {testData} data - returns our test data with the expectedData property set (so we can keep passing this around)\r\n */\r\nfunction inputTestData(data, clear = true, newLine = true, verify = false) {\r\n  NOV_UTILITIES.indentLog(\"Inputing Test Data\");\r\n  try {\r\n    const editField = Aliases.appNotead.editField;\r\n    // we need to check the types of clear and new line so we can convert to boolean if it's a string passed in\r\n    // this will allow us to use the built in test complete data driven loop\r\n    if(typeof (clear) !== \"boolean\") {\r\n      clear = clear == \"true\";\r\n    }\r\n    if(typeof (clear) !== \"boolean\") {\r\n      newLine = newLine == \"true\";\r\n    }\r\n    var expectedText = \"\";\r\n    // check if we're clearing the text field, if not then we need to grab the current value for the expected text\r\n    if(!clear) {\r\n      expectedText += editField.wText;\r\n    } else {\r\n      Log.Message(\"Clearing The Text Field\");\r\n      editField.SetText(\"\");\r\n    }\r\n    for(var key in data.inputData) {\r\n      if(data.inputData[key] !== undefined) {\r\n        Log.Message(\"Keying: \" + data.inputData[key]);\r\n        editField.Keys(data.inputData[key]);\r\n        expectedText += data.inputData[key];\r\n        if(newLine) {\r\n          Log.Message(\"Pressing Enter\");\r\n          editField.Keys(\"[Enter]\");\r\n          // new line character\r\n          expectedText += \"\\r\\n\"\r\n        }\r\n      }\r\n    }\r\n    if(verify) {\r\n      Log.Message(\"Verify that the edit field matches input\");\r\n      aqObject.CheckProperty(editField, \"wText\", cmpEqual, expectedText);\r\n    }\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured inputting data. See additional information\", err.message + \"\\n\" + err.stack);\r\n  } finally {\r\n    NOV_UTILITIES.outdentLog();\r\n    data.expectedResult = expectedText;\r\n    return data;\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - performs actions and verfies the save dialog existence \r\n * @function\r\n * @author [CBU]\r\n * @param {string} selectOption - which option to select, save, don'tsave or cancel\r\n * @param {boolean} [click=true] - uses clicks to otherwises uses keyboard shortcuts. only click is supported currently\r\n * @param {boolean} [verifyExists] - verfies the dialog actually exists\r\n */\r\nfunction saveDialog(selectOption, click = true, verifyExists) {\r\n  const dialog = Aliases.appNotead.saveDialog;\r\n  NOV_UTILITIES.indentLog(\"Selecting Save Dialog Option: \" + selectOption);\r\n  if(verifyExists) {\r\n    Log.Message(\"Verify Save Dialog Exists\");\r\n    aqObject.CheckProperty(dialog, \"Exists\", cmpEqual, true);\r\n    aqObject.CheckProperty(dialog, \"VisibleOnScreen\", cmpEqual, true);\r\n  }\r\n  switch(selectOption) {\r\n  case \"save\":\r\n    Log.Message(\"Clicking Save Button\");\r\n    dialog.btnSave.Click();\r\n    break;\r\n  case \"dontSave\":\r\n    Log.Message(\"Clicking Don't Save Button\");\r\n    dialog.btnDontSave.Click();\r\n    break;\r\n  case \"cancel\":\r\n    Log.Message(\"Clicking Cancel Button\");\r\n    dialog.btnCancel.Click();\r\n    break;\r\n  case \"none\":\r\n    Log.Message(\"No Action Performed\");\r\n    break;\r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n}\r\n\r\n/**\r\n * NOV_ACTIONS - saves the data we have inputed into a file\r\n * @function\r\n * @author [CBU]\r\n * @param {boolan} [nav=true] - if true handles the menu navigation for saving\r\n * @param {boolan} [newFile=true] - if assumes we aren't editing and resaving so we will have the dialog to save too\r\n * @param {testData} data - test data to save \r\n * @param {boolean} [click=true] - uses clicks to otherwises uses keyboard shortcuts. only click is supported currently\r\n * @param {boolean} [verify=true] - verfies the file is created after saving\r\n * @return {testData} data - returns our test data with the savedFile property set (so we can keep passing this around)\r\n */\r\nfunction saveToFile(nav = true, newFile = true, data, click = true, verify = true) {\r\n  const fullPath = Project.Path + \"testResults\\\\\";\r\n  const fullFilePath = fullPath + data.fileName;\r\n  NOV_UTILITIES.indentLog(\"Saving File To: \" + fullPath);\r\n  if(nav) {\r\n    menuNavigation(\"save\", click);\r\n  }   \r\n  if(newFile) {\r\n    // example of using findchild as opposed to name mapping\r\n    let pathField = Aliases.appNotead.saveDialog.FindChildEx(\"WndClass\",\"Edit\",10,true,10000);\r\n    pathField.SetText(fullFilePath);\r\n    saveDialog(\"save\",click);\r\n  }\r\n  data.fullFilePath = fullFilePath;\r\n  if(verify) {\r\n    Log.Message(\"Verify File Is Created On Save\");\r\n    aqFileSystem.Exists(data.fullFilePath) ?\r\n    Log.Checkpoint(data.fullFilePath + \" Was written to the file system\") :\r\n    Log.Error(data.fullFilePath + \" Was NOT written to the file system\")    \r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n  return data;\r\n}",
     "static": true,
     "longname": "src/NOV_ACTIONS.js",
     "access": null,
@@ -639,7 +639,7 @@
     "__docId__": 16,
     "kind": "file",
     "name": "src/NOV_DATA.js",
-    "content": "﻿/**\r\n * @ignore\r\n */\r\nconst NOV_UTILITIES = require(\"NOV_UTILITIES\");\r\n\r\n/**\r\n * NOV_DATA - Hold test data types and they're queries\r\n * @type {object}\r\n * @author [CBU]\r\n * @property {string} person - \"select * from [nov$] where type = 'person'\"\r\n * @property {string} company - \"select * from [nov$] where type = 'product'\"\r\n * @property {string} product - \"select * from [nov$] where type = 'type'\"\r\n */\r\nconst testDataTypes = {\r\n  person: \"select * from [nov$] where type = 'person'\",\r\n  company: \"select * from [nov$] where type = 'company'\",\r\n  product: \"select * from [nov$] where type = 'product'\"\r\n}\r\n\r\n/**\r\n * NOV_DATA - Test data for use in other tests\r\n * @class\r\n * @author [CBU]\r\n */\r\nclass testData {\r\n  /**\r\n   * @param {string} firstName - the first name to type / verify\r\n   * @param {string} lastName - the last name to type / verify\r\n   * @param {string} message - the message to type / verify\r\n   * @param {string} fileName - the file name to save to\r\n   */\r\n  constructor(id, type, firstName, lastName, message, fileName) {\r\n    /**\r\n     * @type {number}\r\n     */\r\n    this.id = id;\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.type = type;\r\n    /**\r\n     * @type {object}\r\n     */\r\n    this.inputData = {\r\n      /**\r\n       * @type {string}\r\n       */\r\n      firstName: firstName == null ? \"\" : firstName,\r\n      /**\r\n       * @type {string}\r\n       */\r\n      lastName: lastName == null ? \"\" : lastName,\r\n      /**\r\n       * @type {string}\r\n       */\r\n      message: message == null ? \"\" : message\r\n    }\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.fileName = fileName;\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.expectedResult = \"\";\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.fullFilePath = \"\";\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.fileConents = \"empty\";\r\n  }\r\n  /**\r\n   * Verifies the saved data\r\n   */\r\n  verifySavedData() {\r\n    if(!aqFile.Exists(this.fullFilePath)) {\r\n      Log.Error(this.fullFilePath + \"Not Found. Nothing To Verify\");\r\n    } else {\r\n      this.fileContents = aqFile.ReadWholeTextFile(this.fullFilePath, aqFile.ctANSI);\r\n      Log.Message(this.fileContents);\r\n      Log.Message(aqFile.ReadWholeTextFile(this.fullFilePath, aqFile.ctANSI))\r\n      aqObject.CheckProperty(this, \"fileContents\", cmpEqual, this.expectedResult);\r\n    }\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_DATA - Obtains test data of a specific type\r\n * @function \r\n * @author [CBU]\r\n * @param {string} type - {@link testDataTypes}\r\n * @return {testData} - data\r\n */\r\nfunction getTestData(type) {\r\n  NOV_UTILITIES.indentLog(\"Getting Test Data Type: \" + type);\r\n  var data;\r\n  let ControlCn = ADO.CreateADOConnection();\r\n  //create unique connection string with IMEX=1 to allow for mixed content columns\r\n  try {\r\n    ControlCn.ConnectionString = Project.Variables.APP_DATASOURCE;\r\n    ControlCn.LoginPrompt = false;\r\n    ControlCn.Open();\r\n    let sql = testDataTypes[type];\r\n    rs = ControlCn.Execute_(sql);\r\n    if(rs.BOF) {\r\n      Log.Error('No Data Avaliable');\r\n      data = new testData(\"\", \"\", \"\", \"\");\r\n    } else {\r\n      data = new testData(\r\n        rs.Fields.Item(0)\r\n        .Value,\r\n        rs.Fields.Item(1)\r\n        .Value,\r\n        rs.Fields.Item(2)\r\n        .Value,\r\n        rs.Fields.Item(3)\r\n        .Value,\r\n        rs.Fields.Item(4)\r\n        .Value,\r\n        rs.Fields.Item(5)\r\n        .Value,\r\n      );\r\n    }\r\n    NOV_UTILITIES.logObject(data, \"See additional information for the test data.\");\r\n    NOV_UTILITIES.logObject(data.inputData, \"See additional information for the test input data.\");\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured getting test data. See additional information\", err.message + \"\\n\" + err.stack);\r\n  } finally {\r\n    NOV_UTILITIES.outdentLog();\r\n    return data;\r\n  }\r\n}\r\n\r\nfunction test() {\r\n  getTestData(\"person\")\r\n}",
+    "content": "﻿/**\r\n * @ignore\r\n */\r\nconst NOV_UTILITIES = require(\"NOV_UTILITIES\");\r\n\r\n/**\r\n * NOV_DATA - Hold test data types and they're queries\r\n * @type {object}\r\n * @author [CBU]\r\n * @property {string} person - \"select * from [nov$] where type = 'person'\"\r\n * @property {string} company - \"select * from [nov$] where type = 'product'\"\r\n * @property {string} product - \"select * from [nov$] where type = 'type'\"\r\n */\r\nconst testDataTypes = {\r\n  person: \"select * from [nov$] where type = 'person'\",\r\n  company: \"select * from [nov$] where type = 'company'\",\r\n  product: \"select * from [nov$] where type = 'product'\"\r\n}\r\n\r\n/**\r\n * NOV_DATA - Test data for use in other tests\r\n * @class\r\n * @author [CBU]\r\n */\r\nclass testData {\r\n  /**\r\n   * @param {string} firstName - the first name to type / verify\r\n   * @param {string} lastName - the last name to type / verify\r\n   * @param {string} message - the message to type / verify\r\n   * @param {string} fileName - the file name to save to\r\n   * @param {string} newMessage - the new messaage\r\n   */\r\n  constructor(id, type, firstName, lastName, message, fileName, newMessage) {\r\n    /**\r\n     * @type {number}\r\n     */\r\n    this.id = id;\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.type = type;\r\n    /**\r\n     * @type {object}\r\n     */\r\n    this.inputData = {\r\n      /**\r\n       * @type {string}\r\n       */\r\n      firstName: firstName == null ? \"\" : firstName,\r\n      /**\r\n       * @type {string}\r\n       */\r\n      lastName: lastName == null ? \"\" : lastName,\r\n      /**\r\n       * @type {string}\r\n       */\r\n      message: message == null ? \"\" : message,\r\n      /**\r\n       * @type {string}\r\n       */\r\n      newMessage: newMessage == null ? \"\" : newMessage\r\n    }\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.fileName = fileName;\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.expectedResult = \"\";\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.fullFilePath = \"\";\r\n    /**\r\n     * @type {string}\r\n     */\r\n    this.fileConents = \"empty\";\r\n  }\r\n  /**\r\n   * Verifies the saved data\r\n   */\r\n  verifySavedData() {\r\n    if(!aqFile.Exists(this.fullFilePath)) {\r\n      Log.Error(this.fullFilePath + \"Not Found. Nothing To Verify\");\r\n    } else {\r\n      this.fileContents = aqFile.ReadWholeTextFile(this.fullFilePath, aqFile.ctANSI);\r\n      Log.Message(this.fileContents);\r\n      Log.Message(aqFile.ReadWholeTextFile(this.fullFilePath, aqFile.ctANSI))\r\n      aqObject.CheckProperty(this, \"fileContents\", cmpEqual, this.expectedResult);\r\n    }\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_DATA - Obtains test data of a specific type\r\n * @function \r\n * @author [CBU]\r\n * @param {string} type - {@link testDataTypes}\r\n * @return {testData} - data\r\n */\r\nfunction getTestData(type) {\r\n  NOV_UTILITIES.indentLog(\"Getting Test Data Type: \" + type);\r\n  var data;\r\n  let ControlCn = ADO.CreateADOConnection();\r\n  //create unique connection string with IMEX=1 to allow for mixed content columns\r\n  try {\r\n    ControlCn.ConnectionString = Project.Variables.APP_DATASOURCE;\r\n    ControlCn.LoginPrompt = false;\r\n    ControlCn.Open();\r\n    let sql = testDataTypes[type];\r\n    rs = ControlCn.Execute_(sql);\r\n    if(rs.BOF) {\r\n      Log.Error('No Data Avaliable');\r\n      data = new testData(\"\", \"\", \"\", \"\");\r\n    } else {\r\n      data = new testData(\r\n        rs.Fields.Item(0)\r\n        .Value,\r\n        rs.Fields.Item(1)\r\n        .Value,\r\n        rs.Fields.Item(2)\r\n        .Value,\r\n        rs.Fields.Item(3)\r\n        .Value,\r\n        rs.Fields.Item(4)\r\n        .Value,\r\n        rs.Fields.Item(5)\r\n        .Value,\r\n        rs.Fields.Item(6)\r\n        .Value,\r\n      );\r\n    }\r\n    NOV_UTILITIES.logObject(data, \"See additional information for the test data.\");\r\n    NOV_UTILITIES.logObject(data.inputData, \"See additional information for the test input data.\");\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured getting test data. See additional information\", err.message + \"\\n\" + err.stack);\r\n  } finally {\r\n    NOV_UTILITIES.outdentLog();\r\n    return data;\r\n  }\r\n}\r\n\r\nfunction test() {\r\n  getTestData(\"person\")\r\n}",
     "static": true,
     "longname": "src/NOV_DATA.js",
     "access": null,
@@ -762,7 +762,7 @@
     "longname": "src/NOV_DATA.js~testData#constructor",
     "access": null,
     "description": "",
-    "lineNumber": 32,
+    "lineNumber": 33,
     "params": [
       {
         "nullable": null,
@@ -803,6 +803,16 @@
         "optional": false,
         "name": "fileName",
         "description": "the file name to save to"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "newMessage",
+        "description": "the new messaage"
       }
     ]
   },
@@ -815,7 +825,7 @@
     "longname": "src/NOV_DATA.js~testData#id",
     "access": null,
     "description": "",
-    "lineNumber": 36,
+    "lineNumber": 37,
     "type": {
       "nullable": null,
       "types": [
@@ -834,7 +844,7 @@
     "longname": "src/NOV_DATA.js~testData#type",
     "access": null,
     "description": "",
-    "lineNumber": 40,
+    "lineNumber": 41,
     "type": {
       "nullable": null,
       "types": [
@@ -853,7 +863,7 @@
     "longname": "src/NOV_DATA.js~testData#inputData",
     "access": null,
     "description": "",
-    "lineNumber": 44,
+    "lineNumber": 45,
     "type": {
       "nullable": null,
       "types": [
@@ -872,7 +882,7 @@
     "longname": "src/NOV_DATA.js~testData#fileName",
     "access": null,
     "description": "",
-    "lineNumber": 61,
+    "lineNumber": 66,
     "type": {
       "nullable": null,
       "types": [
@@ -891,7 +901,7 @@
     "longname": "src/NOV_DATA.js~testData#expectedResult",
     "access": null,
     "description": "",
-    "lineNumber": 65,
+    "lineNumber": 70,
     "type": {
       "nullable": null,
       "types": [
@@ -910,7 +920,7 @@
     "longname": "src/NOV_DATA.js~testData#fullFilePath",
     "access": null,
     "description": "",
-    "lineNumber": 69,
+    "lineNumber": 74,
     "type": {
       "nullable": null,
       "types": [
@@ -929,7 +939,7 @@
     "longname": "src/NOV_DATA.js~testData#fileConents",
     "access": null,
     "description": "",
-    "lineNumber": 73,
+    "lineNumber": 78,
     "type": {
       "nullable": null,
       "types": [
@@ -950,7 +960,7 @@
     "longname": "src/NOV_DATA.js~testData#verifySavedData",
     "access": null,
     "description": "Verifies the saved data",
-    "lineNumber": 78,
+    "lineNumber": 83,
     "params": []
   },
   {
@@ -962,7 +972,7 @@
     "longname": "src/NOV_DATA.js~testData#fileContents",
     "access": null,
     "description": null,
-    "lineNumber": 82,
+    "lineNumber": 87,
     "undocument": true,
     "unknown": [
       {
@@ -990,7 +1000,7 @@
     "importPath": "./src/NOV_DATA.js",
     "importStyle": null,
     "description": "NOV_DATA - Obtains test data of a specific type",
-    "lineNumber": 97,
+    "lineNumber": 102,
     "unknown": [
       {
         "tagName": "@function",
@@ -1036,7 +1046,7 @@
     "importPath": "./src/NOV_DATA.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 137,
+    "lineNumber": 144,
     "undocument": true,
     "unknown": [
       {
@@ -1050,7 +1060,7 @@
     "__docId__": 32,
     "kind": "file",
     "name": "src/NOV_EVENTS.js",
-    "content": "﻿/**\r\n * @ignore\r\n */\r\nconst NOV_UTILITIES = require(\"NOV_UTILITIES\");\r\n\r\n/**\r\n * we assume environment is not set every time tests are started.\r\n * This will allow us to set it again in the event we get an uncaught exception\r\n */\r\nvar environmentSet = false;\r\n\r\n/**\r\n * NOV_EVENTS - Handles the on start event of each test item\r\n * @function\r\n * @author [CBU]\r\n * @param {object} Sender - The Built In Test Complete sender object for the event handler\r\n */\r\nfunction startNotePadTest(Sender) {\r\n  NOV_UTILITIES.indentLog(\"Test Start\");\r\n  try {\r\n    if(!environmentSet) {\r\n      NOV_UTILITIES.setUpEnvironment();\r\n      // check if we have the file path we want\r\n      if(!aqFileSystem.Exists(Project.Path + \"testResults\\\\\")) {\r\n        aqFileSystem.CreateFolder(Project.Path + \"testResults\\\\\");\r\n      }\r\n    }\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured starting the test. See additional information\", err.message + \"\\n\" + err.stack);\r\n  } finally {\r\n    NOV_UTILITIES.outdentLog();\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_EVENTS - Handles the on stop event of each test item\r\n * @function\r\n * @author [CBU]\r\n * @param {object} Sender - The Built In Test Complete sender object for the event handler\r\n */\r\nfunction stopNotePadTest(Sender) {\r\n  NOV_UTILITIES.indentLog(\"Test Stop\");\r\n  // cleanup our files\r\n  if(aqFileSystem.Exists(Project.Path + \"testResults\\\\\")) {  \r\n    aqFileSystem.DeleteFolder(Project.Path + \"testResults\\\\\",true);    \r\n  }\r\n  NOV_UTILITIES.outdentLog();\r\n}\r\n\r\n/**\r\n * NOV_EVENTS - Handles the on error event\r\n * @function\r\n * @author [CBU]\r\n * @param {object} Sender - The Built In Test Complete sender object for the event handler\r\n * @param {object} LogParams - The Built In Test Complete log paramters object for attribute manipulation\r\n */\r\nfunction onLogError(Sender, LogParams) {\r\n\r\n}\r\n\r\nfunction onLogWarning(Sender, LogParams) {\r\n\r\n}\r\n\r\nfunction onLogMessage(Sender, LogParams) {\r\n\r\n}\r\n\r\nfunction onTimeout(Sender, Params) {\r\n\r\n}\r\n\r\nfunction onOverlappingWindow(Sender, Window, OverlappingWindow, LogParams) {\r\n\r\n}\r\n\r\nfunction onUnexpectedWindow(Sender, Window, LogParams) {\r\n\r\n}",
+    "content": "﻿/**\r\n * @ignore\r\n */\r\nconst NOV_UTILITIES = require(\"NOV_UTILITIES\");\r\n\r\n/**\r\n * we assume environment is not set every time tests are started.\r\n * This will allow us to set it again in the event we get an uncaught exception\r\n */\r\nvar environmentSet = false;\r\n\r\n/**\r\n * NOV_EVENTS - Handles the on start event of each test item\r\n * @function\r\n * @author [CBU]\r\n * @param {object} Sender - The Built In Test Complete sender object for the event handler\r\n */\r\nfunction startNotePadTest(Sender) {\r\n  NOV_UTILITIES.indentLog(\"Test Start\");\r\n  try {\r\n    if(!environmentSet) {\r\n      NOV_UTILITIES.setUpEnvironment();\r\n      // check if we have the file path we want\r\n      if(!aqFileSystem.Exists(Project.Path + \"testResults\\\\\")) {\r\n        aqFileSystem.CreateFolder(Project.Path + \"testResults\\\\\");\r\n      }\r\n      if(!Project.Variables.VariableExists(\"ENABLED_COUNT\")) {\r\n        Project.Variables.AddVariable(\"ENABLED_COUNT\", \"Integer\");\r\n        Project.Variables.ENABLED_COUNT = NOV_UTILITIES.getNumEnabledTests(Project.TestItems);\r\n      }\r\n      if(!Project.Variables.VariableExists(\"RUN_COUNT\")) {\r\n        Project.Variables.AddVariable(\"RUN_COUNT\", \"Integer\");\r\n        Project.Variables.RUN_COUNT = 0;\r\n      }\r\n      if(Project.TestItems.Current != undefined) {\r\n        Indicator.PushText(Project.TestItems.Current.Name);\r\n      }\r\n    }\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured starting the test. See additional information\", err.message + \"\\n\" + err.stack);\r\n  } finally {\r\n    NOV_UTILITIES.outdentLog();\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_EVENTS - Handles the on stop event of each test item\r\n * @function\r\n * @author [CBU]\r\n * @param {object} Sender - The Built In Test Complete sender object for the event handler\r\n */\r\nfunction stopNotePadTest(Sender) {\r\n  NOV_UTILITIES.indentLog(\"Test Stop\");\r\n  // cleanup our files\r\n  if(aqFileSystem.Exists(Project.Path + \"testResults\\\\\")) {  \r\n    aqFileSystem.DeleteFolder(Project.Path + \"testResults\\\\\",true);    \r\n  }\r\n  Project.Variables.RUN_COUNT++;\r\n  if(Project.Variables.RUN_COUNT == Project.Variables.ENABLED_COUNT) {\r\n    Log.Message(\"All tests have ran. Exporting logs.\");\r\n    NOV_UTILITIES.exportLogs(Project.Path + Math.round(Math.random() * (999 - 1) + 1) + \"\\\\\");\r\n    Project.Variables.RemoveVariable(\"RUN_COUNT\");\r\n    Project.Variables.RemoveVariable(\"ENABLED_COUNT\");\r\n  }\r\n  Indicator.Clear();\r\n  NOV_UTILITIES.outdentLog();\r\n}\r\n\r\n/**\r\n * NOV_EVENTS - Handles the on error event\r\n * @function\r\n * @author [CBU]\r\n * @param {object} Sender - The Built In Test Complete sender object for the event handler\r\n * @param {object} LogParams - The Built In Test Complete log paramters object for attribute manipulation\r\n */\r\nfunction onLogError(Sender, LogParams) {\r\n\r\n}\r\n\r\nfunction onLogWarning(Sender, LogParams) {\r\n\r\n}\r\n\r\nfunction onLogMessage(Sender, LogParams) {\r\n\r\n}\r\n\r\nfunction onTimeout(Sender, Params) {\r\n\r\n}\r\n\r\nfunction onOverlappingWindow(Sender, Window, OverlappingWindow, LogParams) {\r\n\r\n}\r\n\r\nfunction onUnexpectedWindow(Sender, Window, LogParams) {\r\n\r\n}",
     "static": true,
     "longname": "src/NOV_EVENTS.js",
     "access": null,
@@ -1148,7 +1158,7 @@
     "importPath": "./src/NOV_EVENTS.js",
     "importStyle": null,
     "description": "NOV_EVENTS - Handles the on stop event of each test item",
-    "lineNumber": 41,
+    "lineNumber": 52,
     "unknown": [
       {
         "tagName": "@function",
@@ -1186,7 +1196,7 @@
     "importPath": "./src/NOV_EVENTS.js",
     "importStyle": null,
     "description": "NOV_EVENTS - Handles the on error event",
-    "lineNumber": 57,
+    "lineNumber": 76,
     "unknown": [
       {
         "tagName": "@function",
@@ -1234,7 +1244,7 @@
     "importPath": "./src/NOV_EVENTS.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 61,
+    "lineNumber": 80,
     "undocument": true,
     "unknown": [
       {
@@ -1271,7 +1281,7 @@
     "importPath": "./src/NOV_EVENTS.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 65,
+    "lineNumber": 84,
     "undocument": true,
     "unknown": [
       {
@@ -1308,7 +1318,7 @@
     "importPath": "./src/NOV_EVENTS.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 69,
+    "lineNumber": 88,
     "undocument": true,
     "unknown": [
       {
@@ -1345,7 +1355,7 @@
     "importPath": "./src/NOV_EVENTS.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 73,
+    "lineNumber": 92,
     "undocument": true,
     "unknown": [
       {
@@ -1394,7 +1404,7 @@
     "importPath": "./src/NOV_EVENTS.js",
     "importStyle": null,
     "description": null,
-    "lineNumber": 77,
+    "lineNumber": 96,
     "undocument": true,
     "unknown": [
       {
@@ -1427,7 +1437,7 @@
     "__docId__": 43,
     "kind": "file",
     "name": "src/NOV_UTILITIES.js",
-    "content": "﻿///////////////////////////////////////////////\r\n// log utilities\r\n//////////////////////////////////////////////\r\n/**\r\n * location of the config path for our app\r\n * @type {object{\r\n * @property {string} test\r\n * @property {string} dev\r\n */\r\nconst configFilePaths = {\r\n  test : \"C:\\\\Users\\\\cunderwoo6\\\\Desktop\\\\NovemberWebinar\\\\Utilities\\\\NOV_ENV_TEST.JSON\",\r\n  dev : \"C:\\\\Users\\\\cunderwoo6\\\\Desktop\\\\NovemberWebinar\\\\Utilities\\\\NOV_ENV_DEV.JSON\"\r\n}  \r\n\r\n/**\r\n * NOV_UTILITIES - adds a new log folder and indents all further actions\r\n * @function\r\n * @author [CBU]\r\n * @param {string} sMessage -the message for the folder\r\n */\r\nfunction indentLog(sMessage) {\r\n  var oAttr;\r\n  oAttr = Log.CreateNewAttributes();\r\n  oAttr.Bold = true;\r\n  STEP_ID = Log.CreateFolder(sMessage, \"\", pmNormal, oAttr);\r\n  Log.PushLogFolder(STEP_ID);\r\n}\r\n\r\n/**\r\n * NOV_UTILITIES - Closes the last log indention\r\n * @function\r\n * @author [CBU]\r\n * @param {string} [sMessage=Finished] -the finished message\r\n */\r\nfunction outdentLog(sMessage) {\r\n  if(sMessage == undefined || sMessage == null) {\r\n    sMessage = \"Finished\";\r\n  }\r\n  Log.Message(sMessage);\r\n  Log.PopLogFolder();\r\n}\r\n\r\n/**\r\n * NOV_UTILITIES - Takes an object and logs all of its props and vals in an table\r\n * @function\r\n * @author [CBU]\r\n * @param {object} obj -the object you want to log info for\r\n * @param {string} [msg=See Additional Info For Object Details] - an optional message for the log\r\n */\r\nfunction logObject(obj, msg) {\r\n  var attr = Log.CreateNewAttributes(),\r\n    str = '<table style=\"width:75%;\"><tr><th>Property</th><th>Value</th></tr>';\r\n  attr.ExtendedMessageAsPlainText = false;\r\n  try {\r\n    for(var key in obj) {\r\n      str += '<tr><td>' + key + \"</td><td>\" + obj[key] + \"</td><tr>\";\r\n    }\r\n  } catch(err) {\r\n    Log.Message(err);\r\n  } finally {\r\n    str += '</table>'\r\n    if(!msg) {\r\n      Log.Message(\"See Additional Info For Object Details\", str, 300, attr);\r\n    } else {\r\n      Log.Message(msg, str, 300, attr);\r\n    }\r\n  }\r\n}\r\n\r\n///////////////////////////////////////////////\r\n// environment utilities\r\n//////////////////////////////////////////////\r\n/**\r\n * NOV_UTILITIES - Gets the environment we are currently running on\r\n * @function\r\n * @author [CBU]\r\n * @return {string} currEnv - the environemtn we are running on, if not specifed we assume test\r\n */\r\nfunction getEnv() {\r\n  indentLog(\"Getting Environment\");\r\n  let currEnv = \"\"\r\n  if(aqEnvironment.GetEnvironmentVariable(\"NOV_ENV\") == \"\") {\r\n    Log.Warning(\"No Envionrment Set. Assuming Test\");\r\n    dotNET.System.Environment.SetEnvironmentVariable_2(\"NOV_ENV\", \"test\", dotNET.System.EnvironmentVariableTarget.User);\r\n    currEnv = \"test\";\r\n  } else {\r\n    currEnv = aqEnvironment.GetEnvironmentVariable(\"NOV_ENV\");\r\n  }  \r\n  outdentLog(\"Current Environment: \" + currEnv);\r\n  return currEnv;\r\n}\r\n \r\n/**\r\n * NOV_UTILITIES - Sets up our environment to run tests\r\n * @function\r\n * @author [CBU]\r\n */\r\nfunction setUpEnvironment() {\r\n  indentLog(\"Setting Up The Environment\");\r\n  try {    \r\n    const configData = JSON.parse(aqFile.ReadWholeTextFile(configFilePaths[getEnv()],aqFile.ctUTF8));\r\n    logObject(configData, \"See additional information for config\");\r\n  \r\n    // check existance of project vars we need before setting them\r\n    if(!Project.Variables.VariableExists(\"APP_PATH\")) {\r\n      Project.Variables.AddVariable(\"APP_PATH\", \"String\");\r\n    }\r\n    if(!Project.Variables.VariableExists(\"APP_PROCESS\")) {\r\n      Project.Variables.AddVariable(\"APP_PROCESS\", \"String\");\r\n    }\r\n    if(!Project.Variables.VariableExists(\"APP_MAIN_WND_CLASS\")) {\r\n      Project.Variables.AddVariable(\"APP_MAIN_WND_CLASS\", \"String\");\r\n    }\r\n    if(!Project.Variables.VariableExists(\"APP_EDIT_WND_CLASS\")) {\r\n      Project.Variables.AddVariable(\"APP_EDIT_WND_CLASS\", \"String\");\r\n    }\r\n    if(!Project.Variables.VariableExists(\"APP_DATASOURCE\")) {\r\n      Project.Variables.AddVariable(\"APP_DATASOURCE\", \"String\");\r\n    }\r\n    // sets the path of the application for the tested app\r\n    TestedApps.Items(0).Path = configData.path;\r\n    TestedApps.Items(0).FileName = configData.file;\r\n\r\n    // sets project vars need to identify the application\r\n    Project.Variables.APP_PATH = configData.path;\r\n    Project.Variables.APP_PROCESS = configData.proccess;\r\n    Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;\r\n    Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;\r\n    Project.Variables.APP_DATASOURCE = configData.dataSource;\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured setting the environment. See additional information\", err.message + \"\\n\" + err.stack);\r\n    outdentLog();  \r\n    \r\n  } finally {\r\n    outdentLog();    \r\n  }  \r\n}\r\n\r\nmodule.exports.indentLog = indentLog;\r\nmodule.exports.outdentLog = outdentLog;\r\nmodule.exports.logObject = logObject;\r\nmodule.exports.setUpEnvironment = setUpEnvironment;",
+    "content": "﻿///////////////////////////////////////////////\r\n// log utilities\r\n//////////////////////////////////////////////\r\n/**\r\n * location of the config path for our app\r\n * @type {object{\r\n * @property {string} test\r\n * @property {string} dev\r\n */\r\nconst configFilePaths = {\r\n  test : \"C:\\\\Users\\\\cunderwoo6\\\\Desktop\\\\NovemberWebinar\\\\Utilities\\\\NOV_ENV_TEST.JSON\",\r\n  dev : \"C:\\\\Users\\\\cunderwoo6\\\\Desktop\\\\NovemberWebinar\\\\Utilities\\\\NOV_ENV_DEV.JSON\"\r\n}  \r\n\r\n/**\r\n * NOV_UTILITIES - adds a new log folder and indents all further actions\r\n * @function\r\n * @author [CBU]\r\n * @param {string} sMessage -the message for the folder\r\n */\r\nfunction indentLog(sMessage) {\r\n  Indicator.PushText(Indicator.Text + \" - \" + sMessage);\r\n  var oAttr;\r\n  oAttr = Log.CreateNewAttributes();\r\n  oAttr.Bold = true;\r\n  STEP_ID = Log.CreateFolder(sMessage, \"\", pmNormal, oAttr);\r\n  Log.PushLogFolder(STEP_ID);\r\n}\r\n\r\n/**\r\n * NOV_UTILITIES - Closes the last log indention\r\n * @function\r\n * @author [CBU]\r\n * @param {string} [sMessage=Finished] -the finished message\r\n */\r\nfunction outdentLog(sMessage) {\r\n  Indicator.PopText();\r\n  if(sMessage == undefined || sMessage == null) {\r\n    sMessage = \"Finished\";\r\n  }\r\n  Log.Message(sMessage);\r\n  Log.PopLogFolder();\r\n}\r\n\r\n/**\r\n * NOV_UTILITIES - Takes an object and logs all of its props and vals in an table\r\n * @function\r\n * @author [CBU]\r\n * @param {object} obj -the object you want to log info for\r\n * @param {string} [msg=See Additional Info For Object Details] - an optional message for the log\r\n */\r\nfunction logObject(obj, msg) {\r\n  var attr = Log.CreateNewAttributes(),\r\n    str = '<table style=\"width:75%;\"><tr><th>Property</th><th>Value</th></tr>';\r\n  attr.ExtendedMessageAsPlainText = false;\r\n  try {\r\n    for(var key in obj) {\r\n      str += '<tr><td>' + key + \"</td><td>\" + obj[key] + \"</td><tr>\";\r\n    }\r\n  } catch(err) {\r\n    Log.Message(err);\r\n  } finally {\r\n    str += '</table>'\r\n    if(!msg) {\r\n      Log.Message(\"See Additional Info For Object Details\", str, 300, attr);\r\n    } else {\r\n      Log.Message(msg, str, 300, attr);\r\n    }\r\n  }\r\n}\r\n\r\n/**\r\n * NOV_UTILITIES - Loops through all test items and their children recursivle and determines if they're enabled\r\n * @Author {CU}\r\n * @function\r\n * @param {object} testItems - test complete test items object\r\n * @return {number} enabledCount - the number of enabled test items\r\n */\r\nfunction getNumEnabledTests(testItems) {\r\n  if(getNumEnabledTests.enabledCount == undefined) {\r\n    getNumEnabledTests.enabledCount = 0;\r\n  }\r\n  var itemCount = testItems.ItemCount;\r\n  for(var i = 0; i < itemCount; i++) {\r\n    if(testItems.TestItem(i)\r\n      .Enabled) {\r\n      if(testItems.TestItem(i)\r\n        .ElementToBeRun != null) {\r\n        getNumEnabledTests.enabledCount++;\r\n      }\r\n      if(testItems.TestItem(i)\r\n        .ItemCount != 0) {\r\n        getNumEnabledTests(testItems.TestItem(i));\r\n      }\r\n    }\r\n  }\r\n  return getNumEnabledTests.enabledCount;\r\n}\r\n\r\n/**\r\n * NOV_UTILITIES - exports current project logs as an html page\r\n * @function\r\n * @ignore\r\n * @author [CBU]\r\n * @param {string} path -where to export them\r\n */\r\nfunction exportLogs(path) {\r\n  indentLog(\"Exporting Logs To \" + path);\r\n  Indicator.PushText(\"Exporting Logs\");\r\n  var folder = path;\r\n  if(0 != aqFileSystem.CreateFolder(folder)) {\r\n    Log.Error(\"The \" + folder + \" temp folder was not created\");\r\n    Indicator.Clear();\r\n    return \"\";\r\n  }\r\n  if(!Log.SaveResultsAs(folder, lsHTML, true, 0)) {\r\n    Log.Error(\"Log was not exported to the \" + folder + \" temp folder\");\r\n    Indicator.Clear();\r\n    return \"\";\r\n  }\r\n  Indicator.Clear();\r\n  outdentLog();\r\n  return folder;\r\n}\r\n///////////////////////////////////////////////\r\n// environment utilities\r\n//////////////////////////////////////////////\r\n/**\r\n * NOV_UTILITIES - Gets the environment we are currently running on\r\n * @function\r\n * @author [CBU]\r\n * @return {string} currEnv - the environemtn we are running on, if not specifed we assume test\r\n */\r\nfunction getEnv() {\r\n  indentLog(\"Getting Environment\");\r\n  let currEnv = \"\"\r\n  if(aqEnvironment.GetEnvironmentVariable(\"NOV_ENV\") == \"\") {\r\n    Log.Warning(\"No Envionrment Set. Assuming Test\");\r\n    dotNET.System.Environment.SetEnvironmentVariable_2(\"NOV_ENV\", \"test\", dotNET.System.EnvironmentVariableTarget.User);\r\n    currEnv = \"test\";\r\n  } else {\r\n    currEnv = aqEnvironment.GetEnvironmentVariable(\"NOV_ENV\");\r\n  }  \r\n  outdentLog(\"Current Environment: \" + currEnv);\r\n  return currEnv;\r\n}\r\n \r\n/**\r\n * NOV_UTILITIES - Sets up our environment to run tests\r\n * @function\r\n * @author [CBU]\r\n */\r\nfunction setUpEnvironment() {\r\n  indentLog(\"Setting Up The Environment\");\r\n  try {    \r\n    const configData = JSON.parse(aqFile.ReadWholeTextFile(configFilePaths[getEnv()],aqFile.ctUTF8));\r\n    logObject(configData, \"See additional information for config\");\r\n  \r\n    // check existance of project vars we need before setting them\r\n    if(!Project.Variables.VariableExists(\"APP_PATH\")) {\r\n      Project.Variables.AddVariable(\"APP_PATH\", \"String\");\r\n    }\r\n    if(!Project.Variables.VariableExists(\"APP_PROCESS\")) {\r\n      Project.Variables.AddVariable(\"APP_PROCESS\", \"String\");\r\n    }\r\n    if(!Project.Variables.VariableExists(\"APP_MAIN_WND_CLASS\")) {\r\n      Project.Variables.AddVariable(\"APP_MAIN_WND_CLASS\", \"String\");\r\n    }\r\n    if(!Project.Variables.VariableExists(\"APP_EDIT_WND_CLASS\")) {\r\n      Project.Variables.AddVariable(\"APP_EDIT_WND_CLASS\", \"String\");\r\n    }\r\n    if(!Project.Variables.VariableExists(\"APP_DATASOURCE\")) {\r\n      Project.Variables.AddVariable(\"APP_DATASOURCE\", \"String\");\r\n    }\r\n    // sets the path of the application for the tested app\r\n    TestedApps.Items(0).Path = configData.path;\r\n    TestedApps.Items(0).FileName = configData.file;\r\n\r\n    // sets project vars need to identify the application\r\n    Project.Variables.APP_PATH = configData.path;\r\n    Project.Variables.APP_PROCESS = configData.proccess;\r\n    Project.Variables.APP_MAIN_WND_CLASS = configData.mainWndClass;\r\n    Project.Variables.APP_EDIT_WND_CLASS = configData.mainEditClass;\r\n    Project.Variables.APP_DATASOURCE = configData.dataSource;\r\n  } catch(err) {\r\n    Log.Error(\"FATAL: Error occured setting the environment. See additional information\", err.message + \"\\n\" + err.stack);\r\n    outdentLog();  \r\n    \r\n  } finally {\r\n    outdentLog();    \r\n  }  \r\n}\r\n\r\nmodule.exports.indentLog = indentLog;\r\nmodule.exports.outdentLog = outdentLog;\r\nmodule.exports.logObject = logObject;\r\nmodule.exports.setUpEnvironment = setUpEnvironment;\r\nmodule.exports.getNumEnabledTests = getNumEnabledTests;\r\nmodule.exports.exportLogs = exportLogs;",
     "static": true,
     "longname": "src/NOV_UTILITIES.js",
     "access": null,
@@ -1530,7 +1540,7 @@
     "importPath": "./src/NOV_UTILITIES.js",
     "importStyle": null,
     "description": "NOV_UTILITIES - Closes the last log indention",
-    "lineNumber": 35,
+    "lineNumber": 36,
     "unknown": [
       {
         "tagName": "@function",
@@ -1570,7 +1580,7 @@
     "importPath": "./src/NOV_UTILITIES.js",
     "importStyle": null,
     "description": "NOV_UTILITIES - Takes an object and logs all of its props and vals in an table",
-    "lineNumber": 50,
+    "lineNumber": 52,
     "unknown": [
       {
         "tagName": "@function",
@@ -1609,6 +1619,96 @@
   {
     "__docId__": 48,
     "kind": "function",
+    "name": "getNumEnabledTests",
+    "memberof": "src/NOV_UTILITIES.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/NOV_UTILITIES.js~getNumEnabledTests",
+    "access": null,
+    "export": false,
+    "importPath": "./src/NOV_UTILITIES.js",
+    "importStyle": null,
+    "description": "NOV_UTILITIES - Loops through all test items and their children recursivle and determines if they're enabled",
+    "lineNumber": 79,
+    "unknown": [
+      {
+        "tagName": "@Author",
+        "tagValue": "{CU}"
+      },
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "testItems",
+        "description": "test complete test items object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": "enabledCount - the number of enabled test items"
+    }
+  },
+  {
+    "__docId__": 49,
+    "kind": "function",
+    "name": "exportLogs",
+    "memberof": "src/NOV_UTILITIES.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/NOV_UTILITIES.js~exportLogs",
+    "access": null,
+    "export": false,
+    "importPath": "./src/NOV_UTILITIES.js",
+    "importStyle": null,
+    "description": "NOV_UTILITIES - exports current project logs as an html page",
+    "lineNumber": 107,
+    "ignore": true,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      },
+      {
+        "tagName": "@author",
+        "tagValue": "[CBU]"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "path",
+        "description": "where to export them"
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 50,
+    "kind": "function",
     "name": "getEnv",
     "memberof": "src/NOV_UTILITIES.js",
     "generator": false,
@@ -1620,7 +1720,7 @@
     "importPath": "./src/NOV_UTILITIES.js",
     "importStyle": null,
     "description": "NOV_UTILITIES - Gets the environment we are currently running on",
-    "lineNumber": 79,
+    "lineNumber": 134,
     "unknown": [
       {
         "tagName": "@function",
@@ -1642,7 +1742,7 @@
     }
   },
   {
-    "__docId__": 49,
+    "__docId__": 51,
     "kind": "function",
     "name": "setUpEnvironment",
     "memberof": "src/NOV_UTILITIES.js",
@@ -1655,7 +1755,7 @@
     "importPath": "./src/NOV_UTILITIES.js",
     "importStyle": null,
     "description": "NOV_UTILITIES - Sets up our environment to run tests",
-    "lineNumber": 98,
+    "lineNumber": 153,
     "unknown": [
       {
         "tagName": "@function",
@@ -1669,7 +1769,7 @@
     "params": []
   },
   {
-    "__docId__": 50,
+    "__docId__": 52,
     "kind": "file",
     "name": "src/NOV_VERIFICATIONS.js",
     "content": "﻿/**\r\n * @ignore\r\n */\r\nconst NOV_UTILITIES = require(\"NOV_UTILITIES\");\r\n\r\n/**\r\n * NOV_VERIFICATIONS - wrapper to call the verify data on our data object (easier then call object method in a KWT)\r\n * @function\r\n * @author [CBU]\r\n * @param {testData} data - the data to verify\r\n */\r\nfunction verifyTestData(data) {\r\n  NOV_UTILITIES.indentLog(\"Verifying Test Data\");\r\n  data.verifySavedData()\r\n  NOV_UTILITIES.outdentLog();\r\n  return data;\r\n}",
@@ -1680,7 +1780,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 51,
+    "__docId__": 53,
     "kind": "variable",
     "name": "NOV_UTILITIES",
     "memberof": "src/NOV_VERIFICATIONS.js",
@@ -1700,7 +1800,7 @@
     }
   },
   {
-    "__docId__": 52,
+    "__docId__": 54,
     "kind": "function",
     "name": "verifyTestData",
     "memberof": "src/NOV_VERIFICATIONS.js",
@@ -1743,7 +1843,7 @@
     }
   },
   {
-    "__docId__": 54,
+    "__docId__": 56,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -1755,7 +1855,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 57,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -1767,7 +1867,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 58,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -1779,7 +1879,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 59,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -1791,7 +1891,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 60,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -1803,7 +1903,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 61,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -1815,7 +1915,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 62,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -1827,7 +1927,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 63,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -1839,7 +1939,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 64,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -1851,7 +1951,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 65,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -1863,7 +1963,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 66,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -1875,7 +1975,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 67,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -1887,7 +1987,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 68,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -1899,7 +1999,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 67,
+    "__docId__": 69,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -1911,7 +2011,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 70,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -1923,7 +2023,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 71,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -1935,7 +2035,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 72,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -1947,7 +2047,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 73,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -1959,7 +2059,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 74,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -1971,7 +2071,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 75,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -1983,7 +2083,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 76,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -1995,7 +2095,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 77,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -2007,7 +2107,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 78,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -2019,7 +2119,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 79,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -2031,7 +2131,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 80,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -2043,7 +2143,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 79,
+    "__docId__": 81,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -2055,7 +2155,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 82,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -2067,7 +2167,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 83,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -2079,7 +2179,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 82,
+    "__docId__": 84,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -2091,7 +2191,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 83,
+    "__docId__": 85,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -2103,7 +2203,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 84,
+    "__docId__": 86,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -2115,7 +2215,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 85,
+    "__docId__": 87,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -2127,7 +2227,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 88,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -2139,7 +2239,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 89,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -2151,7 +2251,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 88,
+    "__docId__": 90,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -2163,7 +2263,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 89,
+    "__docId__": 91,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -2175,7 +2275,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 90,
+    "__docId__": 92,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -2187,7 +2287,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 91,
+    "__docId__": 93,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -2199,7 +2299,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 92,
+    "__docId__": 94,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -2211,7 +2311,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 93,
+    "__docId__": 95,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -2223,7 +2323,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 94,
+    "__docId__": 96,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -2235,7 +2335,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 95,
+    "__docId__": 97,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -2247,7 +2347,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 96,
+    "__docId__": 98,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -2259,7 +2359,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 97,
+    "__docId__": 99,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -2271,7 +2371,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 98,
+    "__docId__": 100,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -2283,7 +2383,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 99,
+    "__docId__": 101,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -2295,7 +2395,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 100,
+    "__docId__": 102,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -2308,7 +2408,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 102,
+    "__docId__": 104,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -2320,7 +2420,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 103,
+    "__docId__": 105,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -2332,7 +2432,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 104,
+    "__docId__": 106,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -2344,7 +2444,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 105,
+    "__docId__": 107,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -2356,7 +2456,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 106,
+    "__docId__": 108,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -2368,7 +2468,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 107,
+    "__docId__": 109,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -2380,7 +2480,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 108,
+    "__docId__": 110,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -2392,7 +2492,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 109,
+    "__docId__": 111,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",

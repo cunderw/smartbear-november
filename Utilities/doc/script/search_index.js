@@ -24,6 +24,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "./src/nov_utilities.js~getnumenabledtests~<p>nov_utilities - loops through all test items and their children recursivle and determines if they&#39;re enabled</p>\ntestitems~<p>test complete test items object</p>\n",
+    "function/index.html#static-function-getNumEnabledTests",
+    "<span>getNumEnabledTests</span> <span class=\"search-result-import-path\">./src/NOV_UTILITIES.js</span> <span><p>NOV_UTILITIES - Loops through all test items and their children recursivle and determines if they&#39;re enabled</p>\n</span>",
+    "function"
+  ],
+  [
     "./src/nov_data.js~gettestdata~<p>nov_data - obtains test data of a specific type</p>\ntype~<p><span><a href=\"variable/index.html#static-variable-testdatatypes\">testdatatypes</a></span></p>\n",
     "function/index.html#static-function-getTestData",
     "<span>getTestData</span> <span class=\"search-result-import-path\">./src/NOV_DATA.js</span> <span><p>NOV_DATA - Obtains test data of a specific type</p>\n</span>",
